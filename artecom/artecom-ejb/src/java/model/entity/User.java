@@ -7,48 +7,50 @@
 package model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
- * @author bmf
+ * @author inilog
  */
 @Entity
-public class Craftsmanship implements Serializable {
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToMany(mappedBy = "craftsmanships")
-    private Site site;
-    @ManyToOne
-    private Craftsmanship parent;
+    private String login;
+    private String password;
+    @OneToOne
+    private Profil profil;
 
-    public Craftsmanship getParent() {
-        return parent;
+    public Profil getProfil() {
+        return profil;
     }
 
-    public void setParent(Craftsmanship parent) {
-        this.parent = parent;
+    public void setProfil(Profil profil) {
+        this.profil = profil;
     }
 
-    public Site getSite() {
-        return site;
+    public String getLogin() {
+        return login;
     }
 
-    public void setSite(Site site) {
-        this.site = site;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
     }
-    
-    private String name;
 
     public Long getId() {
         return id;
@@ -68,10 +70,10 @@ public class Craftsmanship implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Craftsmanship)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Craftsmanship other = (Craftsmanship) object;
+        User other = (User) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -80,7 +82,7 @@ public class Craftsmanship implements Serializable {
 
     @Override
     public String toString() {
-        return "model.entity.Craftsmanship[ id=" + id + " ]";
+        return "model.entity.User[ id=" + id + " ]";
     }
     
 }

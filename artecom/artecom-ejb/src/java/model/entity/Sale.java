@@ -7,48 +7,45 @@
 package model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
- * @author bmf
+ * @author inilog
  */
 @Entity
-public class Product implements Serializable {
+public class Sale implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @ManyToOne
-    private Producer producer;
-    @ManyToOne
-    private Craftsmanship craft;
-    private String name;
+    @OneToOne
+    private Cart cart;
     private float price;
+    @ManyToOne
+    private Address billingAdress;
+    @ManyToOne
+    private Address shippingAdress;
 
-    public Producer getProducer() {
-        return producer;
+    public Address getBillingAdress() {
+        return billingAdress;
     }
 
-    public void setProducer(Producer producer) {
-        this.producer = producer;
+    public void setBillingAdress(Address billingAdress) {
+        this.billingAdress = billingAdress;
     }
 
-    public Craftsmanship getCraft() {
-        return craft;
+    public Address getShippingAdress() {
+        return shippingAdress;
     }
 
-    public void setCraft(Craftsmanship craft) {
-        this.craft = craft;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setShippingAdress(Address shippingAdress) {
+        this.shippingAdress = shippingAdress;
     }
 
     public float getPrice() {
@@ -58,7 +55,15 @@ public class Product implements Serializable {
     public void setPrice(float price) {
         this.price = price;
     }
-    
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
     public Long getId() {
         return id;
     }
@@ -77,10 +82,10 @@ public class Product implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Product)) {
+        if (!(object instanceof Sale)) {
             return false;
         }
-        Product other = (Product) object;
+        Sale other = (Sale) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -89,7 +94,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "model.entity.Product[ id=" + id + " ]";
+        return "model.entity.Sale[ id=" + id + " ]";
     }
     
 }

@@ -13,7 +13,7 @@ import model.entity.Producer;
 
 /**
  *
- * @author bmf
+ * @author inilog
  */
 @Stateless
 public class ProducerFacade extends AbstractFacade<Producer> {

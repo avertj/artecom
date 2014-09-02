@@ -7,48 +7,42 @@
 package model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
- * @author bmf
+ * @author inilog
  */
 @Entity
-public class Craftsmanship implements Serializable {
+public class ProductQuantity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToMany(mappedBy = "craftsmanships")
-    private Site site;
-    @ManyToOne
-    private Craftsmanship parent;
-
-    public Craftsmanship getParent() {
-        return parent;
-    }
-
-    public void setParent(Craftsmanship parent) {
-        this.parent = parent;
-    }
-
-    public Site getSite() {
-        return site;
-    }
-
-    public void setSite(Site site) {
-        this.site = site;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
     
-    private String name;
+    @ManyToOne
+    private Product product;
+    private int quantity;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     public Long getId() {
         return id;
@@ -68,10 +62,10 @@ public class Craftsmanship implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Craftsmanship)) {
+        if (!(object instanceof ProductQuantity)) {
             return false;
         }
-        Craftsmanship other = (Craftsmanship) object;
+        ProductQuantity other = (ProductQuantity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -80,7 +74,7 @@ public class Craftsmanship implements Serializable {
 
     @Override
     public String toString() {
-        return "model.entity.Craftsmanship[ id=" + id + " ]";
+        return "model.entity.ProductQuantity[ id=" + id + " ]";
     }
     
 }

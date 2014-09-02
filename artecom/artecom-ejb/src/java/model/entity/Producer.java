@@ -15,52 +15,49 @@ import javax.persistence.*;
  * @author bmf
  */
 @Entity
-public class Producer implements Serializable {
+@DiscriminatorValue("P")
+public class Producer extends Profil implements Serializable {
     
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     
-    @OneToMany(mappedBy="producer")
-    private List<Product> products;
+    @OneToMany
+    private List<ProductQuantity> products;
+    @OneToMany
+    private List<Site> sites;
     
     private String name;
     @ManyToOne
     private Address address;
-    
 
-    public Long getId() {
-        return id;
+    public List<ProductQuantity> getProducts() {
+        return products;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProducts(List<ProductQuantity> products) {
+        this.products = products;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public List<Site> getSites() {
+        return sites;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Producer)) {
-            return false;
-        }
-        Producer other = (Producer) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setSites(List<Site> sites) {
+        this.sites = sites;
     }
 
-    @Override
-    public String toString() {
-        return "model.entity.Producer[ id=" + id + " ]";
+    public String getName() {
+        return name;
     }
-    
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }
