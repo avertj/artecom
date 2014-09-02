@@ -1,0 +1,17 @@
+@startuml
+:Administrateur: as Admin
+:Producteur: as Producer
+:Utilisateur: as User
+
+User <|-- Producer
+Producer <|-- Admin
+
+User --> (Consulter les produits / artisanats / producteurs)
+User --> (Rechercher un produit / artisanat / producteur)
+User --> (Ajouter un produit au panier)
+User --> (Passer commande)
+Producer --> (Gerer page perso producteur)
+Producer --> (Gerer produits)
+Producer --> (Gerer commandes)
+
+@enduml
