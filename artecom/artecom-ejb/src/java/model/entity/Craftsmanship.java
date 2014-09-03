@@ -7,6 +7,7 @@
 package model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -20,7 +21,7 @@ public class Craftsmanship implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToMany(mappedBy = "craftsmanships")
-    private Site site;
+    private List<Site> site;
     @ManyToOne
     private Craftsmanship parent;
 
@@ -32,11 +33,11 @@ public class Craftsmanship implements Serializable {
         this.parent = parent;
     }
 
-    public Site getSite() {
+    public List<Site> getSite() {
         return site;
     }
 
-    public void setSite(Site site) {
+    public void setSite(List<Site> site) {
         this.site = site;
     }
 
