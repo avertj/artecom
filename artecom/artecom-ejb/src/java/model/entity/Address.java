@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.entity;
 
 import java.io.Serializable;
@@ -15,22 +14,22 @@ import javax.persistence.*;
  */
 @Entity
 public class Address implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne
+    private Client client;
     
     private String street;
+    private int postcode;
     private String city;
 
     public Address() {
     }
 
-    public Address(String street, String city) {
-        this.street = street;
-        this.city = city;
-    }
-    
     public String getStreet() {
         return street;
     }
@@ -45,6 +44,14 @@ public class Address implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public int getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(int postcode) {
+        this.postcode = postcode;
     }
 
     public Long getId() {
@@ -79,5 +86,5 @@ public class Address implements Serializable {
     public String toString() {
         return "model.entity.Address[ id=" + id + " ]";
     }
-    
+
 }

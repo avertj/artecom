@@ -3,16 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.entity;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  *
@@ -20,17 +14,38 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Sale implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
-    private Cart cart;
+    private Cart cart; // A VOIR !! pourquoi ne pas mettre la list ProductQuantity ici ?
     private float price;
     @ManyToOne
     private Address billingAdress;
     @ManyToOne
     private Address shippingAdress;
+
+    // peut etre utile pour les frais de ports
+    public enum ShippingMethod {
+
+        POSTAL,
+        ON_SITE
+    }
+    @Enumerated(EnumType.ORDINAL)
+    private ShippingMethod shippingMethod;
+
+    // êtats possible pour une commande
+    public enum Status {
+
+        WAITING_FOR_PAYMENT, // pour les chèques. les commandes dans cet êtat ne sont visibles que par les admins
+        WAITING_FOR_SHIPMENT, // paiement effectué, commande visible par l'artisan
+        SENT, // utile uniquement pour l'envoi postal
+        DELIVERED // on passe directement à ça dans le cas d'une vente sur place (si on garde ce système)
+    }
+    @Enumerated(EnumType.ORDINAL)
+    private Status status;
 
     public Address getBillingAdress() {
         return billingAdress;
@@ -62,6 +77,22 @@ public class Sale implements Serializable {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public ShippingMethod getShippingMethod() {
+        return shippingMethod;
+    }
+
+    public void setShippingMethod(ShippingMethod shippingMethod) {
+        this.shippingMethod = shippingMethod;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Long getId() {
@@ -96,5 +127,5 @@ public class Sale implements Serializable {
     public String toString() {
         return "model.entity.Sale[ id=" + id + " ]";
     }
-    
+
 }

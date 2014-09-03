@@ -3,17 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  *
@@ -21,6 +15,7 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Site implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +24,18 @@ public class Site implements Serializable {
     private Address address;
     @ManyToMany
     private List<Craftsmanship> craftsmanships;
-
+    @OneToMany
+    private List<Product> products;
+    
+    // une enum pour les types de site
+    // possibilité de virer l'enum pour qq chose de plus "GL"
+    public enum Type {
+        STORE,
+        WORKSHOP
+    }
+    @Enumerated(EnumType.ORDINAL)
+    private Type type;
+    
     public List<Craftsmanship> getCraftsmanships() {
         return craftsmanships;
     }
@@ -38,12 +44,44 @@ public class Site implements Serializable {
         this.craftsmanships = craftsmanships;
     }
 
+    // contains utilise la fonction equals de Craftsmaship donc je ne sais pas trop si ça fonctionne avec la surcharge générée automatiquement
+    public List<Craftsmanship> addCraftsmanship(Craftsmanship craftmanship) {
+        if (!craftsmanships.contains(craftmanship)) {
+            craftsmanships.add(craftmanship);
+        }
+        return craftsmanships; // permet de faire des choses genre list.add(craft1).add(craft2).add(craft3) 
+    }
+
+    // idem qu'au dessus
+    public List<Craftsmanship> removeCraftsmanship(Craftsmanship craftmanship) {
+        if (craftsmanships.contains(craftmanship)) {
+            craftsmanships.remove(craftmanship);
+        }
+        return craftsmanships; // permet de faire des choses genre list.add(craft1).add(craft2).add(craft3) 
+    }
+
     public Address getAddress() {
         return address;
     }
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public Long getId() {
@@ -78,5 +116,5 @@ public class Site implements Serializable {
     public String toString() {
         return "model.entity.site[ id=" + id + " ]";
     }
-    
+
 }

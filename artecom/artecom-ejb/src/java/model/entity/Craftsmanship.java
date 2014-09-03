@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.entity;
 
 import java.io.Serializable;
@@ -16,12 +15,13 @@ import javax.persistence.*;
  */
 @Entity
 public class Craftsmanship implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToMany(mappedBy = "craftsmanships")
-    private List<Site> site;
+    /*@ManyToMany(mappedBy = "craftsmanships")
+    private List<Site> site;*/
     @ManyToOne
     private Craftsmanship parent;
 
@@ -33,13 +33,13 @@ public class Craftsmanship implements Serializable {
         this.parent = parent;
     }
 
-    public List<Site> getSite() {
+    /*public List<Site> getSite() {
         return site;
     }
 
     public void setSite(List<Site> site) {
         this.site = site;
-    }
+    }*/
 
     public String getName() {
         return name;
@@ -48,7 +48,7 @@ public class Craftsmanship implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     private String name;
 
     public Long getId() {
@@ -83,5 +83,5 @@ public class Craftsmanship implements Serializable {
     public String toString() {
         return "model.entity.Craftsmanship[ id=" + id + " ]";
     }
-    
+
 }

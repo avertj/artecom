@@ -3,16 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  *
@@ -20,11 +15,12 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Cart implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @OneToMany
     private List<ProductQuantity> products;
 
@@ -68,5 +64,5 @@ public class Cart implements Serializable {
     public String toString() {
         return "model.entity.Carte[ id=" + id + " ]";
     }
-    
+
 }

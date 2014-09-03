@@ -3,14 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  *
@@ -19,6 +16,7 @@ import javax.persistence.OneToMany;
 @Entity
 @DiscriminatorValue("C")
 public class Client extends Profil implements Serializable {
+
     @OneToMany
     private List<Address> address;
     private Long lastBillingAdress;
@@ -47,5 +45,5 @@ public class Client extends Profil implements Serializable {
     public void setAddress(List<Address> address) {
         this.address = address;
     }
-    
+
 }
