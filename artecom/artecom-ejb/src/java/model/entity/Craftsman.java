@@ -15,7 +15,7 @@ import javax.persistence.*;
  */
 @Entity
 @DiscriminatorValue("P")
-public class Craftsman extends Profil implements Serializable {
+public class Craftsman extends Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,8 +24,17 @@ public class Craftsman extends Profil implements Serializable {
     
     @OneToMany
     private List<Site> sites;
+    
+    @Lob
+    private String description;
 
-    private Address address;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public List<ProductQuantity> getProducts() {
         return products;
@@ -41,13 +50,5 @@ public class Craftsman extends Profil implements Serializable {
 
     public void setSites(List<Site> sites) {
         this.sites = sites;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 }

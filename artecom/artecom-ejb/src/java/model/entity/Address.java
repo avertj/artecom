@@ -20,9 +20,6 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    /*@ManyToOne
-    private Client client;*/
-
     private String street;
     private Integer postcode;
     private String city;

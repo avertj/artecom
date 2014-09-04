@@ -6,6 +6,7 @@
 package model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -19,8 +20,9 @@ public class Craft implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    /*@ManyToMany(mappedBy = "craftsmanships")
-     private List<Site> site;*/
+    @ManyToMany(mappedBy = "crafts")
+     private List<Site> site;
+    
     @ManyToOne
     private Craft parent;
 
@@ -32,13 +34,13 @@ public class Craft implements Serializable {
         this.parent = parent;
     }
 
-    /*public List<Site> getSite() {
+    public List<Site> getSite() {
      return site;
      }
 
      public void setSite(List<Site> site) {
      this.site = site;
-     }*/
+     }
     public String getName() {
         return name;
     }

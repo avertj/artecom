@@ -35,10 +35,48 @@ public class Site implements Serializable {
     public enum Type {
 
         STORE,
-        WORKSHOP
+        WORKSHOP,
+        ONMARKET
     }
     @Enumerated(EnumType.ORDINAL)
     private Type type;
+    
+    @Lob
+    private String description;
+    @Lob
+    private String opening;
+
+    public List<Craft> getCrafts() {
+        return crafts;
+    }
+
+    public void setCrafts(List<Craft> crafts) {
+        this.crafts = crafts;
+    }
+
+    public Craftsman getCraftsman() {
+        return craftsman;
+    }
+
+    public void setCraftsman(Craftsman craftsman) {
+        this.craftsman = craftsman;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getOpening() {
+        return opening;
+    }
+
+    public void setOpening(String opening) {
+        this.opening = opening;
+    }
 
     public List<Craft> getCraftsmanships() {
         return crafts;

@@ -9,7 +9,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 /**
- *
+ * Entity for represent product with quantity for line in Cart or stock.
  * @author inilog
  */
 @Entity
@@ -23,6 +23,20 @@ public class ProductQuantity implements Serializable {
     @ManyToOne
     private Product product;
     private int quantity;
+    
+    /**
+     * For coccurente edition of Craftsman stock!
+     */
+    @Version
+    private Long version;
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
 
     public Product getProduct() {
         return product;
