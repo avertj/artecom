@@ -9,14 +9,14 @@ package model.facade;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import model.entity.Producer;
+import model.entity.Craftsman;
 
 /**
  *
- * @author inilog
+ * @author bmf
  */
 @Stateless
-public class ProducerFacade extends AbstractFacade<Producer> {
+public class CraftsmanFacade extends AbstractFacade<Craftsman> {
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 
@@ -25,8 +25,8 @@ public class ProducerFacade extends AbstractFacade<Producer> {
         return em;
     }
 
-    public ProducerFacade() {
-        super(Producer.class);
+    public CraftsmanFacade() {
+        super(Craftsman.class);
     }
     
 }

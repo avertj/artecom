@@ -20,11 +20,11 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    private Client client;
-    
+    /*@ManyToOne
+    private Client client;*/
+
     private String street;
-    private int postcode;
+    private Integer postcode;
     private String city;
 
     public Address() {
@@ -46,11 +46,11 @@ public class Address implements Serializable {
         this.city = city;
     }
 
-    public int getPostcode() {
+    public Integer getPostcode() {
         return postcode;
     }
 
-    public void setPostcode(int postcode) {
+    public void setPostcode(Integer postcode) {
         this.postcode = postcode;
     }
 

@@ -55,16 +55,29 @@ public class ProductQuantity implements Serializable {
         return hash;
     }
 
+    public float getPrice() {
+        return product.getPrice() * quantity;
+    }
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ProductQuantity)) {
+        Product p;
+        if ((object instanceof ProductQuantity)) {
+            ProductQuantity other = (ProductQuantity) object;
+            p = other.getProduct();
+        } else if ((object instanceof Product)) {
+            p = (Product) object;
+        } else {
             return false;
         }
-        ProductQuantity other = (ProductQuantity) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
+
+        if (product.equals(p)) {
+            return true;
         }
+        /*if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+         return false;
+         }*/
         return true;
     }
 

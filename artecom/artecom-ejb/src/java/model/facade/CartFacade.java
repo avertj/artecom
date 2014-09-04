@@ -13,7 +13,7 @@ import model.entity.Cart;
 
 /**
  *
- * @author inilog
+ * @author bmf
  */
 @Stateless
 public class CartFacade extends AbstractFacade<Cart> {

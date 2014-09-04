@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.entity;
 
 import java.io.Serializable;
@@ -14,8 +13,9 @@ import javax.persistence.*;
  * @author inilog
  */
 @Entity
-@Table(name="UserApli")
+@Table(name = "UserApli")
 public class User implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -81,5 +81,5 @@ public class User implements Serializable {
     public String toString() {
         return "model.entity.User[ id=" + id + " ]";
     }
-    
+
 }

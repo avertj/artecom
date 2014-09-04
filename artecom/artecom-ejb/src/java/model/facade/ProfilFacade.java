@@ -13,7 +13,7 @@ import model.entity.Profil;
 
 /**
  *
- * @author inilog
+ * @author bmf
  */
 @Stateless
 public class ProfilFacade extends AbstractFacade<Profil> {

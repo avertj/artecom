@@ -13,7 +13,7 @@ import model.entity.User;
 
 /**
  *
- * @author inilog
+ * @author bmf
  */
 @Stateless
 public class UserFacade extends AbstractFacade<User> {

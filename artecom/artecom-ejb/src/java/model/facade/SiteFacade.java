@@ -13,7 +13,7 @@ import model.entity.Site;
 
 /**
  *
- * @author inilog
+ * @author bmf
  */
 @Stateless
 public class SiteFacade extends AbstractFacade<Site> {

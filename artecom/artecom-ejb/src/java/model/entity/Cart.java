@@ -32,6 +32,35 @@ public class Cart implements Serializable {
         this.products = products;
     }
 
+    public void removeProduct(Product p) {
+        if (products.contains(p)) {
+            products.remove(products.get(products.indexOf(p)));
+        }
+    }
+
+    public void updateQuantity(Product p, int quantity) {
+        if (products.contains(p)) {
+            ProductQuantity pq = products.get(products.indexOf(p));
+            pq.setQuantity(quantity);
+        }
+    }
+
+    public void addProduct(Product p, int quantity) {
+        if (!products.contains(p)) {
+            ProductQuantity pq = new ProductQuantity();
+            pq.setProduct(p);
+            pq.setQuantity(quantity);
+        }
+    }
+
+    public float getPrice() {
+        float sum = 0;
+        for (ProductQuantity pq : products) {
+            sum += pq.getPrice();
+        }
+        return sum;
+    }
+
     public Long getId() {
         return id;
     }

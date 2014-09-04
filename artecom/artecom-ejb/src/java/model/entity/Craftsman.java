@@ -15,12 +15,13 @@ import javax.persistence.*;
  */
 @Entity
 @DiscriminatorValue("P")
-public class Producer extends Profil implements Serializable {
+public class Craftsman extends Profil implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @OneToMany
     private List<ProductQuantity> products;
+    
     @OneToMany
     private List<Site> sites;
 

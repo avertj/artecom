@@ -13,7 +13,7 @@ import model.entity.Address;
 
 /**
  *
- * @author inilog
+ * @author bmf
  */
 @Stateless
 public class AddressFacade extends AbstractFacade<Address> {

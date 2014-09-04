@@ -13,7 +13,7 @@ import model.entity.Client;
 
 /**
  *
- * @author inilog
+ * @author bmf
  */
 @Stateless
 public class ClientFacade extends AbstractFacade<Client> {

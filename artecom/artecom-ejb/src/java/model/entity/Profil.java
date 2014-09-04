@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "PROFIL_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("X")
-public class Profil implements Serializable {
+public abstract class Profil implements Serializable { // abstract rends la classe non instanciable
 
     private static final long serialVersionUID = 1L;
     @Id

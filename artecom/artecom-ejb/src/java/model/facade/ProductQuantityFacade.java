@@ -13,7 +13,7 @@ import model.entity.ProductQuantity;
 
 /**
  *
- * @author inilog
+ * @author bmf
  */
 @Stateless
 public class ProductQuantityFacade extends AbstractFacade<ProductQuantity> {

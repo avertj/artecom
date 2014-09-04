@@ -23,41 +23,45 @@ public class Site implements Serializable {
     @OneToOne
     private Address address;
     @ManyToMany
-    private List<Craftsmanship> craftsmanships;
+    private List<Craft> crafts;
     @OneToMany
     private List<Product> products;
     
+    @ManyToOne
+    private Craftsman craftsman;
+
     // une enum pour les types de site
     // possibilité de virer l'enum pour qq chose de plus "GL"
     public enum Type {
+
         STORE,
         WORKSHOP
     }
     @Enumerated(EnumType.ORDINAL)
     private Type type;
-    
-    public List<Craftsmanship> getCraftsmanships() {
-        return craftsmanships;
+
+    public List<Craft> getCraftsmanships() {
+        return crafts;
     }
 
-    public void setCraftsmanships(List<Craftsmanship> craftsmanships) {
-        this.craftsmanships = craftsmanships;
+    public void setCraftsmanships(List<Craft> craftsmanships) {
+        this.crafts = craftsmanships;
     }
 
     // contains utilise la fonction equals de Craftsmaship donc je ne sais pas trop si ça fonctionne avec la surcharge générée automatiquement
-    public List<Craftsmanship> addCraftsmanship(Craftsmanship craftmanship) {
-        if (!craftsmanships.contains(craftmanship)) {
-            craftsmanships.add(craftmanship);
+    public List<Craft> addCraftsmanship(Craft craftmanship) {
+        if (!crafts.contains(craftmanship)) {
+            crafts.add(craftmanship);
         }
-        return craftsmanships; // permet de faire des choses genre list.add(craft1).add(craft2).add(craft3) 
+        return crafts; // permet de faire des choses genre list.add(craft1).add(craft2).add(craft3) 
     }
 
     // idem qu'au dessus
-    public List<Craftsmanship> removeCraftsmanship(Craftsmanship craftmanship) {
-        if (craftsmanships.contains(craftmanship)) {
-            craftsmanships.remove(craftmanship);
+    public List<Craft> removeCraftsmanship(Craft craftmanship) {
+        if (crafts.contains(craftmanship)) {
+            crafts.remove(craftmanship);
         }
-        return craftsmanships; // permet de faire des choses genre list.add(craft1).add(craft2).add(craft3) 
+        return crafts; // permet de faire des choses genre list.add(craft1).add(craft2).add(craft3) 
     }
 
     public Address getAddress() {

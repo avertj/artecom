@@ -21,28 +21,28 @@ public class Product implements Serializable {
     private Long id;
 
     @ManyToOne
-    private Producer producer;
+    private Craftsman producer;
     @ManyToOne
-    private Craftsmanship craft;
+    private Craft craft;
     private String name;
     private String description; // sera probablement une chaine html générée par un editeur riche en js
-    private float price;
+    private Float price;
     // un poids faisant varier le prix des frais de port ou une valeur fixe pour les frais de ports ?
-    private float weight;
+    private Float weight;
 
-    public Producer getProducer() {
+    public Craftsman getProducer() {
         return producer;
     }
 
-    public void setProducer(Producer producer) {
+    public void setProducer(Craftsman producer) {
         this.producer = producer;
     }
 
-    public Craftsmanship getCraft() {
+    public Craft getCraft() {
         return craft;
     }
 
-    public void setCraft(Craftsmanship craft) {
+    public void setCraft(Craft craft) {
         this.craft = craft;
     }
 
@@ -54,11 +54,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -70,11 +70,11 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public float getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 
