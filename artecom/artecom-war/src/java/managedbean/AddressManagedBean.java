@@ -8,14 +8,17 @@ package managedbean;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import model.entity.Address;
 import model.facade.AddressFacade;
+import org.primefaces.context.RequestContext;
 
 /**
  *
  * @author bmf
  */
 @ManagedBean(name = "addressManagedBean")
+@RequestScoped
 public class AddressManagedBean {
 
     @EJB
@@ -30,14 +33,13 @@ public class AddressManagedBean {
     public void setAddress(Address address) {
         this.address = address;
     }
-    
+
     public List<Address> getAddresses() {
         return addressFacade.findAll();
     }
 
-    public void add() {
-        addressFacade.create(address);
-        address = new Address();
+    public void openSelectDialog() {
+        RequestContext.getCurrentInstance().openDialog("sectAddress");
     }
 
     /**

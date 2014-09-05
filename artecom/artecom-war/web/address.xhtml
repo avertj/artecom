@@ -1,0 +1,41 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:form>
+        <h:panelGrid id="formGrid" columns="3">
+            <h:outputLabel for="street" value="Street :" style="font-weight:bold"/>                   
+            <p:inputText id="street" value="#{addressManagedBean.address.street}" required="true" label="Street"/>
+            <p:message for="street" />
+
+            <h:outputLabel for="city" value="City :" style="font-weight:bold"/>                   
+            <p:inputText id="city" value="#{addressManagedBean.address.city}" required="true" label="City"/>
+            <p:message for="city" />
+
+            <h:outputLabel for="postcode" value="Post code :" style="font-weight:bold"/>                   
+            <p:inputText id="postcode" value="#{addressManagedBean.address.postcode}" required="true" label="Post code"/>
+            <p:message for="postcode" />
+        </h:panelGrid>
+        <p:commandButton value="Add"  icon="ui-icon-check" validateClient="true"  update="formGrid :dataPanel" action="#{addressManagedBean.openSelectDialog}" />
+    </h:form>
+    <p:panel id="dataPanel">
+        <p:dataTable var="address" value="#{addressManagedBean.addresses}">
+            <p:column headerText="Id">
+                <h:outputText value="#{address.id}" />
+            </p:column>
+
+            <p:column headerText="Street">
+                <h:outputText value="#{address.street}" />
+            </p:column>
+
+            <p:column headerText="City">
+                <h:outputText value="#{address.city}" />
+            </p:column>
+
+            <p:column headerText="Post code">
+                <h:outputText value="#{address.postcode}" />
+            </p:column>
+        </p:dataTable>
+    </p:panel>
+</ui:composition>
