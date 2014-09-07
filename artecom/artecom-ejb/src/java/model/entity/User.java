@@ -13,7 +13,7 @@ import javax.persistence.*;
  * @author inilog
  */
 @Entity
-@Table(name = "UserApli")
+@Table(name = "UserAppli")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,7 +24,7 @@ public class User implements Serializable {
     
     @OneToOne
     private Client profil;
-
+    
     public Client getProfil() {
         return profil;
     }
