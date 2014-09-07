@@ -21,6 +21,7 @@ public class User implements Serializable {
     @Id
     private String login;
     private String password;
+    private String groupname;
     
     @OneToOne
     private Client profil;
