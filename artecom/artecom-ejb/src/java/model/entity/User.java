@@ -22,19 +22,14 @@ public class User implements Serializable {
     private String login;
     private String password;
     private String groupname;
-    
-    @OneToOne
-    private Client profil;
-    
-    public Client getProfil() {
-        return profil;
+
+    public String getGroupname() {
+        return groupname;
     }
 
-    public void setProfil(Client profil) {
-        this.profil = profil;
+    public void setGroupname(String groupname) {
+        this.groupname = groupname;
     }
-    
-    
 
     public String getLogin() {
         return login;

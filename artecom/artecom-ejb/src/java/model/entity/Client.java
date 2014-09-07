@@ -31,6 +31,17 @@ public class Client implements Serializable {
     private List<Address> address;
     private Long lastBillingAdress;
     private Long lastShippingAdress;
+    
+    @Column(unique = true)
+    private String Login;
+    
+    public String getLogin() {
+        return Login;
+    }
+
+    public void setLogin(String Login) {
+        this.Login = Login;
+    }
 
     public Long getLastBillingAdress() {
         return lastBillingAdress;
