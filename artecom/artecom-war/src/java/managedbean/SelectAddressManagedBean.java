@@ -10,7 +10,6 @@ import geocoder.GoogleGeocoderResponse;
 import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import model.entity.Address;
@@ -24,7 +23,7 @@ import model.entity.Address;
 @RequestScoped
 public class SelectAddressManagedBean {
 
-    @ManagedProperty(value = "#{addressManagedBean.address}")
+    //@ManagedProperty(value = "#{addressManagedBean.address}")
     private Address address;
     private GoogleGeocoderResponse geocoderResponse;
 
