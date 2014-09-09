@@ -53,7 +53,7 @@ public class Product implements Serializable {
         NOT_SHIPPABLE
     }
     @Enumerated(EnumType.ORDINAL)
-    private Availability shippingMethod;
+    private Availability availability;
 
     public Long getId() {
         return id;
@@ -133,12 +133,20 @@ public class Product implements Serializable {
         this.quantity = quantity;
     }
 
-    public Availability getShippingMethod() {
-        return shippingMethod;
+    public Availability getAvailability() {
+        return availability;
     }
 
-    public void setShippingMethod(Availability shippingMethod) {
-        this.shippingMethod = shippingMethod;
+    public void setAvailability(Availability availability) {
+        this.availability = availability;
+    }
+
+    public Float getRating() {
+        float sum = 0f;
+        for (Comment c : comments) {
+            sum += c.getRating();
+        }
+        return sum / comments.size();
     }
 
     @Override

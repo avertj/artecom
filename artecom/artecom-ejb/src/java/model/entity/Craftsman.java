@@ -57,4 +57,12 @@ public class Craftsman extends Client implements Serializable {
     public void setSites(List<Site> sites) {
         this.sites = sites;
     }
+
+    public Float getRating() {
+        float sum = 0f;
+        for (Comment c : comments) {
+            sum += c.getRating();
+        }
+        return sum / comments.size();
+    }
 }
