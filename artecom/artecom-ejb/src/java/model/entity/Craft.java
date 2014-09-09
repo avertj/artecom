@@ -21,8 +21,6 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Craft implements Serializable {
 
-    public Craft() {
-    }
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
