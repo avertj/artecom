@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.facade;
 
 import javax.ejb.Stateless;
@@ -17,6 +16,7 @@ import model.entity.Craftsman;
  */
 @Stateless
 public class CraftsmanFacade extends AbstractFacade<Craftsman> {
+
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 
@@ -28,5 +28,5 @@ public class CraftsmanFacade extends AbstractFacade<Craftsman> {
     public CraftsmanFacade() {
         super(Craftsman.class);
     }
-    
+
 }
