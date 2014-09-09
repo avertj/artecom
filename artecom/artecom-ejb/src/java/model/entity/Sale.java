@@ -6,7 +6,14 @@
 package model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -28,14 +35,13 @@ public class Sale implements Serializable {
     private Address shippingAdress;
 
     // peut etre utile pour les frais de ports
-    public enum ShippingMethod {
+    /*public enum ShippingMethod {
 
-        POSTAL,
-        ON_SITE
-    }
-    @Enumerated(EnumType.ORDINAL)
-    private ShippingMethod shippingMethod;
-
+     POSTAL,
+     ON_SITE
+     }
+     @Enumerated(EnumType.ORDINAL)
+     private ShippingMethod shippingMethod;*/
     // êtats possible pour une commande
     public enum Status {
 
@@ -79,14 +85,13 @@ public class Sale implements Serializable {
         this.cart = cart;
     }
 
-    public ShippingMethod getShippingMethod() {
-        return shippingMethod;
-    }
+    /*public ShippingMethod getShippingMethod() {
+     return shippingMethod;
+     }
 
-    public void setShippingMethod(ShippingMethod shippingMethod) {
-        this.shippingMethod = shippingMethod;
-    }
-
+     public void setShippingMethod(ShippingMethod shippingMethod) {
+     this.shippingMethod = shippingMethod;
+     }*/
     public Status getStatus() {
         return status;
     }

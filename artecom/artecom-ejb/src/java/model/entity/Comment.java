@@ -6,27 +6,37 @@
 package model.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author bmf
  */
 @Entity
-public class Address implements Serializable {
+public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
-    private String street;
-    private String city;
-    private Integer postcode;
+    @ManyToOne
+    private Client author;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date postedOn;
+    private Integer rating;
+
+    @Lob
+    private String content;
 
     public Long getId() {
         return id;
@@ -36,36 +46,36 @@ public class Address implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Client getAuthor() {
+        return author;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAuthor(Client author) {
+        this.author = author;
     }
 
-    public String getStreet() {
-        return street;
+    public Date getPostedOn() {
+        return postedOn;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setPostedOn(Date postedOn) {
+        this.postedOn = postedOn;
     }
 
-    public String getCity() {
-        return city;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
-    public Integer getPostcode() {
-        return postcode;
+    public String getContent() {
+        return content;
     }
 
-    public void setPostcode(Integer postcode) {
-        this.postcode = postcode;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override
@@ -78,10 +88,10 @@ public class Address implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Address)) {
+        if (!(object instanceof Comment)) {
             return false;
         }
-        Address other = (Address) object;
+        Comment other = (Comment) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -90,7 +100,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return "model.entity.Address[ id=" + id + " ]";
+        return "model.entity.Comment[ id=" + id + " ]";
     }
 
 }

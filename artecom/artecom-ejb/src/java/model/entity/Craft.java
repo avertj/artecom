@@ -7,7 +7,12 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -21,33 +26,10 @@ public class Craft implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToMany(mappedBy = "crafts")
-     private List<Site> site;
-    
+    private List<Site> sites;
+
     @ManyToOne
     private Craft parent;
-
-    public Craft getParent() {
-        return parent;
-    }
-
-    public void setParent(Craft parent) {
-        this.parent = parent;
-    }
-
-    public List<Site> getSite() {
-     return site;
-     }
-
-     public void setSite(List<Site> site) {
-     this.site = site;
-     }
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     private String name;
 
@@ -57,6 +39,30 @@ public class Craft implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Site> getSites() {
+        return sites;
+    }
+
+    public void setSites(List<Site> sites) {
+        this.sites = sites;
+    }
+
+    public Craft getParent() {
+        return parent;
+    }
+
+    public void setParent(Craft parent) {
+        this.parent = parent;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -81,7 +87,7 @@ public class Craft implements Serializable {
 
     @Override
     public String toString() {
-        return "model.entity.Craftsmanship[ id=" + id + " ]";
+        return parent.getName() + " / " + this.name;
     }
 
 }

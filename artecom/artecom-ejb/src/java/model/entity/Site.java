@@ -7,7 +7,17 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -26,7 +36,7 @@ public class Site implements Serializable {
     private List<Craft> crafts;
     @OneToMany
     private List<Product> products;
-    
+
     @ManyToOne
     private Craftsman craftsman;
 
@@ -40,7 +50,7 @@ public class Site implements Serializable {
     }
     @Enumerated(EnumType.ORDINAL)
     private Type type;
-    
+
     @Lob
     private String description;
     @Lob
@@ -91,7 +101,7 @@ public class Site implements Serializable {
         if (!crafts.contains(craftmanship)) {
             crafts.add(craftmanship);
         }
-        return crafts; // permet de faire des choses genre list.add(craft1).add(craft2).add(craft3) 
+        return crafts; // permet de faire des choses genre list.add(craft1).add(craft2).add(craft3)
     }
 
     // idem qu'au dessus
@@ -99,7 +109,7 @@ public class Site implements Serializable {
         if (crafts.contains(craftmanship)) {
             crafts.remove(craftmanship);
         }
-        return crafts; // permet de faire des choses genre list.add(craft1).add(craft2).add(craft3) 
+        return crafts; // permet de faire des choses genre list.add(craft1).add(craft2).add(craft3)
     }
 
     public Address getAddress() {
