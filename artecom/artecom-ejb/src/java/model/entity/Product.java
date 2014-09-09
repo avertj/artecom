@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -22,6 +23,7 @@ import javax.persistence.OneToMany;
  * @author bmf
  */
 @Entity
+@NamedQuery(name = "", query = "select OBJECT(p) from Product p where p.name like :nom")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
