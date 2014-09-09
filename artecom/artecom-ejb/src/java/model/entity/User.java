@@ -6,7 +6,9 @@
 package model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
@@ -17,7 +19,7 @@ import javax.persistence.*;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     private String login;
     private String password;
@@ -46,7 +48,6 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     @Override
     public String toString() {

@@ -6,33 +6,37 @@
 package model.entity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author bmf
  */
 @Entity
-public class Craft implements Serializable {
-    public Craft(){
-    }
+public class Comment implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToMany
-     private List<Site> site;
-    
-    @ManyToOne
-    private Craft parent;
 
-    private String name;
+    @ManyToOne
+    private Client author;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date postedOn;
+    private Integer rating;
+
+    @Lob
+    private String content;
 
     public Long getId() {
         return id;
@@ -42,28 +46,36 @@ public class Craft implements Serializable {
         this.id = id;
     }
 
-    public List<Site> getSites() {
-        return site;
+    public Client getAuthor() {
+        return author;
     }
 
-    public void setSites(List<Site> sites) {
-        this.site = sites;
+    public void setAuthor(Client author) {
+        this.author = author;
     }
 
-    public Craft getParent() {
-        return parent;
+    public Date getPostedOn() {
+        return postedOn;
     }
 
-    public void setParent(Craft parent) {
-        this.parent = parent;
+    public void setPostedOn(Date postedOn) {
+        this.postedOn = postedOn;
     }
 
-    public String getName() {
-        return name;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override
@@ -76,10 +88,10 @@ public class Craft implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Craft)) {
+        if (!(object instanceof Comment)) {
             return false;
         }
-        Craft other = (Craft) object;
+        Comment other = (Comment) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -88,7 +100,7 @@ public class Craft implements Serializable {
 
     @Override
     public String toString() {
-        return parent.getName() + " / " + this.name;
+        return "model.entity.Comment[ id=" + id + " ]";
     }
 
 }

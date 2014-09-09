@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package managedbean;
 
 import java.io.IOException;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 @ManagedBean(name = "loginManagedBean")
 @SessionScoped
 public class LoginManagedBean {
-    
+
     private String login;
     private String password;
 
@@ -40,8 +39,8 @@ public class LoginManagedBean {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public void login () {
+
+    public void login() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
@@ -58,10 +57,10 @@ public class LoginManagedBean {
             try {
                 context.getExternalContext().redirect(request.getContextPath() + navigateString);
             } catch (IOException ex) {
-                
+
             }
         } catch (ServletException e) {
-            
+
         }
     }
 
@@ -70,5 +69,5 @@ public class LoginManagedBean {
      */
     public LoginManagedBean() {
     }
-    
+
 }

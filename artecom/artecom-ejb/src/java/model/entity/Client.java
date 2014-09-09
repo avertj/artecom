@@ -7,7 +7,17 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -18,7 +28,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "PROFIL_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("C")
 public class Client implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,44 +39,13 @@ public class Client implements Serializable {
 
     @OneToMany
     private List<Address> address;
+
     private Long lastBillingAdress;
     private Long lastShippingAdress;
-    
+
     @Column(unique = true)
-    private String Login;
-    
-    public String getLogin() {
-        return Login;
-    }
+    private String login;
 
-    public void setLogin(String Login) {
-        this.Login = Login;
-    }
-
-    public Long getLastBillingAdress() {
-        return lastBillingAdress;
-    }
-
-    public void setLastBillingAdress(Long lastBillingAdress) {
-        this.lastBillingAdress = lastBillingAdress;
-    }
-
-    public Long getLastShippingAdress() {
-        return lastShippingAdress;
-    }
-
-    public void setLastShippingAdress(Long lastShippingAdress) {
-        this.lastShippingAdress = lastShippingAdress;
-    }
-
-    public List<Address> getAddress() {
-        return address;
-    }
-
-    public void setAddress(List<Address> address) {
-        this.address = address;
-    }
-    
     public Long getId() {
         return id;
     }
@@ -89,6 +68,38 @@ public class Client implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Address> getAddress() {
+        return address;
+    }
+
+    public void setAddress(List<Address> address) {
+        this.address = address;
+    }
+
+    public Long getLastBillingAdress() {
+        return lastBillingAdress;
+    }
+
+    public void setLastBillingAdress(Long lastBillingAdress) {
+        this.lastBillingAdress = lastBillingAdress;
+    }
+
+    public Long getLastShippingAdress() {
+        return lastShippingAdress;
+    }
+
+    public void setLastShippingAdress(Long lastShippingAdress) {
+        this.lastShippingAdress = lastShippingAdress;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     @Override

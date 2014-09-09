@@ -7,7 +7,10 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -21,12 +24,15 @@ public class Craftsman extends Client implements Serializable {
 
     @OneToMany
     private List<ProductQuantity> products;
-    
+
     @OneToMany
     private List<Site> sites;
-    
+
     @Lob
     private String description;
+
+    @OneToMany
+    private List<Comment> comments;
 
     public String getDescription() {
         return description;

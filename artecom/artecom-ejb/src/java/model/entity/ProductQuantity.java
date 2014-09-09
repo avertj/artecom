@@ -6,10 +6,16 @@
 package model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 /**
  * Entity for represent product with quantity for line in Cart or stock.
+ *
  * @author inilog
  */
 @Entity
@@ -23,7 +29,7 @@ public class ProductQuantity implements Serializable {
     @ManyToOne
     private Product product;
     private int quantity;
-    
+
     /**
      * For coccurente edition of Craftsman stock!
      */
