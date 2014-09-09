@@ -43,11 +43,11 @@ public class Craft implements Serializable {
     }
 
     public List<Site> getSites() {
-        return site;
+        return sites;
     }
 
     public void setSites(List<Site> sites) {
-        this.site = sites;
+        this.sites = sites;
     }
 
     public Craft getParent() {
