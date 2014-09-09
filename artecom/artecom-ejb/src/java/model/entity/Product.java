@@ -6,7 +6,16 @@
 package model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,10 +34,34 @@ public class Product implements Serializable {
     @ManyToOne
     private Craft craft;
     private String name;
+
+    @Lob
     private String description; // sera probablement une chaine html générée par un editeur riche en js
+
     private Float price;
     // un poids faisant varier le prix des frais de port ou une valeur fixe pour les frais de ports ?
     private Float weight;
+
+    @OneToMany
+    private List<Comment> comments;
+
+    private Integer quantity;
+
+    public enum Availability {
+
+        SHIPPABLE,
+        NOT_SHIPPABLE
+    }
+    @Enumerated(EnumType.ORDINAL)
+    private Availability shippingMethod;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Craftsman getProducer() {
         return producer;
@@ -54,20 +87,20 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 
     public Float getWeight() {
@@ -78,12 +111,34 @@ public class Product implements Serializable {
         this.weight = weight;
     }
 
-    public Long getId() {
-        return id;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(Comment e) {
+        if (!comments.contains(e)) {
+            comments.add(e);
+        }
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Availability getShippingMethod() {
+        return shippingMethod;
+    }
+
+    public void setShippingMethod(Availability shippingMethod) {
+        this.shippingMethod = shippingMethod;
     }
 
     @Override
