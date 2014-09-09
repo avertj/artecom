@@ -15,12 +15,13 @@ import javax.persistence.*;
  */
 @Entity
 public class Craft implements Serializable {
-
+    public Craft(){
+    }
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToMany(mappedBy = "crafts")
+    @ManyToMany
      private List<Site> site;
     
     @ManyToOne

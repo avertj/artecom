@@ -13,6 +13,7 @@ import javax.persistence.*;
  * @author bmf
  */
 @Entity
+@NamedQuery(name="",query="select OBJECT(p) from Product p where p.name like :nom")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
