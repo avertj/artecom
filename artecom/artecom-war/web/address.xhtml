@@ -2,8 +2,8 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:p="http://primefaces.org/ui"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
-
+    xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/layout.xhtml">
+    <ui:define name="content">
     <p:panel id="dataPanel">
         <p:dataTable var="address" value="#{addressManagedBean.addresses}">
             <p:column headerText="Id">
@@ -24,4 +24,5 @@
         </p:dataTable>
         <p:gmap center="36.890257,30.707417" zoom="13" type="HYBRID" style="width:600px;height:400px" model="#{addressManagedBean.simpleModel}" />
     </p:panel>
+    </ui:define>
 </ui:composition>
