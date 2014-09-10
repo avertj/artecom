@@ -6,12 +6,24 @@
 
 package managedbean;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import model.entity.Address;
 import model.entity.Client;
 import model.entity.User;
+import model.facade.AddressFacade;
 import model.facade.ClientFacade;
+import model.facade.UserFacade;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  *
@@ -20,19 +32,16 @@ import model.facade.ClientFacade;
 @ManagedBean(name="clientManagedBean")
 public class ClientManagedBean {
     @EJB
+    private UserFacade userFacade;
+    @EJB
     private ClientFacade clientFacade;
-    
-    private Address address;
     
     private User user;
     
     private Client client;
     
-    private AddressManagedBean test;
-    
     
     public ClientManagedBean(){
-        address=new Address();
         user= new User();
         client=new Client();
         
@@ -43,14 +52,6 @@ public class ClientManagedBean {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
     
     public ClientFacade getClientFacade() {
@@ -67,6 +68,36 @@ public class ClientManagedBean {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+    
+    public String crypt (String pass) {
+        MessageDigest md;
+        try {
+            md = java.security.MessageDigest.getInstance("SHA-256");
+            md.update(pass.getBytes("UTF-8"));
+            byte[] passwordDigest = md.digest();
+            return Base64.encodeBase64String(passwordDigest);
+            
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    
+    public void add() {
+        user.setLogin(client.getLogin());
+        user.setPassword(crypt(user.getPassword()));
+        user.setGroupname("client");
+        userFacade.create(user);
+        clientFacade.create(client);
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        try {
+            request.login(user.getLogin(), user.getPassword());
+            context.getExternalContext().redirect(request.getContextPath() + "/client/");
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(ClientManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

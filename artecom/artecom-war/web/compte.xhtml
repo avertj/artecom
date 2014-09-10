@@ -18,26 +18,13 @@
                 <h:inputText value="#{clientManagedBean.client.lastName}"/>
                 <h:outputLabel value="Prenom :"/>
                 <h:inputText value="#{clientManagedBean.client.firstName}"/>
-                <h:outputLabel value="Adresse :"/>
-                <h:inputText value="#{clientManagedBean.address.name}"/>
-                <h:outputLabel value="Rue :"/>
-                <h:inputText value="#{clientManagedBean.address.street}"/>
-                <h:outputLabel value="Ville :"/>
-                <h:inputText value="#{clientManagedBean.address.city}"/>
-                <h:outputLabel value="Code postal :"/>
-                <h:inputText value="#{clientManagedBean.address.postcode}"/>
                 <h:outputLabel value="Login :"/>
                 <h:inputText value="#{clientManagedBean.client.login}"/>
                 <h:outputLabel value="Password :"/>
                 <h:inputText value="#{clientManagedBean.user.password}"/>
-                <h:outputLabel value="Type de compte :"/>
-                <h:selectOneRadio value="#{clientManagedBean.user.groupname}">
-                    <f:selectItem id="item1" itemLabel="Client" itemValue="client" />
-                    <f:selectItem id="item2" itemLabel="Artisan" itemValue="craftsman" />
-                </h:selectOneRadio>
                                 
             </h:panelGrid>
-                    <p:commandButton value="Ajouter" update="formGrid" action="#{clientManagedBean.add()}" />
+                    <p:commandButton value="Ajouter" update="formGrid" action="#{clientManagedBean.add}" />
      
         </h:form>
             </ui:define>
