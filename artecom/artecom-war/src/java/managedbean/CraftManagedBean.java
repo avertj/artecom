@@ -66,13 +66,13 @@ public class CraftManagedBean {
         return crafts;
     }
 
-    public String add() {
+    public void add() {
         for (Craft c : crafts) {
             if (c.getId().equals(idparent)) {
                 craft.setParent(c);
             }
         }
         craftFacade.create(craft);
-        return "craft?faces-redirect=true";
+        craft = new Craft();
     }
 }

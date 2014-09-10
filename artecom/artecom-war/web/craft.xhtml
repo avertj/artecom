@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
@@ -11,23 +12,25 @@
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <h:form>
-                    <h:panelGrid columns="2">
-                        <h:outputLabel value="Nom"/>
-                        <h:inputText value="#{craftManagedBean.craft.name}"/>
+                <h:form id="form">
+                    <h:panelGrid id="formGrid" columns="3">
+                        <h:outputLabel for="name" value="Name :" style="font-weight:bold"/>
+                        <h:inputText id="name" value="#{craftManagedBean.craft.name}" required="true" label="Street"/>
+                        <p:message for="name" />
+
                         <c:if test="#{not empty craftManagedBean.crafts}">
-                            <h:outputLabel value="Parent"/>
+                            <h:outputLabel for="parent" value="Parent :" style="font-weight:bold"/>
                             <h:selectOneMenu value="#{craftManagedBean.idparent}">
                                 <f:selectItem itemValue="" itemLabel="None" />
                                 <f:selectItems value="#{craftManagedBean.crafts}" var="craft" itemLabel="#{craft.toString()}" itemValue="#{craft.id}" />
                             </h:selectOneMenu>
                         </c:if>
                     </h:panelGrid>
-                    <h:commandButton value="Ajouter" action="#{craftManagedBean.add()}"/>
-
+                    <p:commandButton value="Add" icon="ui-icon-check" validateClient="true" update="form :panel" action="#{craftManagedBean.add()}" />
                 </h:form>
+                
                 <h3>Liste des Artisanats:</h3>
-                <h:form>
+                <p:panel id="panel">
                     <h:dataTable value="#{craftManagedBean.crafts}" var="craft" styleClass="table"
                                  headerClass="tableHeader"
                                  rowClasses="tableEvenRow,tableOddRow">
@@ -44,7 +47,7 @@
                                 #{craft.parent.name}
                         </h:column>
                     </h:dataTable>
-                </h:form>
+                </p:panel>
             </ui:define>
         </ui:composition>
     </h:body>
