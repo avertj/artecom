@@ -29,6 +29,8 @@ public class AddressManagedBean {
     @EJB
     private AddressFacade addressFacade;
 
+    private Address address;
+
     //private Address address;
     @PostConstruct
     public void init() {

@@ -5,7 +5,6 @@
  */
 package managedbean;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -27,17 +26,17 @@ public class CraftManagedBean {
 
     private Craft craft;
 
-    private String idparent;
+    private Long idparent;
 
     private List<Craft> crafts;
 
     private CraftQueries craftQueries;
 
-    public String getIdparent() {
+    public Long getIdparent() {
         return idparent;
     }
 
-    public void setIdparent(String idparent) {
+    public void setIdparent(Long idparent) {
         this.idparent = idparent;
     }
 
@@ -64,27 +63,18 @@ public class CraftManagedBean {
     }
 
     public List<Craft> getCrafts() {
-
+        crafts = craftFacade.findAll();
         return crafts;
     }
 
     public String add() {
         for (Craft c : crafts) {
-            if (c.getName().equals(idparent)) {
+            if (c.getId().equals(idparent)) {
                 craft.setParent(c);
             }
         }
         craftFacade.create(craft);
+        //craft = new Craft();
         return "craft?faces-redirect=true";
-    }
-
-    public ArrayList getChoices() {
-        ArrayList lis = new ArrayList();
-        crafts = craftFacade.findAll();
-        lis.add(new Craft().setName(""));
-        for (Craft c : crafts) {
-            lis.add(c.getName());
-        }
-        return lis;
     }
 }

@@ -95,7 +95,7 @@ public class Craft implements Serializable {
 
     @Override
     public String toString() {
-        return parent.toString() + " / " + this.name;
+        return (parent != null ? parent.toString() + " / " : "") + this.name;
     }
 
 }
