@@ -17,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -27,6 +29,9 @@ import javax.persistence.OneToMany;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "PROFIL_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("C")
+@NamedQueries(
+       @NamedQuery(name = "Client.getByLogin",query = "SELECT c FROM Client c WHERE c.login = :login")
+)
 public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
