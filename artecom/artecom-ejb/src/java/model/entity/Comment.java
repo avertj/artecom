@@ -32,11 +32,21 @@ public class Comment implements Serializable {
     private Client author;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date postedOn;
+    private Date createdOn;
     private Integer rating;
 
     @Lob
     private String content;
+
+    public Comment(Client author, Date createdOn, Integer rating, String content) {
+        this.author = author;
+        this.createdOn = createdOn;
+        this.rating = rating;
+        this.content = content;
+    }
+
+    public Comment() {
+    }
 
     public Long getId() {
         return id;
@@ -54,12 +64,12 @@ public class Comment implements Serializable {
         this.author = author;
     }
 
-    public Date getPostedOn() {
-        return postedOn;
+    public Date getCreatedOn() {
+        return createdOn;
     }
 
-    public void setPostedOn(Date postedOn) {
-        this.postedOn = postedOn;
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 
     public Integer getRating() {

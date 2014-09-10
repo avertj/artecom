@@ -8,14 +8,14 @@ package model.facade;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import model.entity.Site;
+import model.entity.Comment;
 
 /**
  *
  * @author bmf
  */
 @Stateless
-public class SiteFacade extends AbstractFacade<Site> {
+public class CommentFacade extends AbstractFacade<Comment> {
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class SiteFacade extends AbstractFacade<Site> {
         return em;
     }
 
-    public SiteFacade() {
-        super(Site.class);
+    public CommentFacade() {
+        super(Comment.class);
     }
 
 }

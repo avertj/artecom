@@ -56,6 +56,17 @@ public class Site implements Serializable {
     @Lob
     private String opening;
 
+    public Site(Address address, List<Craft> crafts, Craftsman craftsman, Type type, String description) {
+        this.address = address;
+        this.crafts = crafts;
+        this.craftsman = craftsman;
+        this.type = type;
+        this.description = description;
+    }
+
+    public Site() {
+    }
+
     public List<Craft> getCrafts() {
         return crafts;
     }

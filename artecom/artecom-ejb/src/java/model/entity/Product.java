@@ -17,13 +17,14 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 /**
  *
  * @author bmf
  */
 @Entity
-@NamedQuery(name="",query="select OBJECT(p) from Product p where p.name like :nom")
+@NamedQuery(name = "", query = "select OBJECT(p) from Product p where p.name like :nom")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,7 +56,35 @@ public class Product implements Serializable {
         NOT_SHIPPABLE
     }
     @Enumerated(EnumType.ORDINAL)
-    private Availability shippingMethod;
+    private Availability availability;
+
+    /**
+     * For coccurente edition of Craftsman stock!
+     */
+    @Version
+    private Long version;
+
+    public Product(String name, String description, Float price, Float weight, Integer quantity, Availability availability, Craftsman producer, Craft craft) {
+        this.producer = producer;
+        this.craft = craft;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.weight = weight;
+        this.quantity = quantity;
+        this.availability = availability;
+    }
+
+    public Product() {
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
 
     public Long getId() {
         return id;
@@ -135,12 +164,20 @@ public class Product implements Serializable {
         this.quantity = quantity;
     }
 
-    public Availability getShippingMethod() {
-        return shippingMethod;
+    public Availability getAvailability() {
+        return availability;
     }
 
-    public void setShippingMethod(Availability shippingMethod) {
-        this.shippingMethod = shippingMethod;
+    public void setAvailability(Availability availability) {
+        this.availability = availability;
+    }
+
+    public Float getRating() {
+        float sum = 0f;
+        for (Comment c : comments) {
+            sum += c.getRating();
+        }
+        return sum / comments.size();
     }
 
     @Override

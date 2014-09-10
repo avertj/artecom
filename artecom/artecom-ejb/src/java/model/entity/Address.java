@@ -28,6 +28,16 @@ public class Address implements Serializable {
     private String city;
     private Integer postcode;
 
+    public Address(String name, String street, String city, Integer postcode) {
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.postcode = postcode;
+    }
+
+    public Address() {
+    }
+
     public Long getId() {
         return id;
     }
