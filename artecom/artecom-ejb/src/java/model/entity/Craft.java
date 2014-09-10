@@ -20,19 +20,26 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Craft implements Serializable {
-    public Craft(){
-    }
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToMany
-     private List<Site> sites;
-    
+    private List<Site> sites;
+
     @ManyToOne
     private Craft parent;
 
     private String name;
+
+    public Craft(String name, Craft parent) {
+        this.parent = parent;
+        this.name = name;
+    }
+
+    public Craft() {
+    }
 
     public Long getId() {
         return id;
@@ -88,7 +95,7 @@ public class Craft implements Serializable {
 
     @Override
     public String toString() {
-        return parent.getName() + " / " + this.name;
+        return (parent != null ? parent.toString() + " / " : "") + this.name;
     }
 
 }
