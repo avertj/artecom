@@ -30,7 +30,7 @@ public class GoogleGeocoderResponse {
         public String getFormatted_address() {
             return formatted_address;
         }
-        
+
         public String getFormattedAddress() {
             return formatted_address;
         }

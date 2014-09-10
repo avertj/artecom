@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Version;
 
 /**
  * Entity for represent product with quantity for line in Cart or stock.
@@ -30,18 +29,9 @@ public class ProductQuantity implements Serializable {
     private Product product;
     private int quantity;
 
-    /**
-     * For coccurente edition of Craftsman stock!
-     */
-    @Version
-    private Long version;
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
+    public ProductQuantity(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
     }
 
     public Product getProduct() {

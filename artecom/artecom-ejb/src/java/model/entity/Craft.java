@@ -33,6 +33,11 @@ public class Craft implements Serializable {
 
     private String name;
 
+    public Craft(String name, Craft parent) {
+        this.parent = parent;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
@@ -87,7 +92,7 @@ public class Craft implements Serializable {
 
     @Override
     public String toString() {
-        return parent.getName() + " / " + this.name;
+        return parent.toString() + " / " + this.name;
     }
 
 }

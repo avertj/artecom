@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -11,17 +12,19 @@
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Nom"/>
-                <h:inputText value="#{craftManagedBean.craft.name}"/>
-                <h:outputLabel value="Description"/>
-                <h:selectOneMenu value="#{craftManagedBean.idparent}">
-                    <f:selectItems value="#{craftManagedBean.choices}"/>
-                </h:selectOneMenu>
-            </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Nom"/>
+                        <h:inputText value="#{craftManagedBean.craft.name}"/>
+                        <c:if test="#{not empty craftManagedBean.choices}">
+                            <h:outputLabel value="Parent"/>
+                            <h:selectOneMenu value="#{craftManagedBean.idparent}">
+                                <f:selectItems value="#{craftManagedBean.choices}"/>
+                            </h:selectOneMenu>
+                        </c:if>
+                    </h:panelGrid>
                     <h:commandButton value="Ajouter" action="#{craftManagedBean.add()}"/>
-     
-        </h:form>
+
+                </h:form>
                 <h3>Liste des Artisanats:</h3>
                 <h:form>
                     <h:dataTable value="#{craftManagedBean.crafts}" var="craft" styleClass="table"

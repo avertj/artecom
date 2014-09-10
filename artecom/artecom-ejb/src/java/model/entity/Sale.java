@@ -6,6 +6,7 @@
 package model.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -34,6 +37,8 @@ public class Sale implements Serializable {
     @ManyToOne
     private Address shippingAdress;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
     // peut etre utile pour les frais de ports
     /*public enum ShippingMethod {
 
@@ -42,6 +47,7 @@ public class Sale implements Serializable {
      }
      @Enumerated(EnumType.ORDINAL)
      private ShippingMethod shippingMethod;*/
+
     // êtats possible pour une commande
     public enum Status {
 
@@ -52,6 +58,15 @@ public class Sale implements Serializable {
     }
     @Enumerated(EnumType.ORDINAL)
     private Status status;
+
+    public Sale(Cart cart, float price, Address billingAdress, Address shippingAdress, Date createdOn, Status status) {
+        this.cart = cart;
+        this.price = price;
+        this.billingAdress = billingAdress;
+        this.shippingAdress = shippingAdress;
+        this.createdOn = createdOn;
+        this.status = status;
+    }
 
     public Address getBillingAdress() {
         return billingAdress;
@@ -106,6 +121,14 @@ public class Sale implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 
     @Override

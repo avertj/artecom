@@ -7,7 +7,11 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -47,9 +51,7 @@ public class Cart implements Serializable {
 
     public void addProduct(Product p, int quantity) {
         if (!products.contains(p)) {
-            ProductQuantity pq = new ProductQuantity();
-            pq.setProduct(p);
-            pq.setQuantity(quantity);
+            ProductQuantity pq = new ProductQuantity(p, quantity);
         }
     }
 

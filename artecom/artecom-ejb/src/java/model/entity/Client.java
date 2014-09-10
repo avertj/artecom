@@ -46,6 +46,11 @@ public class Client implements Serializable {
     @Column(unique = true)
     private String login;
 
+    public Client(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public Long getId() {
         return id;
     }

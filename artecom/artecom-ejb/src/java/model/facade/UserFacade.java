@@ -16,7 +16,6 @@ import model.entity.User;
  */
 @Stateless
 public class UserFacade extends AbstractFacade<User> {
-
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 
