@@ -81,7 +81,6 @@ public class CraftManagedBean {
     
     public ArrayList getChoices(){
         ArrayList lis = new ArrayList();
-        
         crafts=craftFacade.findAll();
         for(Craft c: crafts){
             lis.add(c.getName());
