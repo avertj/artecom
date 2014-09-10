@@ -12,10 +12,7 @@ package test;
  */
 public class Populate {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+    public Populate() {
         // TODO code application logic here
     }
     
