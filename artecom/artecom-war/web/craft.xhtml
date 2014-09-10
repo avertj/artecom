@@ -16,6 +16,7 @@
                 <h:inputText value="#{craftManagedBean.craft.name}"/>
                 <h:outputLabel value="Description"/>
                 <h:selectOneMenu value="#{craftManagedBean.idparent}">
+                    <f:selectItem itemValue="" itemLabel="Parent" />
                     <f:selectItems value="#{craftManagedBean.choices}"/>
                 </h:selectOneMenu>
             </h:panelGrid>
