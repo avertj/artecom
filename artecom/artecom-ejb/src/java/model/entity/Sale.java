@@ -68,6 +68,9 @@ public class Sale implements Serializable {
         this.status = status;
     }
 
+    public Sale() {
+    }
+
     public Address getBillingAdress() {
         return billingAdress;
     }

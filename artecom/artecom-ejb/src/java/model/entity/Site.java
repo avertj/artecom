@@ -64,6 +64,9 @@ public class Site implements Serializable {
         this.description = description;
     }
 
+    public Site() {
+    }
+
     public List<Craft> getCrafts() {
         return crafts;
     }

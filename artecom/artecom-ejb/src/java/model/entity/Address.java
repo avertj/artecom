@@ -35,6 +35,9 @@ public class Address implements Serializable {
         this.postcode = postcode;
     }
 
+    public Address() {
+    }
+
     public Long getId() {
         return id;
     }

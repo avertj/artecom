@@ -39,6 +39,10 @@ public class Craftsman extends Client implements Serializable {
         this.description = description;
     }
 
+    public Craftsman() {
+        super();
+    }
+
     public String getDescription() {
         return description;
     }

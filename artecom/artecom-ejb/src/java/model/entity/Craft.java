@@ -38,6 +38,9 @@ public class Craft implements Serializable {
         this.name = name;
     }
 
+    public Craft() {
+    }
+
     public Long getId() {
         return id;
     }

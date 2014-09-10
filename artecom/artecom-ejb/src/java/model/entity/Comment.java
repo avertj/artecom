@@ -45,6 +45,9 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
+    public Comment() {
+    }
+
     public Long getId() {
         return id;
     }

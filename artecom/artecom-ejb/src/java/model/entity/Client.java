@@ -51,6 +51,9 @@ public class Client implements Serializable {
         this.lastName = lastName;
     }
 
+    public Client() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -75,6 +75,9 @@ public class Product implements Serializable {
         this.availability = availability;
     }
 
+    public Product() {
+    }
+
     public Long getVersion() {
         return version;
     }

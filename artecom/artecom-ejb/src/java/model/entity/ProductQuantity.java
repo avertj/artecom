@@ -34,6 +34,9 @@ public class ProductQuantity implements Serializable {
         this.quantity = quantity;
     }
 
+    public ProductQuantity() {
+    }
+
     public Product getProduct() {
         return product;
     }
