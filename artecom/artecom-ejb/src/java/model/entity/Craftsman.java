@@ -33,10 +33,16 @@ public class Craftsman extends Client implements Serializable {
 
     @OneToMany
     private List<Comment> comments;
-    
-    public Craftsman(){
+
+    public Craftsman(String firstName, String lastName, String description) {
+        super(firstName, lastName);
+        this.description = description;
+    }
+
+    public Craftsman() {
         super();
     }
+
     public String getDescription() {
         return description;
     }
@@ -59,5 +65,13 @@ public class Craftsman extends Client implements Serializable {
 
     public void setSites(List<Site> sites) {
         this.sites = sites;
+    }
+
+    public Float getRating() {
+        float sum = 0f;
+        for (Comment c : comments) {
+            sum += c.getRating();
+        }
+        return sum / comments.size();
     }
 }
