@@ -8,7 +8,7 @@ package managedbean;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import model.entity.Address;
 import model.facade.AddressFacade;
@@ -23,13 +23,14 @@ import org.primefaces.model.map.Marker;
  * @author bmf
  */
 @ManagedBean(name = "addressManagedBean")
-@ApplicationScoped
+@Stateless
 public class AddressManagedBean {
 
     @EJB
     private AddressFacade addressFacade;
 
     private Address address;
+    private List<Address> addresses;
 
     //private Address address;
     @PostConstruct
@@ -53,23 +54,31 @@ public class AddressManagedBean {
         simpleModel.addOverlay(new Marker(coord4, "Kaleici"));
     }
 
-    private void create(String street, String city, Integer postcode) {
-        Address addr = new Address();
-        addr.setStreet(street);
-        addr.setCity(city);
-        addr.setPostcode(postcode);
-        addressFacade.create(addr);
+    /*private void create(String street, String city, Integer postcode) {
+     Address addr = new Address();
+     addr.setStreet(street);
+     addr.setCity(city);
+     addr.setPostcode(postcode);
+     addressFacade.create(addr);
+     }*/
+    public void add() {
+        addressFacade.create(address);
+        address = new Address();
+        //craft = new Craft();
+        //return "address?faces-redirect=true";
     }
 
-    /*public Address getAddress() {
-     return address;
-     }
+    public Address getAddress() {
+        return address;
+    }
 
-     public void setAddress(Address address) {
-     this.address = address;
-     }*/
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public List<Address> getAddresses() {
-        return addressFacade.findAll();
+        addresses = (addresses == null ? addressFacade.findAll() : addresses);
+        return addresses;
     }
 
     /*public void openSelectDialog() {
@@ -79,7 +88,7 @@ public class AddressManagedBean {
      * Creates a new instance of AdressManagedBean
      */
     public AddressManagedBean() {
-        //address = new Address();
+        address = new Address();
     }
 
     /* TEST */

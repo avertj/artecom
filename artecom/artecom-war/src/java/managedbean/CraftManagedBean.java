@@ -7,8 +7,8 @@ package managedbean;
 
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import model.entity.Craft;
 import model.facade.CraftFacade;
 import model.queries.CraftQueries;
@@ -18,7 +18,7 @@ import model.queries.CraftQueries;
  * @author donatien
  */
 @ManagedBean(name = "craftManagedBean")
-@SessionScoped
+@Stateless
 public class CraftManagedBean {
 
     @EJB
@@ -54,7 +54,6 @@ public class CraftManagedBean {
     }
 
     public Craft getCraft() {
-
         return craft;
     }
 
@@ -74,7 +73,6 @@ public class CraftManagedBean {
             }
         }
         craftFacade.create(craft);
-        //craft = new Craft();
         return "craft?faces-redirect=true";
     }
 }
