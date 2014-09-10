@@ -27,7 +27,7 @@ public class Craft implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToMany
-     private List<Site> site;
+     private List<Site> sites;
     
     @ManyToOne
     private Craft parent;
