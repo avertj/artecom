@@ -33,7 +33,10 @@ public class Craftsman extends Client implements Serializable {
 
     @OneToMany
     private List<Comment> comments;
-
+    
+    public Craftsman(){
+        super();
+    }
     public String getDescription() {
         return description;
     }
