@@ -12,8 +12,8 @@
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <h:form>
-                    <h:panelGrid id="formGrid" columns="3">
+                <h:form  id="form">
+                    <h:panelGrid columns="3">
                         <h:outputLabel for="name" value="Nom :" style="font-weight:bold"/>
                         <h:inputText id="name" value="#{addressManagedBean.address.name}" required="true" label="Street"/>
                         <p:message for="name" />
@@ -27,10 +27,11 @@
                         <h:inputText id="postcode" value="#{addressManagedBean.address.postcode}" required="true" label="Post code"/>
                         <p:message for="postcode" />
                     </h:panelGrid>
-                    <p:commandButton value="Add" icon="ui-icon-check" validateClient="true" update="formGrid :dataPanel" action="#{addressManagedBean.add()}" />
+                    <p:commandButton value="Add" icon="ui-icon-check" validateClient="true" update="form :panel" action="#{addressManagedBean.add()}" />
                 </h:form>
+
                 <h3>Liste des Adresses:</h3>
-                <h:form id="dataPanel">
+                <p:panel id="panel">
                     <h:dataTable value="#{addressManagedBean.addresses}" var="address" styleClass="table"
                                  headerClass="tableHeader"
                                  rowClasses="tableEvenRow,tableOddRow">
@@ -55,7 +56,7 @@
                                 #{address.postcode}
                         </h:column>
                     </h:dataTable>
-                </h:form>
+                </p:panel>
             </ui:define>
         </ui:composition>
     </h:body>

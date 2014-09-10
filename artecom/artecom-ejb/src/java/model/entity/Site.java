@@ -7,6 +7,7 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -32,13 +33,16 @@ public class Site implements Serializable {
     private Long id;
     @OneToOne
     private Address address;
-    @ManyToMany
+    @ManyToMany(mappedBy = "sites")
     private List<Craft> crafts;
     @OneToMany
     private List<Product> products;
 
     @ManyToOne
     private Craftsman craftsman;
+
+    @Embedded
+    private LatLng latlng;
 
     // une enum pour les types de site
     // possibilité de virer l'enum pour qq chose de plus "GL"
@@ -153,6 +157,14 @@ public class Site implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LatLng getLatlng() {
+        return latlng;
+    }
+
+    public void setLatlng(LatLng latlng) {
+        this.latlng = latlng;
     }
 
     @Override
