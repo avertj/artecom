@@ -28,7 +28,7 @@
                     </h:panelGrid>
                     <p:commandButton value="Add" icon="ui-icon-check" validateClient="true" update="form :panel" action="#{craftManagedBean.add()}" />
                 </h:form>
-                
+
                 <h3>Liste des Artisanats:</h3>
                 <p:panel id="panel">
                     <h:dataTable value="#{craftManagedBean.crafts}" var="craft" styleClass="table"

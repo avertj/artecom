@@ -5,7 +5,13 @@
  */
 package model.queries;
 
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import model.entity.Craft;
+import model.entity.Product;
 
 /**
  *
@@ -14,4 +20,18 @@ import javax.ejb.Stateless;
 @Stateless
 public class ProductQueries {
 
+    @PersistenceContext(unitName = "artecomPU")
+    private EntityManager em;
+
+    public Product getProduct(Long choix) {
+        TypedQuery<Product> q = em.createQuery("select distinct OBJECT(p) from Product p where p.id=:choix", Product.class);
+        q.setParameter("choix", choix);
+        return q.getSingleResult();
+    }
+
+    public List<Product> getProducts(Craft c) {
+        TypedQuery<Product> q = em.createQuery("select distinct OBJECT(p) from Product p where p.craft=:c", Product.class);
+        q.setParameter("c", c);
+        return q.getResultList();
+    }
 }

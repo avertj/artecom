@@ -6,16 +6,31 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:p="http://primefaces.org/ui">
     <body>
         <ui:composition>
-            <h1>This is default header</h1>
-            <h:link value="Home" outcome="index" /> 
-            
-            <h:link value="Craft" outcome="craft" />
-            
-            <h:link value="Compte" outcome="compte" />
+            <div id="page-header-banner">
+                <div id="page-header-banner-logo">
+                    <h:graphicImage name="img/france2.png" height="100px" />
+                </div>
+                <div id="page-header-banner-text">
+                    <span><a href="#">Artecom</a></span>
+                </div>
+            </div>
+
+            <div id="page-header-user">
+                <div id="page-header-user-info">
+                    <span><a href="#">Log in</a></span>
+                    <span>-</span>
+                    <span><a href="#">Sign in</a></span>
+                </div>
+                <div id="page-header-user-cart">
+                    <span id="cart-icon"><h:graphicImage name="img/icon/glyphicons_202_shopping_cart.png" /></span>
+                    <span id="cart-item-count">(8)</span>
+                </div>
+            </div>
         </ui:composition>
     </body>
 </html>

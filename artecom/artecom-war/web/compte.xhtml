@@ -12,21 +12,21 @@
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
                 <h:form >
-            <h:panelGrid id="formGrid" columns="2">
-                
-                <h:outputLabel value="Nom :"/>
-                <h:inputText value="#{clientManagedBean.client.lastName}"/>
-                <h:outputLabel value="Prenom :"/>
-                <h:inputText value="#{clientManagedBean.client.firstName}"/>
-                <h:outputLabel value="Login :"/>
-                <h:inputText value="#{clientManagedBean.client.login}"/>
-                <h:outputLabel value="Password :"/>
-                <h:inputText value="#{clientManagedBean.user.password}"/>
-                                
-            </h:panelGrid>
+                    <h:panelGrid id="formGrid" columns="2">
+
+                        <h:outputLabel value="Nom :"/>
+                        <h:inputText value="#{clientManagedBean.client.lastName}"/>
+                        <h:outputLabel value="Prenom :"/>
+                        <h:inputText value="#{clientManagedBean.client.firstName}"/>
+                        <h:outputLabel value="Login :"/>
+                        <h:inputText value="#{clientManagedBean.client.login}"/>
+                        <h:outputLabel value="Password :"/>
+                        <h:inputText value="#{clientManagedBean.user.password}"/>
+
+                    </h:panelGrid>
                     <p:commandButton value="Ajouter" update="formGrid" action="#{clientManagedBean.add}" />
-     
-        </h:form>
+
+                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>

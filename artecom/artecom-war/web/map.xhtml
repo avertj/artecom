@@ -7,12 +7,13 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Home</title>
+        <title>Map</title>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     </h:head>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <c:set var="tab" value="shop" scope="request" />
+                <c:set var="tab" value="map" scope="request" />
                 <div id="page-content-head">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus
                         justo et sollicitudin malesuada. Suspendisse gravida volutpat nisl.
@@ -37,42 +38,7 @@
                 </div>
 
                 <div id="page-content-body">
-                    <p:outputPanel id="page-content-category-list">
-                        <ui:repeat var="cat" value="#{shopView.crafts}">
-                            <div class="page-content-category-item">
-                                <div class="page-content-category-item-image">
-                                    <img src="http://placehold.it/250x250" />
-                                </div>
-                                <div class="page-content-category-item-desc">
-                                    <span>
-                                        <h:form>
-                                            <p:commandLink value="#{cat.name}" actionListener="#{shopView.categoryClick}" update=":page-content-category-list">
-                                                <f:param name="catId" value="#{cat.id}" />
-                                            </p:commandLink>
-                                        </h:form>
-                                    </span>
-                                </div>
-                            </div>
-                        </ui:repeat>
-                        <c:if test="#{not empty shopView.products}">
-                            <ui:repeat var="prod" value="#{shopView.products}">
-                                <div class="page-content-category-item">
-                                    <div class="page-content-category-item-image">
-                                        <img src="http://placehold.it/250x250" />
-                                    </div>
-                                    <div class="page-content-category-item-desc">
-                                        <span>
-                                            <h:form>
-                                                <p:commandLink value="#{prod.name}">
-                                                    <f:param name="catId" value="#{cat.id}" />
-                                                </p:commandLink>
-                                            </h:form>
-                                        </span>
-                                    </div>
-                                </div>
-                            </ui:repeat>
-                        </c:if>
-                    </p:outputPanel>
+                    <p:gmap id="map-container" style="height:800px" center="47.07012182383309, 2.3796387389302254" fitBounds="true" zoom="13" type="terrain" model="#{mapView.mapModel}" />
                 </div>
             </ui:define>
         </ui:composition>
