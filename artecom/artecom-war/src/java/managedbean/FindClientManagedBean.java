@@ -18,7 +18,7 @@ import model.queries.ClientQuery;
  */
 @ManagedBean(name="findClientManagedBean")
 @SessionScoped
-public class findClientManagedBean {
+public class FindClientManagedBean {
     @EJB
     private ClientQuery clientQuery;
     private Client client = new Client();
@@ -47,7 +47,7 @@ public class findClientManagedBean {
     /**
      * Creates a new instance of findClientManagedBean
      */
-    public findClientManagedBean() {
+    public FindClientManagedBean() {
     }
     
 }
