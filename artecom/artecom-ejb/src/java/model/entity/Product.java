@@ -33,7 +33,7 @@ public class Product implements Serializable {
     private Long id;
 
     @ManyToOne
-    private Craftsman producer;
+    private Craftsman craftsman;
     @ManyToOne
     private Site site;
     @ManyToOne
@@ -66,8 +66,8 @@ public class Product implements Serializable {
     @Version
     private Long version;
 
-    public Product(String name, String description, Float price, Float weight, Integer quantity, Availability availability, Craftsman producer, Craft craft) {
-        this.producer = producer;
+    public Product(String name, String description, Float price, Float weight, Integer quantity, Availability availability, Craftsman craftsman, Craft craft) {
+        this.craftsman = craftsman;
         this.craft = craft;
         this.name = name;
         this.description = description;
@@ -96,12 +96,12 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Craftsman getProducer() {
-        return producer;
+    public Craftsman getCraftsman() {
+        return craftsman;
     }
 
-    public void setProducer(Craftsman producer) {
-        this.producer = producer;
+    public void setCraftsman(Craftsman craftsman) {
+        this.craftsman = craftsman;
     }
 
     public Craft getCraft() {
