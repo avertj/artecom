@@ -7,12 +7,21 @@ package model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  *
  * @author bmf
  */
 @Entity
+@Indexed
+@NamedQueries({
+    @NamedQuery(name="Produit.findAll",
+                query="SELECT p FROM Product p")
+}) 
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,6 +34,8 @@ public class Product implements Serializable {
     @ManyToOne
     private Craft craft;
     private String name;
+    @Lob
+    @Field(index=org.hibernate.search.annotations.Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String description; // sera probablement une chaine html générée par un editeur riche en js
     private Float price;
     // un poids faisant varier le prix des frais de port ou une valeur fixe pour les frais de ports ?
