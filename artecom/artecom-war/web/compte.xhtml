@@ -14,18 +14,21 @@
                 <h:form >
                     <h:panelGrid id="formGrid" columns="2">
 
-                        <h:outputLabel value="Nom :"/>
-                        <h:inputText value="#{clientManagedBean.client.lastName}"/>
-                        <h:outputLabel value="Prenom :"/>
-                        <h:inputText value="#{clientManagedBean.client.firstName}"/>
-                        <h:outputLabel value="Login :"/>
-                        <h:inputText value="#{clientManagedBean.client.login}"/>
-                        <h:outputLabel value="Password :"/>
-                        <h:inputText value="#{clientManagedBean.user.password}"/>
+                        <p:outputLabel value="Nom :"/>
+                        <p:inputText value="#{clientManagedBean.client.lastName}"/>
+                        <p:outputLabel value="Prenom :"/>
+                        <p:inputText value="#{clientManagedBean.client.firstName}"/>
+                        <p:outputLabel value="Login :"/>
+                        <p:inputText value="#{clientManagedBean.client.login}">
+                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                        </p:inputText>
+                        <p:outputLabel value="Password :"/>
+                        <p:password value="#{clientManagedBean.user.password}">
+                            <f:validateLength minimum="8"/>
+                        </p:password>
 
                     </h:panelGrid>
-                    <p:commandButton value="Ajouter" update="formGrid" action="#{clientManagedBean.add}" />
-
+                    <h:commandButton value="Ajouter" action="#{clientManagedBean.add}" />
                 </h:form>
             </ui:define>
         </ui:composition>
