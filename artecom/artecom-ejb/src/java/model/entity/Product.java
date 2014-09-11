@@ -35,6 +35,8 @@ public class Product implements Serializable {
     @ManyToOne
     private Craftsman producer;
     @ManyToOne
+    private Site site;
+    @ManyToOne
     private Craft craft;
     private String name;
 
@@ -170,6 +172,14 @@ public class Product implements Serializable {
 
     public void setAvailability(Availability availability) {
         this.availability = availability;
+    }
+
+    public Site getSite() {
+        return site;
+    }
+
+    public void setSite(Site site) {
+        this.site = site;
     }
 
     public Float getRating() {
