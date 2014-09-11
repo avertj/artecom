@@ -5,10 +5,13 @@
  */
 package model.queries;
 
+import javax.ejb.Stateless;
+
 /**
  *
  * @author donatien
  */
+@Stateless
 public class ProductQueries {
 
 }

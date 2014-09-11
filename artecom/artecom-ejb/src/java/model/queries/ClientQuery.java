@@ -3,27 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package model.queries;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import model.entity.Craft;
+import model.entity.Client;
 
 /**
  *
- * @author donatien
+ * @author inilog
  */
 @Stateless
-public class CraftQueries {
-
+public class ClientQuery {
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 
-    public Craft getCraft(int choix) {
-        Query q = em.createQuery("select distinct OBJECT(c) from Craft c where c.id=:choix");
-        q.setParameter("choix", choix);
-        return (Craft) q.getSingleResult();
+    public Client getClientByLogin (String login) {
+        Query q = em.createNamedQuery("Client.getByLogin");
+        q.setParameter("login", login);
+        return (Client) q.getSingleResult();
     }
 }
