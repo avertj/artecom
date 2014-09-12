@@ -8,29 +8,35 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:artecom="http://xmlns.jcp.org/jsf/composite/artecom">
     <body>
         <ui:composition>
-            <div id="page-header-banner">
-                <div id="page-header-banner-logo">
-                    <h:graphicImage name="img/france2.png" height="100px" />
+            <h:form>
+                <div id="page-header-banner">
+                    <div id="page-header-banner-logo">
+                        <h:graphicImage name="img/france2.png" height="100px" />
+                    </div>
+                    <div id="page-header-banner-text">
+                        <span><a href="#">Artecom</a></span>
+                    </div>
                 </div>
-                <div id="page-header-banner-text">
-                    <span><a href="#">Artecom</a></span>
-                </div>
-            </div>
 
-            <div id="page-header-user">
-                <div id="page-header-user-info">
-                    <span><a href="#">Log in</a></span>
-                    <span>-</span>
-                    <span><a href="#">Sign in</a></span>
+                <div id="page-header-user">
+                    <div id="page-header-user-info">
+                        <span><p:commandLink oncomplete="PF('loginDialog').show();" value="Log in"/></span>
+                        <span>-</span>
+                        <span><p:link outcome="compte" value="Sign in"/></span>
+                    </div>
+                    <div id="page-header-user-cart">
+                        <span id="cart-icon"><h:graphicImage name="img/icon/glyphicons_202_shopping_cart.png" /></span>
+                        <span id="cart-item-count">(8)</span>
+                    </div>
                 </div>
-                <div id="page-header-user-cart">
-                    <span id="cart-icon"><h:graphicImage name="img/icon/glyphicons_202_shopping_cart.png" /></span>
-                    <span id="cart-item-count">(8)</span>
-                </div>
-            </div>
+                <p:dialog id="loginDialog" widgetVar="loginDialog">
+                    <artecom:login loginBean="#{loginManagedBean}" />
+                </p:dialog>
+            </h:form>
         </ui:composition>
     </body>
 </html>
