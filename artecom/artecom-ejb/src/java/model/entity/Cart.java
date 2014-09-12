@@ -26,43 +26,73 @@ public class Cart implements Serializable {
     private Long id;
 
     @OneToMany
-    private List<ProductQuantity> products;
+    private List<ProductQuantity> list;
 
-    public List<ProductQuantity> getProducts() {
-        return products;
+    
+    public Cart()
+    {
+    
     }
 
-    public void setProducts(List<ProductQuantity> products) {
-        this.products = products;
+    public List<ProductQuantity> getList() {
+        return list;
     }
 
-    public void removeProduct(Product p) {
-        if (products.contains(p)) {
-            products.remove(products.get(products.indexOf(p)));
+    public void setList(List<ProductQuantity> list) {
+        this.list = list;
+    }
+    
+    public int isInCart(Long id){
+        for(int i = 0; i< this.list.size(); i++){
+            if(this.list.get(i).getProduct().getId().equals(id)){
+                return i;
+            }
         }
+        return -1;
+    }
+
+    
+    public void majProd(int index, int quantite){
+        this.list.get(index).setQuantity(quantite);
+    }
+    
+    public void removeProduct(int pos) {       
+            this.list.remove(pos);
     }
 
     public void updateQuantity(Product p, int quantity) {
-        if (products.contains(p)) {
-            ProductQuantity pq = products.get(products.indexOf(p));
+        if (list.contains(p)) {
+            ProductQuantity pq = list.get(list.indexOf(p));
             pq.setQuantity(quantity);
         }
     }
 
-    public void addProduct(Product p, int quantity) {
-        if (!products.contains(p)) {
-            ProductQuantity pq = new ProductQuantity(p, quantity);
-        }
+
+    public void addtoCart(ProductQuantity pq)
+    {
+        this.list.add(pq);
     }
 
-    public float getPrice() {
-        float sum = 0;
-        for (ProductQuantity pq : products) {
-            sum += pq.getPrice();
+    public float getPriceOfCart(){
+        int tot = 0;
+        if(this.list.size()>0)
+        {
+            for (int i = 0; i < this.list.size(); i++) {
+                tot += this.list.get(i).getPrice();
+            }
         }
-        return sum;
+        return tot;
     }
+//    public float getPrice() {
+//        float sum = 0;
+//        for (ProductQuantity pq : list) {
+//            sum += pq.getPrice();
+//        }
+//        return sum;
+//    }
 
+    
+    
     public Long getId() {
         return id;
     }
