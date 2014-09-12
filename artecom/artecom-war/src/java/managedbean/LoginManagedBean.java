@@ -23,6 +23,24 @@ public class LoginManagedBean {
 
     private String login;
     private String password;
+    private Principal principal;
+    private boolean craftsman;
+
+    public boolean isCraftsman() {
+        return craftsman;
+    }
+
+    public void setCraftsman(boolean craftsman) {
+        this.craftsman = craftsman;
+    }
+
+    public Principal getPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(Principal principal) {
+        this.principal = principal;
+    }
 
     public String getLogin() {
         return login;
@@ -40,19 +58,21 @@ public class LoginManagedBean {
         this.password = password;
     }
 
-    public void login() {
+    public void login(boolean dontmove) {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             String navigateString = "";
             request.login(login, password);
-            Principal principal = request.getUserPrincipal();
-            if (request.isUserInRole("admin")) {
-                navigateString = "/admin/";
-            } else if (request.isUserInRole("craftsman")) {
-                navigateString = "/craftsman/";
-            } else if (request.isUserInRole("client")) {
-                navigateString = "/client/";
+            principal = request.getUserPrincipal();
+            if (!dontmove) {
+                if (request.isUserInRole("craftsman")) {
+                    craftsman = true;
+                    navigateString = "/craftsman/";
+                } else if (request.isUserInRole("client")) {
+                    craftsman = false;
+                    navigateString = "/client/";
+                }
             }
             try {
                 context.getExternalContext().redirect(request.getContextPath() + navigateString);
@@ -62,6 +82,8 @@ public class LoginManagedBean {
         } catch (ServletException e) {
 
         }
+        if (principal == null)
+            login = null;
     }
 
     /**
