@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package managedbean;
 
 import javax.ejb.EJB;
@@ -16,9 +15,10 @@ import model.queries.ClientQuery;
  *
  * @author inilog
  */
-@ManagedBean(name="findClientManagedBean")
+@ManagedBean(name = "findClientManagedBean")
 @SessionScoped
 public class FindClientManagedBean {
+
     @EJB
     private ClientQuery clientQuery;
     private Client client = new Client();
@@ -39,7 +39,7 @@ public class FindClientManagedBean {
     public void setLogin(String login) {
         this.login = login;
     }
-    
+
     public void find() {
         client = clientQuery.getClientByLogin(login);
     }
@@ -49,5 +49,5 @@ public class FindClientManagedBean {
      */
     public FindClientManagedBean() {
     }
-    
+
 }
