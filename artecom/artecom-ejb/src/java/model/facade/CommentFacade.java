@@ -16,6 +16,7 @@ import model.entity.Comment;
  */
 @Stateless
 public class CommentFacade extends AbstractFacade<Comment> {
+
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 

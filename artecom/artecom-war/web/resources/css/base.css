@@ -218,8 +218,9 @@ a {
     width: 100%;
 }
 .page-content-breadcrumb {
-    display: inline;
-    padding: 8px;
+    display: block;
+    font-size: 1.2em;
+    padding: 10px;
     background-color: #83AC7F;
     border-radius:20px; 
     -moz-border-radius:20px; 
@@ -250,6 +251,15 @@ a {
     flex-grow: 0;
     margin: 5px;
     position: relative;
+}
+
+.page-content-product-title {
+    display: block;
+    padding: 4px;
+    background-color: #83AC7F;
+    border-radius: 20px;
+    margin-left: 50px;
+    padding-left: 10px;
 }
 
 .page-content-category-item-image {

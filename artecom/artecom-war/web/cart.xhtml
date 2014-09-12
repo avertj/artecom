@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+         <ui:composition template="/template/layout.xhtml">
+            <ui:define name="content">
+                <h:form id="form">
+                    <h:panelGrid id="formGrid" columns="3">
+                            <h:outputLabel for="name" value="ID Product(1000,2000,..) :" style="font-weight:bold"/>
+                            <h:inputText id="proId" value="#{cartManagedBean.prodId}" required="true"/>
+                            <p:message for="proId" />
+                            
+                            <h:outputLabel for="quantity" value="Quantity :" style="font-weight:bold"/>
+                            <h:inputText id="quantity" value="#{cartManagedBean.quantity}">                                
+                            </h:inputText>
+                            <p:message for="quantity" />
+                            
+                    </h:panelGrid> 
+                    
+                    <p:commandButton value="Add To Cart" icon="ui-icon-check" validateClient="true" update="form :panel" action="#{cartManagedBean.addToCart()}"/>
+                    <p:commandButton value="Remove From Cart" icon="ui-icon-check" validateClient="true" update="form :panel" action="#{cartManagedBean.removeFromCart()}"/>
+                </h:form>
+                <h3>Carts list</h3>
+                <p:panel id="panel">
+                    <h:dataTable value="#{cartManagedBean.cart.list}" var="cart" styleClass="table"
+                                 headerClass="tableHeader"
+                                 rowClasses="tableEvenRow,tableOddRow">
+                       
+                        <h:column>    				
+                            <f:facet name="header">Numero</f:facet>    				
+                                #{cart.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Product</f:facet>
+                                #{cart.product.name}
+                        </h:column>  
+                        <h:column>
+                            <f:facet name="header">Quantity</f:facet>
+                                #{cart.quantity}
+                        </h:column>  
+                         <h:column>
+                            <f:facet name="header">Price</f:facet>
+                                #{cart.price}
+                        </h:column>  
+                    </h:dataTable>
+                </p:panel>
+       
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

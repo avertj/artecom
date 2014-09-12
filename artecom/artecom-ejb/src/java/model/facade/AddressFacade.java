@@ -16,6 +16,7 @@ import model.entity.Address;
  */
 @Stateless
 public class AddressFacade extends AbstractFacade<Address> {
+
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 

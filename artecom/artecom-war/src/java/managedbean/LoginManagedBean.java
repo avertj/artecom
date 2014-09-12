@@ -82,8 +82,9 @@ public class LoginManagedBean {
         } catch (ServletException e) {
 
         }
-        if (principal == null)
+        if (principal == null) {
             login = null;
+        }
     }
 
     /**

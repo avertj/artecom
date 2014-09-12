@@ -16,6 +16,7 @@ import model.entity.Cart;
  */
 @Stateless
 public class CartFacade extends AbstractFacade<Cart> {
+
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 

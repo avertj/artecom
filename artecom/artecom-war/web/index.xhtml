@@ -25,48 +25,40 @@
                         pulvinar. Sed congue, dui in dignissim rutrum, neque dui pulvinar
                         odio, at dignissim nunc velit sit amet augue. Curabitur aliquet nulla
                         et pulvinar sollicitudin.</p>
-                    <p><a href="#">Vestibulum sit amet mattis</a> nisi. Integer porta molestie purus.
-                        Phasellus accumsan rutrum nibh. Pellentesque pellentesque enim at
-                        lobortis tincidunt. Donec odio sapien, faucibus eu molestie vel,
-                        tempus ac nisl. Curabitur maximus, erat ut dapibus efficitur, dui diam
-                        vehicula eros, ac efficitur quam diam id risus. Nullam quis arcu nibh.
-                        Nulla facilisi. Nam non sem ornare magna suscipit fringilla. Duis
-                        interdum nisl et convallis volutpat. Pellentesque tempor elit
-                        imperdiet cursus ultricies. Suspendisse quis nulla vehicula, facilisis
-                        mi eget, condimentum sem.</p>
                 </div>
 
                 <div id="page-content-body">
-                    
                     <p:outputPanel id="shop">
                         <p:outputPanel id="breadcrumb" styleClass="page-content-breadcrumb">
-                            <c:choose>
-                                <c:when test="#{shopView.currentCraft == null}">
-                                    <h:outputText value="Categorie principale" />
-                                </c:when>
-                                <c:otherwise>
-                                    <p:commandLink value="Categorie principale" actionListener="#{shopView.categoryClick}" update=":shop">
-                                        <f:param name="catId" />
+                            <h:form>
+                                <c:choose>
+                                    <c:when test="#{shopView.currentCraft == null}">
+                                        <h:outputText value="Categorie principale" />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p:commandLink value="Categorie principale" actionListener="#{shopView.categoryClick}" update=":shop">
+                                            <f:param name="catId" />
+                                        </p:commandLink>
+                                    </c:otherwise>
+                                </c:choose>
+                                <ui:repeat value="#{shopView.breadcrumbs}" var="bread">
+                                    <h:outputText value=" / " />
+                                    <p:commandLink value="#{bread.name}" actionListener="#{shopView.categoryClick}" update=":shop">
+                                        <f:param name="catId" value="#{bread.id}" />
                                     </p:commandLink>
-                                </c:otherwise>
-                            </c:choose>
-                            <ui:repeat value="#{shopView.breadcrumbs}" var="bread">
-                                <h:outputText value=" / " />
-                                <p:commandLink value="#{bread.name}" actionListener="#{shopView.categoryClick}" update=":shop">
-                                    <f:param name="catId" value="#{bread.id}" />
-                                </p:commandLink>
-                            </ui:repeat>
-                            <c:if test="#{shopView.currentCraft != null}">
-                                <h:outputText value=" / " />
-                                <h:outputText value="#{shopView.currentCraft.name}" />
-                            </c:if>
+                                </ui:repeat>
+                                <c:if test="#{shopView.currentCraft != null}">
+                                    <h:outputText value=" / " />
+                                    <h:outputText value="#{shopView.currentCraft.name}" />
+                                </c:if>
+                            </h:form>
                         </p:outputPanel>
 
                         <p:outputPanel id="categories" styleClass="page-content-category-list">
                             <ui:repeat var="cat" value="#{shopView.crafts}">
                                 <div class="page-content-category-item">
                                     <div class="page-content-category-item-image">
-                                        <h:graphicImage name="http://placehold.it/180x180" />
+                                        <img src="http://placehold.it/180x180" />
                                     </div>
                                     <div class="page-content-category-item-desc">
                                         <span>
@@ -80,7 +72,14 @@
                                 </div>
                             </ui:repeat>
                         </p:outputPanel>
-                        
+
+
+                        <p:outputPanel id="products-title" styleClass="page-content-product-title">
+                            <c:if test="#{not empty shopView.products}">
+                                <h:outputText value="Produits dans cette categorie" />
+                            </c:if>
+                        </p:outputPanel>
+
                         <p:outputPanel id="products" styleClass="page-content-product-list">
                             <c:if test="#{not empty shopView.products}">
                                 <ui:repeat var="prod" value="#{shopView.products}">
@@ -91,6 +90,7 @@
                                         <div class="page-content-product-item-desc">
                                             <span>
                                                 <h:outputText value="#{prod.name} (#{prod.price} €)" />
+                                                <h:outputText value="#{prod.craftsman.firstName} (#{prod.craftsman.lastName})" />
                                             </span>
                                         </div>
                                     </div>

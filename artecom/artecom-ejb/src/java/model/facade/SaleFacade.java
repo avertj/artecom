@@ -16,6 +16,7 @@ import model.entity.Sale;
  */
 @Stateless
 public class SaleFacade extends AbstractFacade<Sale> {
+
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 
