@@ -5,6 +5,8 @@
  */
 package managedbean;
 
+import com.google.common.collect.Lists;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
@@ -45,6 +47,18 @@ public class ShopView {
             list.add(0, precedentCraft);
             return list;
         }
+    }
+
+    public List<Craft> getBreadcrumbs() {
+        if (currentCraft == null) {
+            return null;
+        }
+        List<Craft> bread = new ArrayList<>();
+        Craft tmp = currentCraft;
+        while ((tmp = tmp.getParent()) != null) {
+            bread.add(tmp);
+        }
+        return Lists.reverse(bread);
     }
 
     public List<Product> getProducts() {
