@@ -31,7 +31,6 @@ public class ShopView {
     @EJB
     private ProductQueries productQueries;
 
-    private Craft precedentCraft;
     private Craft currentCraft;
 
     private List<Product> productList;
@@ -44,13 +43,12 @@ public class ShopView {
             return craftQueries.getRootCrafts();
         } else {
             List<Craft> list = craftQueries.getSubCrafts(currentCraft);
-            list.add(0, precedentCraft);
             return list;
         }
     }
 
     public List<Craft> getBreadcrumbs() {
-        if (currentCraft == null) {
+        if (currentCraft == null || currentCraft.getParent() == null) {
             return null;
         }
         List<Craft> bread = new ArrayList<>();
@@ -61,16 +59,23 @@ public class ShopView {
         return Lists.reverse(bread);
     }
 
+    public Craft getCurrentCraft() {
+        return currentCraft;
+    }
+
     public List<Product> getProducts() {
         return productList;
     }
 
     public void categoryClick(ActionEvent actionEvent) {
         String catId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("catId");
-        //System.out.println(catId);
-        precedentCraft = currentCraft;
-        currentCraft = craftQueries.getCraft(Long.valueOf(catId));
-        productList = productQueries.getProducts(currentCraft);
+        if (catId == null || catId.equalsIgnoreCase("null")) {
+            currentCraft = null;
+            productList = null;
+        } else {
+            currentCraft = craftQueries.getCraft(Long.valueOf(catId));
+            productList = productQueries.getProducts(currentCraft);
+        }
     }
 
 }
