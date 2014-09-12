@@ -9,7 +9,8 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:artecom="http://xmlns.jcp.org/jsf/composite/artecom">
+      xmlns:artecom="http://xmlns.jcp.org/jsf/composite/artecom"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
         <ui:composition>
             <h:form>
@@ -24,7 +25,9 @@ and open the template in the editor.
 
                 <div id="page-header-user">
                     <div id="page-header-user-info">
-                        <span><p:commandLink oncomplete="PF('loginDialog').show();" value="Log in"/></span>
+                                <span><p:commandLink oncomplete="PF('loginDialog').show();" value="Log in">
+                                        
+                            </p:commandLink></span>
                         <span>-</span>
                         <span><p:link outcome="compte" value="Sign in"/></span>
                     </div>
@@ -34,7 +37,7 @@ and open the template in the editor.
                     </div>
                 </div>
                 <p:dialog id="loginDialog" widgetVar="loginDialog">
-                    <artecom:login loginBean="#{loginManagedBean}" />
+                    <artecom:login loginBean="#{loginManagedBean}" dontmove="true"/>
                 </p:dialog>
             </h:form>
         </ui:composition>

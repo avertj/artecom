@@ -18,7 +18,9 @@
             </ui:define>
             <ui:define name="content">
                 <h:form styleClass="loginPanelStyle">
-                    <art:login loginBean="#{loginManagedBean}"/>
+                    <h:form>
+                        <art:login loginBean="#{loginManagedBean}"/>
+                    </h:form>
                 </h:form>
             </ui:define>
         </ui:composition>

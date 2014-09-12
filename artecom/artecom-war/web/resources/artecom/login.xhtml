@@ -3,11 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <!-- INTERFACE -->
     <cc:interface>
         <cc:attribute name="loginBean" required="true" />
+        <cc:attribute name="dontmove" required="false" />
     </cc:interface>
 
     <!-- IMPLEMENTATION -->
@@ -26,7 +28,12 @@
                 <f:validateLength minimum="8" />  
             </p:password>
             <f:facet name="footer">
-                <p:commandButton value="Valider" update="msgs" actionListener="#{cc.attrs.loginBean.login}" type="submit" icon="ui-icon-check" style="margin:0"></p:commandButton>
+                <c:if test="#{cc.attrs.dontmove==null}">
+                    <p:commandButton value="Valider" update="msgs" actionListener="#{cc.attrs.loginBean.login(false)}" type="submit" icon="ui-icon-check" style="margin:0"></p:commandButton>
+                </c:if>
+                <c:if test="#{cc.attrs.dontmove!=null}">
+                    <p:commandButton value="Valider" update="msgs" actionListener="#{cc.attrs.loginBean.login(true)}" type="submit" icon="ui-icon-check" style="margin:0"></p:commandButton>
+                </c:if>
             </f:facet>
         </p:panelGrid>
     </cc:implementation>
