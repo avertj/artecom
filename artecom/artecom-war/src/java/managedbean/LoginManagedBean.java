@@ -24,6 +24,15 @@ public class LoginManagedBean {
     private String login;
     private String password;
     private Principal principal;
+    private boolean craftsman;
+
+    public boolean isCraftsman() {
+        return craftsman;
+    }
+
+    public void setCraftsman(boolean craftsman) {
+        this.craftsman = craftsman;
+    }
 
     public Principal getPrincipal() {
         return principal;
@@ -57,11 +66,11 @@ public class LoginManagedBean {
             request.login(login, password);
             principal = request.getUserPrincipal();
             if (!dontmove) {
-                if (request.isUserInRole("admin")) {
-                    navigateString = "/admin/";
-                } else if (request.isUserInRole("craftsman")) {
+                if (request.isUserInRole("craftsman")) {
+                    craftsman = true;
                     navigateString = "/craftsman/";
                 } else if (request.isUserInRole("client")) {
+                    craftsman = false;
                     navigateString = "/client/";
                 }
             }

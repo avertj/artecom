@@ -10,7 +10,8 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:artecom="http://xmlns.jcp.org/jsf/composite/artecom"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
         <ui:composition>
             <h:form>
@@ -25,11 +26,19 @@ and open the template in the editor.
 
                 <div id="page-header-user">
                     <div id="page-header-user-info">
-                                <span><p:commandLink oncomplete="PF('loginDialog').show();" value="Log in">
-                                        
-                            </p:commandLink></span>
-                        <span>-</span>
-                        <span><p:link outcome="compte" value="Sign in"/></span>
+                        <c:if test="#{loginManagedBean.login==null}">
+                            <span><p:commandLink oncomplete="PF('loginDialog').show();" value="Log in"/></span>
+                            <span>-</span>
+                            <span><p:link outcome="compte" value="Sign in"/></span>
+                        </c:if>
+                        <c:if test="#{loginManagedBean.login!=null}">
+                            <c:if test="#{loginManagedBean.craftsman}">
+                                <span><p:link outcome="/craftsman/index.jsf" value="#{loginManagedBean.login}"/></span>
+                            </c:if>
+                            <c:if test="#{!loginManagedBean.craftsman}">
+                                <span><p:link outcome="/client/index.jsf" value="#{loginManagedBean.login}"/></span>
+                            </c:if>
+                        </c:if>
                     </div>
                     <div id="page-header-user-cart">
                         <span id="cart-icon"><h:graphicImage name="img/icon/glyphicons_202_shopping_cart.png" /></span>
