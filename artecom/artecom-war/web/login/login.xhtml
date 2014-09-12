@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:art="http://java.sun.com/jsf/composite/artecom"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
@@ -17,23 +18,9 @@
             </ui:define>
             <ui:define name="content">
                 <h:form styleClass="loginPanelStyle">
-                    <p:growl id="msgs" showDetail="true" sticky="false" />
-                    <p:panelGrid columns="2">
-                        <f:facet name="header">
-                            Connexion
-                        </f:facet>
-                        <p:outputLabel value="Login : " />
-                        <p:inputText id="login" value="#{loginManagedBean.login}" required="true" requiredMessage="Entrez un login!">
-                            <f:validateLength minimum="4" />  
-                        </p:inputText>
-                        <p:outputLabel value="Mot de pass : " />
-                        <p:password id="password" value="#{loginManagedBean.password}" required="true" requiredMessage="Entrez un mot de passe!">
-                            <f:validateLength minimum="8" />  
-                        </p:password>
-                        <f:facet name="footer">
-                            <p:commandButton value="Valider" update="msgs" actionListener="#{loginManagedBean.login}" type="submit" icon="ui-icon-check" style="margin:0"></p:commandButton>
-                        </f:facet>
-                    </p:panelGrid>
+                    <h:form>
+                        <art:login loginBean="#{loginManagedBean}"/>
+                    </h:form>
                 </h:form>
             </ui:define>
         </ui:composition>

@@ -5,6 +5,8 @@
  */
 package managedbean;
 
+import com.google.common.collect.Lists;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
@@ -29,7 +31,6 @@ public class ShopView {
     @EJB
     private ProductQueries productQueries;
 
-    private Craft precedentCraft;
     private Craft currentCraft;
 
     private List<Product> productList;
@@ -42,9 +43,24 @@ public class ShopView {
             return craftQueries.getRootCrafts();
         } else {
             List<Craft> list = craftQueries.getSubCrafts(currentCraft);
-            list.add(0, precedentCraft);
             return list;
         }
+    }
+
+    public List<Craft> getBreadcrumbs() {
+        if (currentCraft == null || currentCraft.getParent() == null) {
+            return null;
+        }
+        List<Craft> bread = new ArrayList<>();
+        Craft tmp = currentCraft;
+        while ((tmp = tmp.getParent()) != null) {
+            bread.add(tmp);
+        }
+        return Lists.reverse(bread);
+    }
+
+    public Craft getCurrentCraft() {
+        return currentCraft;
     }
 
     public List<Product> getProducts() {
@@ -53,10 +69,13 @@ public class ShopView {
 
     public void categoryClick(ActionEvent actionEvent) {
         String catId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("catId");
-        //System.out.println(catId);
-        precedentCraft = currentCraft;
-        currentCraft = craftQueries.getCraft(Long.valueOf(catId));
-        productList = productQueries.getProducts(currentCraft);
+        if (catId == null || catId.equalsIgnoreCase("null")) {
+            currentCraft = null;
+            productList = null;
+        } else {
+            currentCraft = craftQueries.getCraft(Long.valueOf(catId));
+            productList = productQueries.getProducts(currentCraft);
+        }
     }
 
 }
