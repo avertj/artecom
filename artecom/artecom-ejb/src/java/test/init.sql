@@ -56,9 +56,9 @@ INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTN
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
 	VALUES (1000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at pulvinar neque. In blandit sem nec ligula cursus, quis molestie nunc sollicitudin. In eleifend quam nec diam volutpat suscipit. Mauris pellentesque mollis pharetra. Sed ex dui, viverra vel sapien at, eleifend consequat arcu. Vestibulum quis nibh eu elit lobortis finibus. Morbi in vulputate ex. In sit amet sodales ligula. Phasellus viverra magna mattis, ornare augue eu, bibendum leo. Nullam consequat ex in consectetur condimentum. Suspendisse potenti. ', NULL, 1, '45.7549593', '4.8428779', 5000, 5000);
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
-	VALUES (2000, 'Nullam tincidunt metus at mollis placerat. Nunc efficitur imperdiet turpis sit amet gravida. Morbi sagittis dui eu erat consectetur ultricies. Aliquam mattis felis eu turpis porta euismod. Donec lobortis nunc velit, nec gravida enim tempor sed. Ut eleifend at orci sit amet venenatis. Vivamus sed volutpat velit, id tincidunt velit. Fusce non sem rutrum, dignissim erat sed, varius tellus. Pellentesque tincidunt sem eget maximus egestas. Nulla volutpat tincidunt ante, in tincidunt lorem ornare vitae. ', NULL, 1, '45.7577277', '4.8348908', 5000, 7000);
+	VALUES (2000, 'Nullam tincidunt metus at mollis placerat. Nunc efficitur imperdiet turpis sit amet gravida. Morbi sagittis dui eu erat consectetur ultricies. Aliquam mattis felis eu turpis porta euismod. Donec lobortis nunc velit, nec gravida enim tempor sed. Ut eleifend at orci sit amet venenatis. Vivamus sed volutpat velit, id tincidunt velit. Fusce non sem rutrum, dignissim erat sed, varius tellus. Pellentesque tincidunt sem eget maximus egestas. Nulla volutpat tincidunt ante, in tincidunt lorem ornare vitae. ', NULL, 0, '45.7577277', '4.8348908', 5000, 7000);
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
-	VALUES (3000, 'Suspendisse vel gravida turpis, at mattis ligula. Vestibulum vel pretium ante. Quisque facilisis consequat nulla, et pellentesque magna tempor vel. Donec laoreet hendrerit mi mattis auctor. Nam porta eget leo sed rhoncus. Aliquam fringilla ligula sed porttitor efficitur. Phasellus quis mollis ipsum, vitae scelerisque justo. Nam tristique tortor sit amet metus gravida, sit amet dapibus turpis efficitur. Proin ullamcorper a elit sit amet fringilla. Pellentesque in efficitur tellus, a rutrum eros. Praesent commodo, libero ac dignissim facilisis, arcu sem sodales velit, eu euismod enim est id velit. Ut scelerisque massa nec elit elementum, efficitur aliquam urna blandit.', NULL, 1, '45.1868352', '5.723845799999999', 6000, 4000);
+	VALUES (3000, 'Suspendisse vel gravida turpis, at mattis ligula. Vestibulum vel pretium ante. Quisque facilisis consequat nulla, et pellentesque magna tempor vel. Donec laoreet hendrerit mi mattis auctor. Nam porta eget leo sed rhoncus. Aliquam fringilla ligula sed porttitor efficitur. Phasellus quis mollis ipsum, vitae scelerisque justo. Nam tristique tortor sit amet metus gravida, sit amet dapibus turpis efficitur. Proin ullamcorper a elit sit amet fringilla. Pellentesque in efficitur tellus, a rutrum eros. Praesent commodo, libero ac dignissim facilisis, arcu sem sodales velit, eu euismod enim est id velit. Ut scelerisque massa nec elit elementum, efficitur aliquam urna blandit.', NULL, 0, '45.1868352', '5.723845799999999', 6000, 4000);
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
 	VALUES (4000, 'Quisque sem magna, hendrerit lacinia ultricies id, consequat sed libero. Pellentesque id vestibulum tortor. Nam consequat arcu et ligula scelerisque, in condimentum nisi semper. Vivamus ac bibendum justo. Vivamus efficitur mi ut massa varius fermentum. Nulla in sodales est, vitae commodo purus. Fusce eget vestibulum lacus. Curabitur eget sodales nisl, sed ultricies diam. Donec auctor maximus sapien, quis euismod velit imperdiet imperdiet. Sed in dictum felis, sit amet lobortis massa. Morbi sit amet convallis eros. Aenean sed purus dui. Curabitur fringilla massa id lectus tempus tristique. Praesent semper pulvinar aliquam. Integer elementum nulla sed posuere porttitor.', NULL, 1, '45.1860015', '5.7259214', 7000, 3000);
 
@@ -91,3 +91,19 @@ INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESS_ID)
 	VALUES (2000, 2000);
 INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESS_ID) 
 	VALUES (3000, 8000);
+
+
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (1000, 1000)
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (2000, 1000)
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (3000, 1000)
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (2000, 2000)
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (3000, 3000)
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (4000, 4000)
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (2000, 3000)

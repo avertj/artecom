@@ -286,3 +286,8 @@ a {
 .tooltip img {
     vertical-align: middle;
 }
+
+.map-tooltip {
+    display: block;
+    margin: auto;
+}
