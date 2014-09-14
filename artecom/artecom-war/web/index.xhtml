@@ -84,15 +84,11 @@
                             <c:if test="#{not empty shopView.products}">
                                 <ui:repeat var="prod" value="#{shopView.products}">
                                     <div class="page-content-product-item">
-                                        <div class="page-content-product-item-image">
-                                            <img src="http://placehold.it/100x100" />
-                                        </div>
                                         <div class="page-content-product-item-desc">
-                                            <span>
-                                                <h:outputText value="#{prod.name} (#{prod.price} €)" />
-                                                <h:outputText value="#{prod.craftsman.firstName} (#{prod.craftsman.lastName})" />
-                                            </span>
+                                            <div class="name"><a href="#">#{prod.name}</a></div>
+                                            <div class="craftsman">Vendu par <a href="#">#{prod.craftsman.firstName} #{prod.craftsman.lastName}</a></div>
                                         </div>
+                                        <div class="cart-add"><span>#{prod.price} €</span><h:graphicImage name="img/icon/glyphicons_209_cart_in.png" /></div>
                                     </div>
                                 </ui:repeat>
                             </c:if>
