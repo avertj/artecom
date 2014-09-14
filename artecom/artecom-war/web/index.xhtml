@@ -68,7 +68,6 @@
                                                     <h:outputText value="#{cat.name}" />
                                                 </span>
                                             </div>
-
                                         </p:commandLink>
                                     </h:form>
                                 </div>
@@ -95,7 +94,13 @@
                                             <div class="name"><a href="#">#{prod.name}</a></div>
                                             <div class="craftsman">Vendu par <a href="#">#{prod.craftsman.firstName} #{prod.craftsman.lastName}</a></div>
                                         </div>
-                                        <div class="cart-add"><span>#{prod.price} €</span><h:graphicImage name="img/icon/glyphicons_209_cart_in.png" /></div>
+                                        <h:form>
+                                            <p:commandLink actionListener="#{cartManager.addClick}" >
+                                                <f:param name="prodId" value="#{prod.id}" />
+                                                <f:param name="qty" value="1" />
+                                                <div class="cart-add"><span>#{prod.price} €</span><h:graphicImage name="img/icon/glyphicons_209_cart_in.png" /></div>
+                                            </p:commandLink>
+                                        </h:form>
                                     </div>
                                 </ui:repeat>
                             </c:if>
