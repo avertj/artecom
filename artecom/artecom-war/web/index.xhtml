@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
@@ -57,27 +57,34 @@
                         <p:outputPanel id="categories" styleClass="page-content-category-list">
                             <ui:repeat var="cat" value="#{shopView.crafts}">
                                 <div class="page-content-category-item">
-                                    <div class="page-content-category-item-image">
-                                        <img src="http://placehold.it/180x180" />
-                                    </div>
-                                    <div class="page-content-category-item-desc">
-                                        <span>
-                                            <h:form>
-                                                <p:commandLink value="#{cat.name}" actionListener="#{shopView.categoryClick}" update=":shop">
-                                                    <f:param name="catId" value="#{cat.id}" />
-                                                </p:commandLink>
-                                            </h:form>
-                                        </span>
-                                    </div>
+                                    <h:form>
+                                        <p:commandLink actionListener="#{shopView.categoryClick}" update=":shop">
+                                            <f:param name="catId" value="#{cat.id}" />
+                                            <div class="page-content-category-item-image">
+                                                <img src="http://placehold.it/180x180" />
+                                            </div>
+                                            <div class="page-content-category-item-desc">
+                                                <span>
+                                                    <h:outputText value="#{cat.name}" />
+                                                </span>
+                                            </div>
+
+                                        </p:commandLink>
+                                    </h:form>
                                 </div>
                             </ui:repeat>
                         </p:outputPanel>
 
 
                         <p:outputPanel id="products-title" styleClass="page-content-product-title">
-                            <c:if test="#{not empty shopView.products}">
-                                <h:outputText value="Produits dans cette categorie" />
-                            </c:if>
+                            <c:choose test="#{not empty shopView.products}">
+                                <c:when test="#{not empty shopView.products}">
+                                    <h:outputText value="Produits dans cette categorie" />
+                                </c:when>
+                                <c:when test="#{shopView.currentCraft != null}">
+                                    <h:outputText value="Aucun produit dans cette categorie" />
+                                </c:when>
+                            </c:choose>
                         </p:outputPanel>
 
                         <p:outputPanel id="products" styleClass="page-content-product-list">
