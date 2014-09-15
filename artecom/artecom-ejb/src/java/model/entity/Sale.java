@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -42,6 +43,9 @@ public class Sale implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
+
+    @OneToOne
+    private Client client;
     // peut etre utile pour les frais de ports
     /*public enum ShippingMethod {
 
@@ -127,6 +131,14 @@ public class Sale implements Serializable {
 
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override
