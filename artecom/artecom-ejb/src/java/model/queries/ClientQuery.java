@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.queries;
 
 import javax.ejb.Stateless;
@@ -18,10 +17,11 @@ import model.entity.Client;
  */
 @Stateless
 public class ClientQuery {
+
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 
-    public Client getClientByLogin (String login) {
+    public Client getClientByLogin(String login) {
         Query q = em.createNamedQuery("Client.getByLogin");
         q.setParameter("login", login);
         return (Client) q.getSingleResult();
