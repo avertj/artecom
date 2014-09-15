@@ -16,6 +16,7 @@ import model.entity.Site;
  */
 @Stateless
 public class SiteFacade extends AbstractFacade<Site> {
+
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 
