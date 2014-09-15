@@ -83,8 +83,9 @@ public class LoginManagedBean implements Serializable{
         } catch (ServletException e) {
 
         }
-        if (principal == null)
+        if (principal == null) {
             login = null;
+        }
     }
 
     /**
