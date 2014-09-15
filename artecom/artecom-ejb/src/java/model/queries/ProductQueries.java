@@ -29,8 +29,14 @@ public class ProductQueries {
         return q.getSingleResult();
     }
 
-    public List<Product> getProducts(Craft c) {
+    public List<Product> getProductsByCraft(Craft c) {
         TypedQuery<Product> q = em.createQuery("select distinct OBJECT(p) from Product p where p.craft=:c", Product.class);
+        q.setParameter("c", c);
+        return q.getResultList();
+    }
+    
+    public List<Product> getProductsById(Long c) {
+        TypedQuery<Product> q = em.createQuery("select distinct OBJECT(p) from Product p where p.craftsman.id=:c", Product.class);
         q.setParameter("c", c);
         return q.getResultList();
     }
