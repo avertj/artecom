@@ -23,8 +23,13 @@ public class SaleQuery {
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
     
-    public List<Sale> getSalesById(Long id){
-       Query q=em.createQuery("select OBJECT(s) from Sale s where s.cart.products.product.craftsman.id:=idq");
+    public List<Sale> getSalesCraftById(Long id){
+       Query q=em.createQuery("select OBJECT(s) from Sale s where s.products.product.craftsman.id=:idq");
+       q.setParameter("idq", id);
+       return q.getResultList(); 
+    }
+    public List<Sale> getSalesClientById(Long id){
+       Query q=em.createQuery("select OBJECT(s) from Sale s where s.client.id=:idq");
        q.setParameter("idq", id);
        return q.getResultList(); 
     }

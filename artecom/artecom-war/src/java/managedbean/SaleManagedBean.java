@@ -30,7 +30,17 @@ public class SaleManagedBean implements Serializable{
     @EJB
     private SaleFacade saleFacade;
     
-    private List<Sale> sales ;
+    private List<Sale> ClientSales ;
+    
+    private List<Sale> craftsmanSales;
+
+    public List<Sale> getCraftsmanSales() {
+        return craftsmanSales;
+    }
+
+    public void setCraftsmanSales(List<Sale> craftsmanSales) {
+        this.craftsmanSales = craftsmanSales;
+    }
     
     @EJB
     private SaleQuery saleQuery;
@@ -47,6 +57,7 @@ public class SaleManagedBean implements Serializable{
     }
 
     public String getLogin() {
+        login=lg.getLogin();
         return login;
     }
 
@@ -89,16 +100,13 @@ public class SaleManagedBean implements Serializable{
         this.saleFacade = saleFacade;
     }
 
-    public List<Sale> getSales() {
-        Client cl=cq.getClientByLogin("bob@gmail.com");
-        if(cl!=null){
-            sales= saleQuery.getSalesById(cl.getId());
-        }
-        return sales;
+    public List<Sale> getClientSales() {
+      
+        return ClientSales;
     }
 
-    public void setSales(List<Sale> sales) {
-        this.sales = sales;
+    public void setClientSales(List<Sale> ClientSales) {
+        this.ClientSales = ClientSales;
     }
     
 

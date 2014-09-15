@@ -1,12 +1,143 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <ui:composition template="/template/layout.xhtml">
+            <ui:define name="content"> 
+                <f:view>
+                    <h:form id="panel">
+                        <h1><h:outputText value="List"/></h1>
+                        <h:dataTable value="#{productManagedBean.products}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Version"/>
+                                </f:facet>
+                                <h:outputText value="#{item.version}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Craftsman"/>
+                                </f:facet>
+                                <h:outputText value="#{item.craftsman}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Craft"/>
+                                </f:facet>
+                                <h:outputText value="#{item.craft}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.name}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Description"/>
+                                </f:facet>
+                                <h:outputText value="#{item.description}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Price"/>
+                                </f:facet>
+                                <h:outputText value="#{item.price}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Weight"/>
+                                </f:facet>
+                                <h:outputText value="#{item.weight}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Quantity"/>
+                                </f:facet>
+                                <h:outputText value="#{item.quantity}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Availability"/>
+                                </f:facet>
+                                <h:outputText value="#{item.availability}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Site"/>
+                                </f:facet>
+                                <h:outputText value="#{item.site}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Rating"/>
+                                </f:facet>
+                                <h:outputText value="#{item.rating}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Options"/>
+                                </f:facet>
+                                <p:commandButton value="Remove" icon="ui-icon-check" validateClient="true"/>
+                                <p:commandButton value="Edit" icon="ui-icon-check" validateClient="true"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                    
+                     </f:view>
+                    
+                            <h:form id="form">
+                                <h1><h:outputText value="Create/Edit"/></h1>
+                                <h:panelGrid columns="2">
+                                    <h:outputLabel value="Version:" for="version" />
+                                    <h:inputText id="version" value="#{productManagedBean.produit.version}" title="Version" />
+                                    <h:outputLabel value="Craft:" for="craft" />
+                                    <h:selectOneMenu id="craft" value="#{productManagedBean.idcraft}" title="Craft" >
+                                        <!-- TODO: update below reference to list of available items-->
+                                                <f:selectItem itemValue="" itemLabel="None" />
+                                                <f:selectItems value="#{craftManagedBean.crafts}" var="craft" itemLabel="#{craft.toString()}" itemValue="#{craft.id}" />
+                     
+                                    </h:selectOneMenu>
+                                    <h:outputLabel value="Name:" for="name" />
+                                    <h:inputText id="name" value="#{productManagedBean.produit.name}" title="Name" />
+                                    <h:outputLabel value="Description:" for="description" />
+                                    <h:inputTextarea rows="4" cols="30" id="description" value="#{productManagedBean.produit.description}" title="Description" />
+                                    <h:outputLabel value="Price:" for="price" />
+                                    <h:inputText id="price" value="#{productManagedBean.produit.price}" title="Price" />
+                                    <h:outputLabel value="Weight:" for="weight" />
+                                    <h:inputText id="weight" value="#{productManagedBean.produit.weight}" title="Weight" />
+                                    <h:outputLabel value="Quantity:" for="quantity" />
+                                    <h:inputText id="quantity" value="#{productManagedBean.produit.quantity}" title="Quantity" />
+                                    <h:outputLabel value="Availability:" for="availability" />
+                                    <h:inputText id="availability" value="#{productManagedBean.produit.availability}" title="Availability" />
+                                    <h:outputLabel value="Site:" for="site" />
+                                    <h:selectOneMenu id="site" value="#{productManagedBean.produit.site}" title="Site" >
+                                        <!-- TODO: update below reference to list of available items-->
+                                        <f:selectItem itemValue="" itemLabel="None" />
+                                        <f:selectItems value="#{siteManagedBean.sites}" var="site" itemLabel="#{site.toString()}" itemValue="#{site.id}" />
+                                            
+                                    </h:selectOneMenu>
+                                    <p:commandButton value="Ajouter" icon="ui-icon-check" update="form :panel" validateClient="true" action="#{productManagedBean.add()}"/>
+                                </h:panelGrid>
+                            </h:form>
+
+               
+
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 
