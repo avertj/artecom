@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import model.entity.Craftsman;
 import model.entity.Site;
 
 /**
@@ -30,6 +31,12 @@ public class SiteQueries {
 
     public List<Site> getSites() {
         TypedQuery<Site> q = em.createQuery("select distinct OBJECT(s) from Site s", Site.class);
+        return q.getResultList();
+    }
+
+    public List<Site> getSites(Craftsman c) {
+        TypedQuery<Site> q = em.createQuery("select distinct OBJECT(s) from Site s where s.craftsman=:c", Site.class);
+        q.setParameter("c", c);
         return q.getResultList();
     }
 }

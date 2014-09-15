@@ -6,6 +6,7 @@
 package managedbean;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.Principal;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ManagedBean(name = "loginManagedBean")
 @SessionScoped
-public class LoginManagedBean {
+public class LoginManagedBean implements Serializable{
 
     private String login;
     private String password;

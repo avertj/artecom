@@ -79,19 +79,19 @@ public class ProductQuantity implements Serializable {
         if ((object instanceof ProductQuantity)) {
             ProductQuantity other = (ProductQuantity) object;
             p = other.getProduct();
-        } else if ((object instanceof Product)) {
-            p = (Product) object;
         } else {
             return false;
         }
 
+        System.out.println("Product.equals : this.id = " + id);
+        System.out.println("Product.equals : other.id = " + p.getId());
         if (product.equals(p)) {
             return true;
         }
         /*if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
          return false;
          }*/
-        return true;
+        return false;
     }
 
     @Override

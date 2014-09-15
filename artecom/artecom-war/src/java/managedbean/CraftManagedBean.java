@@ -30,8 +30,6 @@ public class CraftManagedBean {
 
     private List<Craft> crafts;
 
-    private CraftQueries craftQueries;
-
     public Long getIdparent() {
         return idparent;
     }
@@ -67,12 +65,19 @@ public class CraftManagedBean {
     }
 
     public void add() {
-        for (Craft c : crafts) {
-            if (c.getId().equals(idparent)) {
-                craft.setParent(c);
-            }
-        }
+        Craft c= getCraftById(idparent);
+        craft.setParent(c);
         craftFacade.create(craft);
         craft = new Craft();
+    }
+    
+    public Craft getCraftById(Long idparent){
+        Craft good = null;
+       for (Craft c : crafts) {
+            if (c.getId().equals(idparent)) {
+                good=c;
+            }
+        } 
+       return good;
     }
 }

@@ -6,6 +6,7 @@
 package managedbean;
 
 import com.google.common.collect.Lists;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -24,7 +25,7 @@ import model.queries.ProductQueries;
  */
 @Named(value = "shopView")
 @ViewScoped
-public class ShopView {
+public class ShopView implements Serializable {
 
     @EJB
     private CraftQueries craftQueries;
@@ -74,7 +75,7 @@ public class ShopView {
             productList = null;
         } else {
             currentCraft = craftQueries.getCraft(Long.valueOf(catId));
-            productList = productQueries.getProducts(currentCraft);
+            productList = productQueries.getProductsByCraft(currentCraft);
         }
     }
 
