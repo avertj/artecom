@@ -1,12 +1,93 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <ui:composition template="/template/layout.xhtml">
+            <ui:define name="content">
+                <table border="1" cellspacing="2">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <ul>
+                <li><h:link outcome="/orders" value="Mes commandes" /> </li>
+                <li><h:link outcome="/site" value="Mes sites" /></li> 
+                <li><h:link outcome="/gestprod" value="Mes produits" /></li> 
+                <li><h:link outcome="/infocompte" value="Mes informations" /></li>
+                
+            </ul>
+                            </td>
+                            <td>
+                                <f:view>
+
+
+                                    <h:form>
+                                        <h:outputText value="#{saleManagedBean.login}"/>
+                                        <h:dataTable value="#{saleManagedBean.craftsmanSales}" var="item">
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="BillingAdress"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.billingAdress}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="ShippingAdress"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.shippingAdress}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Price"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.price}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Cart"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.cart}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Status"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.status}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Id"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.id}"/>
+                                            </h:column>
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="CreatedOn"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.createdOn}">
+                                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                </h:outputText>
+                                            </h:column>
+                                        </h:dataTable>
+                                    </h:form>
+
+                                </f:view>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+
+            </ui:define>
+
+
+        </ui:composition>
     </h:body>
 </html>
 

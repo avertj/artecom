@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/layout.xhtml">
+            <ui:define name="content">
+                <h:form >
+                    <h:panelGrid id="formGrid" columns="2">
+
+                        <p:outputLabel value="Nom :"/>
+                        <p:inputText value="#{craftSpaceManagedBean.craftsman.lastName}"/>
+                        <p:outputLabel value="Prenom :"/>
+                        <p:inputText value="#{craftSpaceManagedBean.craftsman.firstName}"/>
+                        <p:outputLabel value="Login :"/>
+                        <p:inputText value="#{craftSpaceManagedBean.craftsman.login}">
+                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                        </p:inputText>
+                        <p:outputLabel value="Password :"/>
+                        <p:password value="#{craftSpaceManagedBean.user.password}">
+                            <f:validateLength minimum="8"/>
+                        </p:password>
+
+                    </h:panelGrid>
+                    <h:commandButton value="Ajouter" action="#{craftSpaceManagedBean.add}" />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
