@@ -24,7 +24,7 @@ public class Cart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    
     @OneToMany
     private List<ProductQuantity> products;
 
