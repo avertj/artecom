@@ -33,23 +33,23 @@
                     <div style="clear: both"></div>
                     
                     <p:outputPanel id="products-title" styleClass="page-content-product-title">
-                        <c:choose test="#{not empty shopView.products}">
-                            <c:when test="#{not empty shopView.products}">
-                                <h:outputText value="Produits dans cette categorie" />
+                        <c:choose>
+                            <c:when test="#{not empty craftsmanView.currentCraftsman.products}">
+                                <h:outputText value="Produits proposés" />
                             </c:when>
-                            <c:when test="#{shopView.currentCraft != null}">
-                                <h:outputText value="Aucun produit dans cette categorie" />
-                            </c:when>
+                            <c:otherwise>
+                                <h:outputText value="Aucun produit proposés" />
+                            </c:otherwise>
                         </c:choose>
                     </p:outputPanel>
 
                     <p:outputPanel id="products" styleClass="page-content-product-list">
-                        <c:if test="#{not empty shopView.products}">
-                            <ui:repeat var="prod" value="#{shopView.products}">
+                        <c:if test="#{not empty craftsmanView.currentCraftsman.products}">
+                            <ui:repeat var="prod" value="#{craftsmanView.currentCraftsman.products}">
                                 <div class="page-content-product-item">
                                     <div class="page-content-product-item-desc">
                                         <div class="name"><a href="#">#{prod.name}</a></div>
-                                        <div class="craftsman">Vendu par <a href="#">#{prod.craftsman.firstName} #{prod.craftsman.lastName}</a></div>
+                                        <div class="craftsman">Artisanat : <a href="#">#{prod.name}</a></div>
                                     </div>
                                     <h:form>
                                         <p:commandLink actionListener="#{cartManager.addClick}" >
@@ -62,47 +62,6 @@
                             </ui:repeat>
                         </c:if>
                     </p:outputPanel>
-                    <div id="craftsman-prod">
-                        <div class="page-content-title">Produits de la categorie hjk</div>
-                        <div class="page-content-product-item">
-                            <div class="page-content-product-item-desc">
-                                <div class="name"><a href="#">Product name</a></div>
-                                <div class="craftsman">Dans la categorie <a href="#">Craft</a></div>
-                            </div>
-                            <div class="cart-add"><span>6€</span><img src="resource/img/icon/glyphicons_209_cart_in.png"></div>
-                        </div>
-                        <div class="page-content-product-item">
-                            <div class="page-content-product-item-desc">
-                                <div class="name"><a href="#">Product name</a></div>
-                                <div class="craftsman">Dans la categorie <a href="#">Craft</a></div>
-                            </div>
-                            <div class="cart-add"><span>6€</span><img src="resource/img/icon/glyphicons_209_cart_in.png"></div>
-                        </div>
-                    </div>
-
-                    <p:gmap id="map-container" style="height:800px" center="47.07012182383309, 2.3796387389302254" fitBounds="true" zoom="13" type="terrain" model="#{mapView.mapModel}">
-                        <p:ajax event="overlaySelect" listener="#{mapView.onMarkerSelect}" />
-
-                        <p:gmapInfoWindow id="infoWindow">
-                            <p:outputPanel styleClass="map-tooltip">
-                                <c:choose>
-                                    <c:when test="#{mapView.marker.site.type == 'STORE'}">
-                                        <h:outputText value="Point de vente" />
-                                    </c:when>
-                                    <c:when test="#{mapView.marker.site.type == 'WORKSHOP'}">
-                                        <h:outputText value="Atelier" />
-                                    </c:when>
-                                </c:choose>
-                                <h:outputText value=" de " />
-                                <h:outputLink value="#">#{mapView.marker.site.craftsman.firstName} #{mapView.marker.site.craftsman.lastName}</h:outputLink>
-                                <br />
-                                <h:outputText value="Artisanats : " />
-                                <ui:repeat value="#{mapView.marker.site.crafts}" var="craft">
-                                    <h:outputText value=" #{craft.name} ," />
-                                </ui:repeat>
-                            </p:outputPanel>
-                        </p:gmapInfoWindow>
-                    </p:gmap>
                 </div>
             </ui:define>
         </ui:composition>
