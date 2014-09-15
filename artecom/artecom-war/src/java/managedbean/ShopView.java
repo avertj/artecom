@@ -75,7 +75,7 @@ public class ShopView implements Serializable {
             productList = null;
         } else {
             currentCraft = craftQueries.getCraft(Long.valueOf(catId));
-            productList = productQueries.getProducts(currentCraft);
+            productList = productQueries.getProductsByCraft(currentCraft);
         }
     }
 

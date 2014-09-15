@@ -30,8 +30,6 @@ public class CraftManagedBean {
 
     private List<Craft> crafts;
 
-    private CraftQueries craftQueries;
-
     public Long getIdparent() {
         return idparent;
     }
