@@ -9,20 +9,21 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import map.SiteMarker;
 import model.entity.Site;
 import model.queries.SiteQueries;
+import org.primefaces.event.map.OverlaySelectEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
 
 /**
  *
  * @author bmf
  */
-@Named(value = "mapView")
+@ManagedBean(name = "mapView")
 @ViewScoped
 public class MapView implements Serializable {
 
@@ -30,6 +31,7 @@ public class MapView implements Serializable {
     private SiteQueries siteQueries;
 
     private MapModel mapModel;
+    private SiteMarker marker;
 
     /**
      * Creates a new instance of MapView
@@ -42,13 +44,23 @@ public class MapView implements Serializable {
         mapModel = new DefaultMapModel();
         List<Site> sites = siteQueries.getSites();
         for (Site site : sites) {
-            Marker m = new Marker(new LatLng(Double.valueOf(site.getLatlng().getLat()), Double.valueOf(site.getLatlng().getLng())), site.getAddress().getName());
+            System.out.println(site.getDescription());
+            System.out.println(site.getCraftsman().getFirstName());
+            SiteMarker m = new SiteMarker(new LatLng(Double.valueOf(site.getLatlng().getLat()), Double.valueOf(site.getLatlng().getLng())), site.getAddress().getName(), site);
             mapModel.addOverlay(m);
         }
     }
 
     public MapModel getMapModel() {
         return mapModel;
+    }
+
+    public void onMarkerSelect(OverlaySelectEvent event) {
+        marker = (SiteMarker) event.getOverlay();
+    }
+
+    public SiteMarker getMarker() {
+        return marker;
     }
 
 }

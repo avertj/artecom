@@ -4,10 +4,10 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
-    <!--<context-param>
-            <param-name>primefaces.THEME</param-name>
-            <param-value>bootstrap</param-value>
-    </context-param>-->
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>none</param-value>
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -26,18 +26,6 @@
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
     <security-constraint>
-        <display-name>admin</display-name>
-        <web-resource-collection>
-            <web-resource-name>admin</web-resource-name>
-            <description>partie admin</description>
-            <url-pattern>/admin/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <description>accés admin</description>
-            <role-name>admin</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <security-constraint>
         <display-name>client</display-name>
         <web-resource-collection>
             <web-resource-name>client</web-resource-name>
@@ -49,6 +37,10 @@
             <role-name>craftsman</role-name>
             <role-name>client</role-name>
         </auth-constraint>
+        <user-data-constraint>
+            <description/>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>craftsman</display-name>
@@ -61,6 +53,22 @@
             <description>artisans</description>
             <role-name>craftsman</role-name>
         </auth-constraint>
+        <user-data-constraint>
+            <description/>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>https</display-name>
+        <web-resource-collection>
+            <web-resource-name>https</web-resource-name>
+            <description/>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <description/>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
     </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
@@ -70,10 +78,6 @@
             <form-error-page>/login/loginerr.jsf</form-error-page>
         </form-login-config>
     </login-config>
-    <security-role>
-        <description>administration</description>
-        <role-name>admin</role-name>
-    </security-role>
     <security-role>
         <description>artisan</description>
         <role-name>craftsman</role-name>

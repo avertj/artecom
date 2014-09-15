@@ -30,7 +30,7 @@ import javax.persistence.OneToMany;
 @DiscriminatorColumn(name = "PROFIL_TYPE", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("C")
 @NamedQueries(
-       @NamedQuery(name = "Client.getByLogin",query = "SELECT c FROM Client c WHERE c.login = :login")
+        @NamedQuery(name = "Client.getByLogin", query = "SELECT c FROM Client c WHERE c.login = :login")
 )
 public class Client implements Serializable {
 
