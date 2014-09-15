@@ -7,6 +7,7 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,7 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -29,8 +30,10 @@ public class Sale implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
-    private Cart cart; // A VOIR !! pourquoi ne pas mettre la list ProductQuantity ici ?
+    //@OneToOne
+    //private Cart cart; // A VOIR !! pourquoi ne pas mettre la list ProductQuantity ici ?
+    @OneToMany
+    private List<ProductQuantity> products;
     private float price;
     @ManyToOne
     private Address billingAdress;
@@ -59,15 +62,6 @@ public class Sale implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    public Sale(Cart cart, float price, Address billingAdress, Address shippingAdress, Date createdOn, Status status) {
-        this.cart = cart;
-        this.price = price;
-        this.billingAdress = billingAdress;
-        this.shippingAdress = shippingAdress;
-        this.createdOn = createdOn;
-        this.status = status;
-    }
-
     public Sale() {
     }
 
@@ -95,13 +89,14 @@ public class Sale implements Serializable {
         this.price = price;
     }
 
-    public Cart getCart() {
-        return cart;
+    public List<ProductQuantity> getProducts() {
+        return products;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setProducts(List<ProductQuantity> products) {
+        this.products = products;
     }
+
 
     /*public ShippingMethod getShippingMethod() {
      return shippingMethod;
