@@ -16,6 +16,7 @@ import model.entity.Craftsman;
  */
 @Stateless
 public class CraftsmanFacade extends AbstractFacade<Craftsman> {
+
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 
