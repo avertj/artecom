@@ -16,13 +16,13 @@ import java.util.List;
 //@Entity
 public class Cart implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
-    @OneToMany
-    private List<ProductQuantity> products;
+    /*private static final long serialVersionUID = 1L;
+     @Id
+     @GeneratedValue(strategy = GenerationType.AUTO)
+     private Long id;
+
+     @OneToMany*/
+    private List<ProductQuantity> list;
 
     public Cart() {
         this.list = new ArrayList<>();
