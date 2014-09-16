@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.el.ELContext;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -44,6 +45,15 @@ public class CraftSpaceManagedBean {
     private List<Sale> sales ;
     private SaleFacade saleFacade;
     private Sale sale;
+    private String confirmation;
+
+    public String getConfirmation() {
+        return confirmation;
+    }
+
+    public void setConfirmation(String confirmation) {
+        this.confirmation = confirmation;
+    }
     
     @EJB
     private UserFacade userFacade;
@@ -141,21 +151,32 @@ public class CraftSpaceManagedBean {
     }
 
     public void add() {
-        user.setLogin(craftsman.getLogin());
-        user.setPassword(crypt(user.getPassword()));
-        user.setGroupname("craftsman");
-        userFacade.create(user);
-        craftsmanFacade.create(craftsman);
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        try {
-            request.login(user.getLogin(), user.getPassword());
-            context.getExternalContext().redirect(request.getContextPath() + "/craftsman/");
-        } catch (ServletException | IOException ex) {
-            Logger.getLogger(CraftSpaceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        if(!user.getPassword().equals(confirmation))
+            FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "confirmation différente du message", null));
+        else {
+            user.setLogin(craftsman.getLogin());
+            user.setPassword(crypt(user.getPassword()));
+            user.setGroupname("client");
+            try {
+                userFacade.create(user);
+                craftsmanFacade.create(craftsman);
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "email existant!", null));
+                return;
+            }
+            
+            try {
+                FacesContext context = FacesContext.getCurrentInstance();
+                HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+                context.getExternalContext().redirect(request.getContextPath() + "/client/");
+            } catch (SecurityException | IllegalStateException | IOException ex) {
+                Logger.getLogger(ClientManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
-     public void removeInfo(){
+    public void removeInfo(){
        
         
     }

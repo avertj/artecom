@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -36,9 +37,6 @@ import org.apache.commons.codec.binary.Base64;
  */
 @ManagedBean(name = "clientManagedBean")
 public class ClientManagedBean {
-
-    @Resource
-    private UserTransaction userTransaction;
     
     @EJB
     private UserFacade userFacade;
@@ -109,18 +107,23 @@ public class ClientManagedBean {
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "confirmation différente du message", null));
         else {
+            user.setLogin(client.getLogin());
+            user.setPassword(crypt(user.getPassword()));
+            user.setGroupname("client");
             try {
-                userTransaction.begin();
-                user.setLogin(client.getLogin());
-                user.setPassword(crypt(user.getPassword()));
-                user.setGroupname("client");
                 userFacade.create(user);
                 clientFacade.create(client);
-                userTransaction.commit();
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "email existant!", null));
+                return;
+            }
+            
+            try {
                 FacesContext context = FacesContext.getCurrentInstance();
                 HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
                 context.getExternalContext().redirect(request.getContextPath() + "/client/");
-            } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | IOException ex) {
+            } catch (SecurityException | IllegalStateException | IOException ex) {
                 Logger.getLogger(ClientManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
