@@ -157,7 +157,7 @@ public class CraftSpaceManagedBean {
         else {
             user.setLogin(craftsman.getLogin());
             user.setPassword(crypt(user.getPassword()));
-            user.setGroupname("client");
+            user.setGroupname("craftsman");
             try {
                 userFacade.create(user);
                 craftsmanFacade.create(craftsman);
@@ -170,7 +170,7 @@ public class CraftSpaceManagedBean {
             try {
                 FacesContext context = FacesContext.getCurrentInstance();
                 HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-                context.getExternalContext().redirect(request.getContextPath() + "/client/");
+                context.getExternalContext().redirect(request.getContextPath() + "/craftsman/");
             } catch (SecurityException | IllegalStateException | IOException ex) {
                 Logger.getLogger(ClientManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             }
