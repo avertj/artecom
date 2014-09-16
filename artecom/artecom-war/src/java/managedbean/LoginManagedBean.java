@@ -92,7 +92,6 @@ public class LoginManagedBean implements Serializable{
     }
     
     public void logout () {
-        System.out.println("coucou logout");
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 
