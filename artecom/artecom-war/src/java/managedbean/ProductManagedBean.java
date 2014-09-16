@@ -6,18 +6,20 @@
 
 package managedbean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import model.entity.Client;
-import model.entity.Craft;
 import model.entity.Craftsman;
 import model.entity.Product;
+import model.entity.Site;
 import model.facade.ProductFacade;
 import model.queries.ClientQuery;
 import model.queries.ProductQueries;
+import model.queries.SiteQueries;
 
 /**
  *
@@ -25,15 +27,99 @@ import model.queries.ProductQueries;
  */
 @ManagedBean(name="productManagedBean")
 @SessionScoped
-public class ProductManagedBean {
+public class ProductManagedBean implements Serializable{
     
     @ManagedProperty(value="#{loginManagedBean}")
     private LoginManagedBean lg;
+    
+    private Boolean editMode=Boolean.FALSE;
+
+    public Boolean getEditMode() {
+        return editMode;
+    }
+
+    public void setEditMode(Boolean editMode) {
+        this.editMode = editMode;
+    }
+    
     @ManagedProperty(value="#{craftManagedBean}")
     private CraftManagedBean cm;
+    
+    @ManagedProperty(value="#{siteManagedBean}")
+    private SiteManagedBean sm;
+    
+    private SiteQueries siteQueries;
+
+    public SiteQueries getSiteQueries() {
+        siteQueries=sm.getSiteQueries();
+        return siteQueries;
+    }
+
+    public void setSiteQueries(SiteQueries siteQueries) {
+        this.siteQueries = siteQueries;
+    }
+
+    public SiteManagedBean getSm() {
+        return sm;
+    }
+
+    public void setSm(SiteManagedBean sm) {
+        this.sm = sm;
+    }
+
+    public CraftManagedBean getCm() {
+       
+        return cm;
+    }
+
+    public void setCm(CraftManagedBean cm) {
+        this.cm = cm;
+    }
+    
+    
     private Product produit;
     
+    private Product editProd=null;
+
+    public Product getEditProd() {
+        return editProd;
+    }
+
+    public void setEditProd(Product editProd) {
+        this.editProd = editProd;
+    }
+    
     private Long idcraft;
+    
+    private Long idsite;
+    
+    private Long idcraftl;
+
+    public Long getIdcraftl() {
+        return idcraftl;
+    }
+
+    public void setIdcraftl(Long idcraftl) {
+        this.idcraftl = idcraftl;
+    }
+
+    public Long getIdsitel() {
+        return idsitel;
+    }
+
+    public void setIdsitel(Long idsitel) {
+        this.idsitel = idsitel;
+    }
+    
+    private Long idsitel;
+
+    public Long getIdsite() {
+        return idsite;
+    }
+
+    public void setIdsite(Long idsite) {
+        this.idsite = idsite;
+    }
 
     public Long getIdcraft() {
         return idcraft;
@@ -96,14 +182,24 @@ public class ProductManagedBean {
         this.productQueries = productQueries;
     }
 
-    public List<Product> getProducts() {
+   public List<Product> getProducts() {
         String login = lg.getLogin();
         Client user = clientQuery.getClientByLogin(login);
         craftsman= (Craftsman) user;
         products= productQueries.getProductsById(user.getId());
         return products;
     }
-
+     /*public Hashtable<Boolean,Product> getProducts() {
+         Hashtable tableProd = new Hashtable();
+         String login = lg.getLogin();
+        Client user = clientQuery.getClientByLogin(login);
+        craftsman= (Craftsman) user;
+        products= productQueries.getProductsById(user.getId());
+        for(Product p:products){
+            tableProd.put(editMode,p);
+        }
+        return tableProd;
+    }*/
     public void setProducts(List<Product> products) {
         this.products = products;
     }
@@ -118,15 +214,59 @@ public class ProductManagedBean {
     
     public ProductManagedBean(){
         produit= new Product();
+        //editProd=new Product();
         
     }
-    
+    public Site getSite(Long id){
+        List<Site> list = sm.getSites();
+        Site site=null;
+        for(Site s:list){
+            if(s.getId().equals(id)){
+                site=s;
+            }
+        }
+        return site;
+    }
     public void add(){
-        
+        produit.setEditable(Boolean.FALSE);
+        produit.setSite(getSite(idsite));
         produit.setCraft(cm.getCraftById(idcraft));
         produit.setCraftsman(craftsman);
         productFacade.create(produit);
         produit= new Product();
+        idcraft=null;
+        idsite=null;
+        
+    }
+    
+      
+    public void removeProd(Product p){
+        productFacade.remove(p);
+        
+    }
+    
+    public void editProd(Product p){
+        
+        //setEditMode(Boolean.TRUE);
+        editProd=p;
+        p.setEditable(Boolean.TRUE);
+        productFacade.edit(p);
+        
+    }
+    public void cancelProd(Product p){
+        p.setEditable(Boolean.FALSE);
+        productFacade.edit(p);
+    }
+    
+    public void saveProd(Product p){
+       
+        //editProd.setSite(getSite(idcraftl));
+        //editProd.setCraft(cm.getCraftById(idcraftl));
+        //p.setAvailability(editProd.getAvailability());
+        //productFacade.find(p.getId());
+        p.setEditable(Boolean.FALSE);
+        productFacade.edit(p);
+        
     }
     
    

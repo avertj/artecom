@@ -30,7 +30,7 @@ public class LoginManagedBean implements Serializable{
     private Principal principal;
     private boolean craftsman;
 
-    public boolean isCraftsman() {
+    public boolean getCraftsman() {
         return craftsman;
     }
 
