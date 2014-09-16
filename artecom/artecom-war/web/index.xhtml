@@ -76,7 +76,7 @@
 
 
                         <p:outputPanel id="products-title" styleClass="page-content-product-title">
-                            <c:choose test="#{not empty shopView.products}">
+                            <c:choose>
                                 <c:when test="#{not empty shopView.products}">
                                     <h:outputText value="Produits dans cette categorie" />
                                 </c:when>
@@ -92,7 +92,7 @@
                                     <div class="page-content-product-item">
                                         <div class="page-content-product-item-desc">
                                             <div class="name"><a href="#">#{prod.name}</a></div>
-                                            <div class="craftsman">Vendu par <a href="#">#{prod.craftsman.firstName} #{prod.craftsman.lastName}</a></div>
+                                            <div class="craftsman">Proposé par <h:link outcome="craftsman"><f:param name="craftsmanId" value="#{prod.craftsman.id}" />#{prod.craftsman.firstName} #{prod.craftsman.lastName}</h:link></div>
                                         </div>
                                         <h:form>
                                             <p:commandLink actionListener="#{cartManager.addClick}" >

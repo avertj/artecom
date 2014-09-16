@@ -4,7 +4,8 @@
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <!-- INTERFACE -->
     <cc:interface>
@@ -14,27 +15,29 @@
 
     <!-- IMPLEMENTATION -->
     <cc:implementation>
-        <p:growl id="msgs" showDetail="true" sticky="false" />
-        <p:panelGrid columns="2">
-            <f:facet name="header">
-                Connexion
-            </f:facet>
-            <p:outputLabel value="Login : " />
-            <p:inputText id="login" value="#{cc.attrs.loginBean.login}" required="true" requiredMessage="Entrez un login!">
-                <f:validateLength minimum="4" />  
-            </p:inputText>
-            <p:outputLabel value="Mot de pass : " />
-            <p:password id="password" value="#{cc.attrs.loginBean.password}" required="true" requiredMessage="Entrez un mot de passe!">
-                <f:validateLength minimum="8" />  
-            </p:password>
-            <f:facet name="footer">
-                <c:if test="#{cc.attrs.dontmove==null}">
-                    <p:commandButton value="Valider" update="msgs" actionListener="#{cc.attrs.loginBean.login(false)}" type="submit" icon="ui-icon-check" style="margin:0"></p:commandButton>
-                </c:if>
-                <c:if test="#{cc.attrs.dontmove!=null}">
-                    <p:commandButton value="Valider" update="msgs" actionListener="#{cc.attrs.loginBean.login(true)}" type="submit" icon="ui-icon-check" style="margin:0"></p:commandButton>
-                </c:if>
-            </f:facet>
-        </p:panelGrid>
+        <h:form>
+            <p:growl id="msgs" showDetail="true" sticky="false" />
+            <p:panelGrid columns="2">
+                <f:facet name="header">
+                    Connexion
+                </f:facet>
+                <p:outputLabel value="Login : " />
+                <p:inputText id="login" value="#{cc.attrs.loginBean.login}" required="true" requiredMessage="Entrez un login!">
+                    <f:validateLength minimum="4" />  
+                </p:inputText>
+                <p:outputLabel value="Mot de pass : " />
+                <p:password id="password" value="#{cc.attrs.loginBean.password}" required="true" requiredMessage="Entrez un mot de passe!">
+                    <f:validateLength minimum="8" />  
+                </p:password>
+                <f:facet name="footer">
+                    <c:if test="#{cc.attrs.dontmove==null}">
+                        <p:commandButton value="Valider" update="msgs" actionListener="#{cc.attrs.loginBean.login(false)}" type="submit" icon="ui-icon-check" style="margin:0"></p:commandButton>
+                    </c:if>
+                    <c:if test="#{cc.attrs.dontmove!=null}">
+                        <p:commandButton value="Valider" update="msgs" actionListener="#{cc.attrs.loginBean.login(true)}" type="submit" icon="ui-icon-check" style="margin:0"></p:commandButton>
+                    </c:if>
+                </f:facet>
+            </p:panelGrid>
+        </h:form>
     </cc:implementation>
 </html>

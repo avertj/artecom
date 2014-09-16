@@ -22,10 +22,10 @@ public class Craftsman extends Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @OneToMany
-    private List<ProductQuantity> products;
+    @OneToMany(mappedBy = "craftsman")
+    private List<Product> products;
 
-    @OneToMany
+    @OneToMany(mappedBy = "craftsman")
     private List<Site> sites;
 
     @Lob
@@ -51,11 +51,11 @@ public class Craftsman extends Client implements Serializable {
         this.description = description;
     }
 
-    public List<ProductQuantity> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductQuantity> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 

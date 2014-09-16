@@ -14,6 +14,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -35,10 +36,11 @@ public class Site implements Serializable {
     private Address address;
     @ManyToMany(mappedBy = "sites")
     private List<Craft> crafts;
-    @OneToMany
+    @OneToMany(mappedBy = "site")
     private List<Product> products;
 
     @ManyToOne
+    @JoinColumn(name = "CRAFTSMAN_ID", nullable = false)
     private Craftsman craftsman;
 
     @Embedded
