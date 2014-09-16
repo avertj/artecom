@@ -32,12 +32,15 @@ and open the template in the editor.
                             <span><p:link outcome="compte" value="Sign in"/></span>
                         </c:if>
                         <c:if test="#{loginManagedBean.login!=null}">
-                            <c:if test="#{loginManagedBean.craftsman}">
-                                <span><p:link outcome="/craftsman/index.jsf" value="#{loginManagedBean.login}"/></span>
-                            </c:if>
-                            <c:if test="#{!loginManagedBean.craftsman}">
-                                <span><p:link outcome="/client/index.jsf" value="#{loginManagedBean.login}"/></span>
-                            </c:if>
+                            <h:form>
+                                <c:if test="#{loginManagedBean.craftsman}">
+                                    <span><p:link outcome="/craftsman/index.jsf" value="#{loginManagedBean.login}"/></span>
+                                </c:if>
+                                <c:if test="#{!loginManagedBean.craftsman}">
+                                    <span><p:link outcome="/client/index.jsf" value="#{loginManagedBean.login}"/></span>
+                                </c:if>
+                                <span><p:commandLink actionListener="#{loginManagedBean.logout}" value="logout"/></span>
+                            </h:form>
                         </c:if>
                     </div>
                     <div id="page-header-user-cart">
@@ -46,7 +49,9 @@ and open the template in the editor.
                     </div>
                 </div>
                 <p:dialog id="loginDialog" widgetVar="loginDialog">
-                    <artecom:login loginBean="#{loginManagedBean}" dontmove="true"/>
+                    <h:form>
+                        <artecom:login loginBean="#{loginManagedBean}" dontmove="true"/>
+                    </h:form>
                 </p:dialog>
             </h:form>
         </ui:composition>
