@@ -27,6 +27,13 @@ import model.queries.SaleQuery;
 @ManagedBean(name="saleManagedBean")
 @SessionScoped
 public class SaleManagedBean implements Serializable{
+    
+    @EJB
+    private SaleQuery saleQuery;
+    
+    @ManagedProperty(value="#{loginManagedBean}")
+    private LoginManagedBean lg;
+    
     @EJB
     private SaleFacade saleFacade;
     
@@ -41,12 +48,6 @@ public class SaleManagedBean implements Serializable{
     public void setCraftsmanSales(List<Sale> craftsmanSales) {
         this.craftsmanSales = craftsmanSales;
     }
-    
-    @EJB
-    private SaleQuery saleQuery;
-    
-    @ManagedProperty(value="#{loginManagedBean}")
-    private LoginManagedBean lg;
 
     public LoginManagedBean getLg() {
         return lg;

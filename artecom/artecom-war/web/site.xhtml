@@ -18,8 +18,6 @@
                             <td>
                                 <h:form id="forml">
                                     <h:panelGrid id="formGrid" columns="2">
-                                        <h:outputLabel value="Adresse ID"/>
-                                        <h:outputLabel value="#{siteManagedBean.address.id}"/>
                                         <h:outputLabel value="Adresse"/>
                                         <h:inputText value="#{siteManagedBean.address.name}"/>
                                         <h:outputLabel value="Ville"/>
@@ -57,8 +55,12 @@
                                     <h:dataTable value="#{siteManagedBean.siteCrafts}" var="craft" styleClass="table" headerClass="tableHeader"
                                                  rowClasses="tableEvenRow,tableOddRow">
                                         <h:column>    				
-                                            <f:facet name="header">Numero</f:facet>    				
+                                            <f:facet name="header">Artisanat</f:facet>    				
                                                 #{craft.toString()}
+                                        </h:column>
+                                        <h:column>    				
+                                            <f:facet name="header">Options</f:facet>    				
+                                                <p:commandButton value="Remove" icon="ui-icon-check" validateClient="true" action="#{productManagedBean.removeProd()}"/>
                                         </h:column>
                                     </h:dataTable>
                                 </p:panel>

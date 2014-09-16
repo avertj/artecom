@@ -5,10 +5,12 @@
  */
 package managedbean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import model.entity.Craft;
 import model.facade.CraftFacade;
 import model.queries.CraftQueries;
@@ -18,8 +20,8 @@ import model.queries.CraftQueries;
  * @author donatien
  */
 @ManagedBean(name = "craftManagedBean")
-@Stateless
-public class CraftManagedBean {
+@SessionScoped
+public class CraftManagedBean implements Serializable{
 
     @EJB
     private CraftFacade craftFacade;

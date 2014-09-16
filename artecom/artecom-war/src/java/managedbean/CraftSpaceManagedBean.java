@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.el.ELContext;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
@@ -27,7 +29,9 @@ import model.facade.ClientFacade;
 import model.facade.CraftsmanFacade;
 import model.facade.SaleFacade;
 import model.facade.UserFacade;
+import model.queries.ClientQuery;
 import org.apache.commons.codec.binary.Base64;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -45,6 +49,16 @@ public class CraftSpaceManagedBean {
     private UserFacade userFacade;
     @EJB
     private CraftsmanFacade craftsmanFacade;
+    
+    private Boolean editMode=false;
+
+    public Boolean getEditMode() {
+        return editMode;
+    }
+
+    public void setEditMode(Boolean editMode) {
+        this.editMode = editMode;
+    }
 
     public UserFacade getUserFacade() {
         return userFacade;
@@ -138,8 +152,59 @@ public class CraftSpaceManagedBean {
             request.login(user.getLogin(), user.getPassword());
             context.getExternalContext().redirect(request.getContextPath() + "/craftsman/");
         } catch (ServletException | IOException ex) {
-            Logger.getLogger(ClientManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CraftSpaceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     public void removeInfo(){
+       
+        
+    }
     
+    public void editInfo(){
+        setEditMode(true);
+  
+    }
+    public void cancelInfo(){
+      setEditMode(false);
+    }
+    
+    public void saveInfo(){
+               
+    }
+    
+    @ManagedProperty(value="#{loginManagedBean}")
+    private LoginManagedBean lg;
+    
+    @EJB
+    private ClientQuery clientQuery;
+
+    public LoginManagedBean getLg() {
+        return lg;
+    }
+
+    public void setLg(LoginManagedBean lg) {
+        this.lg = lg;
+    }
+
+    public ClientQuery getClientQuery() {
+        return clientQuery;
+    }
+
+    public void setClientQuery(ClientQuery clientQuery) {
+        this.clientQuery = clientQuery;
+    }
+    
+    public Craftsman getDisplay(){
+        String login = lg.getLogin();
+        Client usert = clientQuery.getClientByLogin(login);
+        craftsman= (Craftsman) usert;
+        return craftsman;
+    }
+     private UploadedFile getUploadedPicture()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ELContext elContext = context.getELContext();
+        UploadImgBean uploadBean = (UploadImgBean) elContext.getELResolver().getValue(elContext, null, "uploadBean");
+        return uploadBean.getUploadedFile();
+    }
 }

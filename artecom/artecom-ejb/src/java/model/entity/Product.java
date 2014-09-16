@@ -39,6 +39,8 @@ public class Product implements Serializable {
     @ManyToOne
     private Craft craft;
     private String name;
+    
+    private Boolean editable;
 
     @Lob
     private String description; // sera probablement une chaine html générée par un editeur riche en js
@@ -66,7 +68,7 @@ public class Product implements Serializable {
     @Version
     private Long version;
 
-    public Product(String name, String description, Float price, Float weight, Integer quantity, Availability availability, Craftsman craftsman, Craft craft) {
+    public Product(String name, String description, Float price, Float weight, Integer quantity, Availability availability, Craftsman craftsman, Craft craft, Boolean edit) {
         this.craftsman = craftsman;
         this.craft = craft;
         this.name = name;
@@ -75,6 +77,7 @@ public class Product implements Serializable {
         this.weight = weight;
         this.quantity = quantity;
         this.availability = availability;
+        this.editable=Boolean.FALSE;
     }
 
     public Product() {
@@ -189,6 +192,17 @@ public class Product implements Serializable {
         }
         return sum / comments.size();
     }
+    
+ 
+
+    public Boolean getEditable() {
+        return editable;
+    }
+
+    public void setEditable(Boolean editable) {
+        this.editable = editable;
+    }
+    
 
     @Override
     public int hashCode() {

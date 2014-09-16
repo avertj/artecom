@@ -3,29 +3,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                 <h:form >
-                     <h:panelGrid id="formGrid" columns="2" >
-                         <h:outputText value="Nom"/>
-                         <h:outputLabel value="#{clientManagedBean.client.firstName}"/>
-                         <h:outputText value="Prenom"/>
-                         <h:outputLabel value="#{clientManagedBean.client.lastName}"/>
-                         <h:outputText value="Login"/>
-                         <h:outputLabel value="#{clientManagedBean.client.login}"/>
-                         <h:outputText value="Address"/>
-                         <h:outputLabel value="#{clientManagedBean.client.lastBillingAdress}"/>
+                 <h:form id="panel" >
+                     <h:panelGrid columns="2">
+                    <h:outputLabel value="Portrait:" for="portrait" />
+                    <p:graphicImage height="150" value="#{uploadImgBean.uploadedFileAsStream}" rendered="#{not craftSpaceManagedBean.editMode}" />
+                    <p:fileUpload auto="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" fileUploadListener="#{uploadImgBean.uploadedFile}" rendered="#{craftSpaceManagedBean.editMode}" />
+                    <h:outputLabel value="FirstName:" for="firstName" />
+                    <h:outputText value="#{craftSpaceManagedBean.display.firstName}" title="FirstName" rendered="#{not craftSpaceManagedBean.editMode}" />
+                    <h:inputText id="firstName" value="#{craftSpaceManagedBean.display.firstName}" title="FirstName" rendered="#{craftSpaceManagedBean.editMode}"/>
+                    <h:outputLabel value="LastName:" for="lastName" />
+                    <h:outputText  value="#{craftSpaceManagedBean.display.lastName}" title="LastName" rendered="#{not craftSpaceManagedBean.editMode}"/>
+                    <h:inputText id="lastName" value="#{craftSpaceManagedBean.display.lastName}" title="LastName" rendered="#{craftSpaceManagedBean.editMode}"/>
+                    <h:outputLabel value="LastBillingAdress:" for="lastBillingAdress" />
+                    <h:outputText  value="#{craftSpaceManagedBean.display.lastBillingAdress}" title="LastBillingAdress" rendered="#{not craftSpaceManagedBean.editMode}" />
+                    <h:inputText id="lastBillingAdress" value="#{craftSpaceManagedBean.display.lastBillingAdress}" title="LastBillingAdress" rendered="#{craftSpaceManagedBean.editMode}"/>
+                    <h:outputLabel value="LastShippingAdress:" for="lastShippingAdress" />
+                    <h:outputText  value="#{craftSpaceManagedBean.display.lastShippingAdress}" title="LastShippingAdress" rendered="#{not craftSpaceManagedBean.editMode}"/>
+                    <h:inputText id="lastShippingAdress" value="#{craftSpaceManagedBean.display.lastShippingAdress}" title="LastShippingAdress" rendered="#{craftSpaceManagedBean.editMode}"/>
+                    <h:outputLabel value="Login:" for="login" />
+                    <h:outputText value="#{craftSpaceManagedBean.display.login}" title="Login" rendered="#{not craftSpaceManagedBean.editMode}"/>
+                    <h:inputText id="login" value="#{craftSpaceManagedBean.display.login}" title="Login" rendered="#{craftSpaceManagedBean.editMode}"/>
+                    <h:outputLabel value="Description:" for="description" />
+                    <h:outputText  value="#{craftSpaceManagedBean.display.description}" title="Description" rendered="#{not craftSpaceManagedBean.editMode}"/>
+                    <h:inputTextarea  id="description" value="#{craftSpaceManagedBean.display.description}" title="Description" rendered="#{craftSpaceManagedBean.editMode}"/>
+                    
                      </h:panelGrid>
                  </h:form>
+                <h:form id="forml">
+                                <p:commandButton value="Supprimer" icon="ui-icon-trash" validateClient="true" action="#{craftSpaceManagedBean.removeInfo()}" update="forml :panel" rendered="#{ not craftSpaceManagedBean.editMode}"/>
+                                <p:commandButton value="Modifier" icon="ui-icon-pencil" validateClient="true" action="#{craftSpaceManagedBean.editInfo()}" update="forml :panel" rendered="#{not craftSpaceManagedBean.editMode}"/>
+                                <p:commandButton value="Sauvegarder" icon="ui-icon-check" validateClient="true" action="#{craftSpaceManagedBean.saveInfo()}" update="forml :panel" rendered="#{craftSpaceManagedBean.editMode}"/>
+                                <p:commandButton value="Cancel" icon="ui-icon-cancel" validateClient="true" action="#{craftSpaceManagedBean.cancelInfo()}" update="forml :panel" rendered="#{craftSpaceManagedBean.editMode}"/>
+                </h:form>
 
             </ui:define>
                 
         </ui:composition>
+
     </h:body>
 </html>
 

@@ -6,26 +6,108 @@
 
 package managedbean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import model.entity.Address;
+import model.entity.Client;
 import model.entity.Craft;
+import model.entity.Craftsman;
 import model.entity.Site;
 import model.facade.AddressFacade;
 import model.facade.SiteFacade;
 import model.queries.AddressQuery;
+import model.queries.ClientQuery;
 import model.queries.CraftQueries;
+import model.queries.SaleQuery;
+import model.queries.SiteQueries;
 
 /**
  *
  * @author donatien
  */
 @ManagedBean(name="siteManagedBean")
-@ApplicationScoped
-public class SiteManagedBean {
+@SessionScoped
+public class SiteManagedBean implements Serializable{
+    
+     
+    @ManagedProperty(value="#{loginManagedBean}")
+    private LoginManagedBean lg; 
+    
+    
+    @ManagedProperty(value="#{craftManagedBean}")
+    private CraftManagedBean cm;
+    
+    private Craftsman craftsman;
+    
+    public Craftsman getCraftsman() {
+        return craftsman;
+    }
+
+    public void setCraftsman(Craftsman craftsman) {
+        this.craftsman = craftsman;
+    }
+
+    public CraftManagedBean getCm() {
+        return cm;
+    }
+
+    public void setCm(CraftManagedBean cm) {
+        this.cm = cm;
+    }
+
+    public LoginManagedBean getLg() {
+        return lg;
+    }
+
+    public void setLg(LoginManagedBean lg) {
+        this.lg = lg;
+    }
+
+    public CraftQueries getCraftQueries() {
+        return craftQueries;
+    }
+
+    public void setCraftQueries(CraftQueries craftQueries) {
+        this.craftQueries = craftQueries;
+    }
+
+    public AddressQuery getAddressQuery() {
+        return addressQuery;
+    }
+
+    public void setAddressQuery(AddressQuery addressQuery) {
+        this.addressQuery = addressQuery;
+    }
+
+    public ClientQuery getClientQuery() {
+        return clientQuery;
+    }
+
+    public void setClientQuery(ClientQuery clientQuery) {
+        this.clientQuery = clientQuery;
+    }
+
+    public AddressFacade getAddressFacade() {
+        return addressFacade;
+    }
+
+    public void setAddressFacade(AddressFacade addressFacade) {
+        this.addressFacade = addressFacade;
+    }
+
+    public SiteQueries getSiteQueries() {
+        return siteQueries;
+    }
+
+    public void setSiteQueries(SiteQueries siteQueries) {
+        this.siteQueries = siteQueries;
+    }
     
     @EJB
     private SiteFacade siteFacade;
@@ -37,7 +119,13 @@ public class SiteManagedBean {
     private AddressQuery addressQuery;
     
     @EJB
+    private ClientQuery clientQuery;
+    
+    @EJB
     private AddressFacade addressFacade;
+    
+    @EJB
+    private SiteQueries siteQueries;
     
     private Address address;
     
@@ -102,7 +190,11 @@ public class SiteManagedBean {
     }
     
     public List<Site> getSites() {
-        return siteFacade.findAll();
+        String login = lg.getLogin();
+        Client user = clientQuery.getClientByLogin(login);
+        craftsman= (Craftsman) user;
+        sites = siteQueries.getSites(craftsman);
+        return sites;
     }
 
     public void setSites(List<Site> sites) {
@@ -136,8 +228,9 @@ public class SiteManagedBean {
     public void addSite(){
         addressFacade.create(address);
         Address adr = addressQuery.getAddressByName(address.getName());
-        site.setAddress(adr);     
-        site.setCraftsmanships(siteCrafts);
+        site.setAddress(adr);
+        site.setCraftsman(craftsman);
+        site.setCraftsmanships(siteCrafts); 
         siteFacade.create(site);
         site = new Site();
         address= new Address();
