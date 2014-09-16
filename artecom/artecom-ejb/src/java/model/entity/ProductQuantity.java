@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -26,6 +27,7 @@ public class ProductQuantity implements Serializable {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID", nullable = false)
     private Product product;
     private int quantity;
 

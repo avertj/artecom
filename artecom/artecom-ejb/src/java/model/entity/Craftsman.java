@@ -22,10 +22,10 @@ public class Craftsman extends Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @OneToMany
+    @OneToMany(mappedBy = "craftsman")
     private List<Product> products;
 
-    @OneToMany
+    @OneToMany(mappedBy = "craftsman")
     private List<Site> sites;
 
     @Lob

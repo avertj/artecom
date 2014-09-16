@@ -15,7 +15,7 @@ and open the template in the editor.
             <span class="page-menu-item ${tab == 'map' ? 'page-menu-item-selected' : ''}"><a href="map.jsf"><h:graphicImage class="page-menu-icon" id="page-menu-icon-map" name="img/icon/glyphicons_370_globe_af.png" /><span>Map</span></a></span>
             <!--<span class="page-menu-item"><a href="#"><img class="page-menu-icon" id="page-menu-icon-about" src="resource/img/icons/glyphicons_195_circle_info.png" /><span>About</span></a></span>-->
             <span class="page-menu-item" id="page-menu-item-blank"></span>
-            <span class="page-menu-item" id="page-menu-item-search"><p:inputText id="search" /><p:watermark for="search" value="Search..." /></span>
+            <span class="page-menu-item" id="page-menu-item-search"><h:form><p:inputText id="search" /><p:watermark for="search" value="Search..." /></h:form></span>
         </ui:composition>
     </body>
 </html>
