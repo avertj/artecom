@@ -14,6 +14,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -37,8 +38,10 @@ public class Sale implements Serializable {
     private List<ProductQuantity> products;
     private float price;
     @ManyToOne
+    @JoinColumn(name = "BILLING_ID", nullable = false)
     private Address billingAdress;
     @ManyToOne
+    @JoinColumn(name = "SHIPPING_ID", nullable = false)
     private Address shippingAdress;
 
     @Temporal(TemporalType.TIMESTAMP)
