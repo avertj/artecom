@@ -36,7 +36,7 @@ and open the template in the editor.
                                 <c:if test="#{loginManagedBean.craftsman}">
                                     <span><p:link outcome="/craftsman/index.jsf" value="#{loginManagedBean.login}"/></span>
                                 </c:if>
-                                <c:if test="#{!loginManagedBean.craftsman}">
+                                <c:if test="#{not loginManagedBean.craftsman}">
                                     <span><p:link outcome="/client/index.jsf" value="#{loginManagedBean.login}"/></span>
                                 </c:if>
                                 <span><p:commandLink actionListener="#{loginManagedBean.logout}" value="logout"/></span>

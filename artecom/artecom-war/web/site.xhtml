@@ -10,8 +10,8 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <ui:composition template="/template/layout.xhtml">
-            <ui:define name="content">
+        <ui:composition template="/template/layoutcompte.xhtml">
+           <ui:define name="page-content-manager-body">
                 <table border="1">
                     <tbody>
                         <tr>
@@ -47,23 +47,24 @@
                                             </h:selectOneMenu>
                                         </c:if>
                                     </h:panelGrid>
-                                    <p:commandButton value="Add" icon="ui-icon-check" validateClient="true" update="form :panel" action="#{siteManagedBean.addCraft()}" />
+                                    <p:commandButton value="Add" icon="ui-icon-plus" validateClient="true" update="form :panel" action="#{siteManagedBean.addCraft()}" />
                                 </h:form>
 
                                 <h3>Liste des Artisanats selectionnes:</h3>
-                                <p:panel id="panel">
-                                    <h:dataTable value="#{siteManagedBean.siteCrafts}" var="craft" styleClass="table" headerClass="tableHeader"
-                                                 rowClasses="tableEvenRow,tableOddRow">
+                                <h:form id="panel">
+                                <p:panel >
+                                    <h:dataTable value="#{siteManagedBean.siteCrafts}" var="craft" >
                                         <h:column>    				
                                             <f:facet name="header">Artisanat</f:facet>    				
                                                 #{craft.toString()}
                                         </h:column>
                                         <h:column>    				
                                             <f:facet name="header">Options</f:facet>    				
-                                                <p:commandButton value="Remove" icon="ui-icon-check" validateClient="true" action="#{productManagedBean.removeProd()}"/>
+                                            <p:commandButton icon="ui-icon-minus" validateClient="true" action="#{siteManagedBean.removeCraft(craft)}" update="panel"/>
                                         </h:column>
                                     </h:dataTable>
                                 </p:panel>
+                                    </h:form>
                             </td>
                         </tr>
                     </tbody>

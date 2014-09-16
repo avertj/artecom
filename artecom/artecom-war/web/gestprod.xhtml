@@ -9,8 +9,8 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <ui:composition template="/template/layout.xhtml">
-            <ui:define name="content"> 
+         <ui:composition template="/template/layoutcompte.xhtml">
+           <ui:define name="page-content-manager-body">
 
                     <p:panel id="panel">
                         <h1><h:outputText value="List"/></h1>
@@ -116,10 +116,12 @@
                             </h:column>
                         </h:dataTable>
                      </p:panel>
- 
+               <h:form id="ajout">
+                   <p:commandButton icon="ui-icon-plus" value="Ajouter" action="#{productManagedBean.ajoutMode()}" rendered="#{not productManagedBean.editMode}" update="ajout :form"/>
+               </h:form>
                     
-                            <h:form id="form">
-                                <h1><h:outputText value="Create/Edit"/></h1>
+               <h:form id="form" rendered="#{productManagedBean.editMode}" >
+                                <h3><h:outputText value="Ajouter un produit"/></h3>
                                 <h:panelGrid columns="2">
                                     <h:outputLabel value="Version:" for="version" />
                                     <h:inputText id="version" value="#{productManagedBean.produit.version}" title="Version" />
@@ -149,7 +151,8 @@
                                         <f:selectItems value="#{siteManagedBean.sites}" var="site" itemLabel="#{site.address.name}" itemValue="#{site.id}" />
                                             
                                     </h:selectOneMenu>
-                                    <p:commandButton value="Ajouter" icon="ui-icon-check" update="form :panel" validateClient="true" action="#{productManagedBean.add()}"/>
+                                    <p:commandButton value="Ajouter" icon="ui-icon-plus" update="form :panel :ajout" validateClient="true" action="#{productManagedBean.add()}"/>
+                                    <p:commandButton value="Cancel" icon="ui-icon-cancel" update="form :panel :ajout" validateClient="true" action="#{productManagedBean.cancelMode()}"/>
                                 </h:panelGrid>
                             </h:form>
 

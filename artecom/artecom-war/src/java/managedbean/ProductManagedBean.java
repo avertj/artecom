@@ -233,6 +233,7 @@ public class ProductManagedBean implements Serializable{
         produit.setCraft(cm.getCraftById(idcraft));
         produit.setCraftsman(craftsman);
         productFacade.create(produit);
+        setEditMode(false);
         produit= new Product();
         idcraft=null;
         idsite=null;
@@ -267,6 +268,13 @@ public class ProductManagedBean implements Serializable{
         p.setEditable(Boolean.FALSE);
         productFacade.edit(p);
         
+    }
+    
+    public void ajoutMode(){
+        setEditMode(true);
+    }
+     public void cancelMode(){
+        setEditMode(false);
     }
     
    

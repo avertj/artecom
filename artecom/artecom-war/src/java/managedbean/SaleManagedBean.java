@@ -8,13 +8,10 @@ package managedbean;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import model.entity.Client;
 import model.entity.Sale;
 import model.facade.SaleFacade;
 import model.queries.ClientQuery;
@@ -42,6 +39,7 @@ public class SaleManagedBean implements Serializable{
     private List<Sale> craftsmanSales;
 
     public List<Sale> getCraftsmanSales() {
+        craftsmanSales=saleFacade.findAll();
         return craftsmanSales;
     }
 
@@ -102,7 +100,7 @@ public class SaleManagedBean implements Serializable{
     }
 
     public List<Sale> getClientSales() {
-      
+        ClientSales=saleFacade.findAll();
         return ClientSales;
     }
 
