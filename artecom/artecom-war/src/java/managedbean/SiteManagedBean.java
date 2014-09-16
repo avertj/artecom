@@ -8,6 +8,7 @@ package managedbean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
@@ -44,6 +45,36 @@ public class SiteManagedBean implements Serializable{
     private CraftManagedBean cm;
     
     private Craftsman craftsman;
+    
+    @EJB
+    private SiteFacade siteFacade;
+    
+    @EJB
+    private CraftQueries craftQueries;
+    
+    @EJB
+    private AddressQuery addressQuery;
+    
+    @EJB
+    private ClientQuery clientQuery;
+    
+    @EJB
+    private AddressFacade addressFacade;
+    
+    @EJB
+    private SiteQueries siteQueries;
+    
+    private Address address;
+    
+    private ArrayList<Craft> siteCrafts;
+    
+    private List<Site> sites;
+
+    private Site site;
+    
+    private Long craftId;
+     
+    private Craft craft;
     
     public Craftsman getCraftsman() {
         return craftsman;
@@ -109,36 +140,6 @@ public class SiteManagedBean implements Serializable{
         this.siteQueries = siteQueries;
     }
     
-    @EJB
-    private SiteFacade siteFacade;
-    
-    @EJB
-    private CraftQueries craftQueries;
-    
-    @EJB
-    private AddressQuery addressQuery;
-    
-    @EJB
-    private ClientQuery clientQuery;
-    
-    @EJB
-    private AddressFacade addressFacade;
-    
-    @EJB
-    private SiteQueries siteQueries;
-    
-    private Address address;
-    
-    private ArrayList<Craft> siteCrafts;
-    
-    private List<Site> sites;
-
-    private Site site;
-    
-    private Long craftId;
-     
-    private Craft craft;
-
     public Craft getCraft() {
         return craft;
     }
@@ -146,17 +147,7 @@ public class SiteManagedBean implements Serializable{
     public void setCraft(Craft craft) {
         this.craft = craft;
     }
-    
-    private ArrayList list;
-
-    public ArrayList getList() {
-        return list;
-    }
-
-    public void setList(ArrayList list) {
-        this.list = list;
-    }
-    
+      
     public SiteManagedBean(){
         site=new Site();
         address= new Address(); 
@@ -223,6 +214,15 @@ public class SiteManagedBean implements Serializable{
         craft = craftQueries.getCraft(craft.getId());
         siteCrafts.add(craft);
         craft= new Craft();      
+    }
+    public void removeCraft(Craft c){
+        
+        for(int i=0;i<siteCrafts.size();i++){
+            if (siteCrafts.get(i).equals(c)){
+                siteCrafts.remove(i);
+            }
+        }
+            
     }
     
     public void addSite(){

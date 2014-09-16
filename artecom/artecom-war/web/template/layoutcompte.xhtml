@@ -23,10 +23,18 @@
                     <ui:include src="/template/menu.xhtml" />
                 </ui:insert>
             </div>
-            <div id="page-content">
-                <ui:insert name="content" >
-                    <ui:include src="/template/content.xhtml" />
-                </ui:insert>
+
+            <div id="page-content-manager">
+                 <div id="page-content-manager-sidebar">
+                    <ui:insert name="page-content-manager-sidebar" >
+                        <ui:include src="/template/sidebar.xhtml" />
+                    </ui:insert>
+                </div>
+                <div id="page-content-manager-body">
+                    <ui:insert name="page-content-manager-body" >
+                        <ui:include src="/template/content.xhtml" />
+                    </ui:insert>
+                </div>
             </div>
             <div id="page-footer">
                 <ui:insert name="footer" >
