@@ -19,13 +19,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  *
  * @author bmf
  */
 @Entity
-@NamedQuery(name = "", query = "select OBJECT(p) from Product p where p.name like :nom")
+@Indexed
+@NamedQuery(name = "Product.getByName", query = "select OBJECT(p) from Product p where p.name like :nom")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,6 +52,7 @@ public class Product implements Serializable {
     private Boolean editable;
 
     @Lob
+    @Field(index=org.hibernate.search.annotations.Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String description; // sera probablement une chaine html générée par un editeur riche en js
 
     private Float price;
