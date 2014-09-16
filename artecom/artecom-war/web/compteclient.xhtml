@@ -15,20 +15,20 @@
                 <h:form >
                     <h:panelGrid id="formGrid" columns="2">
 
-                        <p:outputLabel value="Nom :"/>
-                        <p:inputText value="#{clientManagedBean.client.lastName}"/>
-                        <p:outputLabel value="Prenom :"/>
-                        <p:inputText value="#{clientManagedBean.client.firstName}"/>
-                        <p:outputLabel value="e-mail :"/>
-                        <p:inputText value="#{clientManagedBean.client.login}">
+                        <p:outputLabel for="firstname" value="Prenom :"/>
+                        <p:inputText id="firstname" value="#{clientManagedBean.client.firstName}" required="true"/>
+                        <p:outputLabel for="lastname" value="Nom :"/>
+                        <p:inputText id="lastname" value="#{clientManagedBean.client.lastName}" required="true"/>
+                        <p:outputLabel for="login" value="e-mail :"/>
+                        <p:inputText id="login" value="#{clientManagedBean.client.login}" required="true">
                             <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
                         </p:inputText>
-                        <p:outputLabel value="Password :"/>
-                        <p:password value="#{clientManagedBean.user.password}">
+                        <p:outputLabel for="password" value="Password :"/>
+                        <p:password id="password" value="#{clientManagedBean.user.password}" required="true">
                             <f:validateLength minimum="8"/>
                         </p:password>
-                        <p:outputLabel value="confirmation :"/>
-                        <p:password value="#{clientManagedBean.confirmation}">
+                        <p:outputLabel for="confirm" value="confirmation :"/>
+                        <p:password id="confirm" value="#{clientManagedBean.confirmation}" required="true">
                             <f:validateLength minimum="8"/>
                         </p:password>
 
