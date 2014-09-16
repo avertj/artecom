@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:artecom="http://xmlns.jcp.org/jsf/composite/artecom">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -10,10 +11,20 @@
         <ui:composition template="/template/layout.xhtml">
             
             <ui:define name="content">
-                <ul>
+                <table border="1">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <ul>
                     <li><h:link value="Creer un compte artisan" outcome="compteartisan" /></li>
                     <li><h:link value="Creer un compte client" outcome="compteclient" /></li>
-                </ul>
+                </ul> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+               
             </ui:define>
         </ui:composition>
     </h:body>
