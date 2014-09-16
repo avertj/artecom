@@ -3,31 +3,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <ui:composition template="/template/layout.xhtml">
-            <ui:define name="content">
-                <table border="1" cellspacing="2">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <ul>
-                <li><h:link outcome="/orders" value="Mes commandes" /> </li>
-                <li><h:link outcome="/site" value="Mes sites" /></li> 
-                <li><h:link outcome="/gestprod" value="Mes produits" /></li> 
-                <li><h:link outcome="/infocompte" value="Mes informations" /></li>
+        <ui:composition template="/template/layoutcompte.xhtml">
+            <ui:define name="page-content-manager-body">
                 
-            </ul>
-                            </td>
-                            <td>
-                                <f:view>
-
-
+                Bienvenue, <h:outputText value="#{craftSpaceManagedBean.display.firstName}"/>
+                   <p><h2>Mes commandes en cours</h2></p>
+                   <c:if test="#{not empty saleManagedBean.craftsmanSales}">
                                     <h:form>
-                                        <h:outputText value="#{saleManagedBean.login}"/>
+                                       
                                         <h:dataTable value="#{saleManagedBean.craftsmanSales}" var="item">
                                             <h:column>
                                                 <f:facet name="header">
@@ -75,15 +64,12 @@
                                             </h:column>
                                         </h:dataTable>
                                     </h:form>
-
-                                </f:view>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-
+                        </c:if>
+                   <c:if test="#{empty saleManagedBean.clientSales}">
+                         <p>
+                           Aucune commande en cours
+                       </p>
+                   </c:if>
             </ui:define>
 
 
