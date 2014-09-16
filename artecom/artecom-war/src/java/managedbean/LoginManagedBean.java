@@ -8,11 +8,14 @@ package managedbean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.Principal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -85,6 +88,19 @@ public class LoginManagedBean implements Serializable{
         }
         if (principal == null) {
             login = null;
+        }
+    }
+    
+    public void logout () {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+
+        try {
+            request.logout();
+            this.login = null;
+            FacesContext.getCurrentInstance().getExternalContext().redirect(request.getContextPath());
+        } catch (IOException | ServletException ex) {
+            Logger.getLogger(LoginManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

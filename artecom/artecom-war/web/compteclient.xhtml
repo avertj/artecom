@@ -19,12 +19,16 @@
                         <p:inputText value="#{clientManagedBean.client.lastName}"/>
                         <p:outputLabel value="Prenom :"/>
                         <p:inputText value="#{clientManagedBean.client.firstName}"/>
-                        <p:outputLabel value="Login :"/>
+                        <p:outputLabel value="e-mail :"/>
                         <p:inputText value="#{clientManagedBean.client.login}">
                             <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
                         </p:inputText>
                         <p:outputLabel value="Password :"/>
                         <p:password value="#{clientManagedBean.user.password}">
+                            <f:validateLength minimum="8"/>
+                        </p:password>
+                        <p:outputLabel value="confirmation :"/>
+                        <p:password value="#{clientManagedBean.confirmation}">
                             <f:validateLength minimum="8"/>
                         </p:password>
 
