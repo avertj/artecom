@@ -7,7 +7,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Home</title>
+        <title>Accueil</title>
     </h:head>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
@@ -98,7 +98,7 @@
                                             <p:commandLink actionListener="#{cartManager.addClick}" >
                                                 <f:param name="prodId" value="#{prod.id}" />
                                                 <f:param name="qty" value="1" />
-                                                <div class="cart-add"><span>#{prod.price} €</span><h:graphicImage name="img/icon/glyphicons_209_cart_in.png" /></div>
+                                                <div class="cart-add"><span><h:outputText value="#{prod.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText> €</span><h:graphicImage name="img/icon/glyphicons_209_cart_in.png" /></div>
                                             </p:commandLink>
                                         </h:form>
                                     </div>

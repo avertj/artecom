@@ -5,6 +5,7 @@
  */
 package model.entity;
 
+import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 /**
@@ -12,7 +13,7 @@ import javax.persistence.Embeddable;
  * @author bmf
  */
 @Embeddable
-public class LatLng {
+public class LatLng implements Serializable {
 
     private String lat;
     private String lng;

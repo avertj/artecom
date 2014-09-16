@@ -77,13 +77,13 @@ a {
     -webkit-box-shadow: #666 0px 2px 3px;
     -moz-box-shadow: #666 0px 2px 3px;
     box-shadow: #666 0px 2px 3px;
-    background: #FFDB9F;
-    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#FFDB9F), to(#E6B96E));
-    background: -webkit-linear-gradient(#FFDB9F, #E6B96E);
-    background: -moz-linear-gradient(#FFDB9F, #E6B96E);
-    background: -ms-linear-gradient(#FFDB9F, #E6B96E);
-    background: -o-linear-gradient(#FFDB9F, #E6B96E);
-    background: linear-gradient(#FFDB9F, #E6B96E);
+    background: #B6E0B1;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#B6E0B1), to(#5B8756));
+    background: -webkit-linear-gradient(#B6E0B1, #5B8756);
+    background: -moz-linear-gradient(#B6E0B1, #5B8756);
+    background: -ms-linear-gradient(#B6E0B1, #5B8756);
+    background: -o-linear-gradient(#B6E0B1, #5B8756);
+    background: linear-gradient(#B6E0B1, #5B8756);
 
     top: 0px;
     right: 10%;
@@ -92,12 +92,12 @@ a {
     align-items: center;
     justify-content: flex-end;
     padding: 4px;
-    color: #322002;
+    /*color: #322002;*/
     z-index: 99;
 }
 
 #page-header-user a {
-    color: #322002;
+    /*color: #322002;*/
 }
 
 #page-header-user-info {
@@ -116,6 +116,11 @@ a {
     display: inline-flex;
     align-items: center;
     justify-content: flex-end;
+}
+
+#cart-icon {
+    position: relative;
+    top: 3px;
 }
 
 #cart-icon-file {
@@ -177,7 +182,8 @@ a {
 
 .page-menu-icon {
     margin-right: 10px;
-    vertical-align: middle;
+    position: relative;
+    top: 4px;
 }
 
 #page-menu-item-blank {
@@ -287,7 +293,7 @@ a {
     flex-grow: 0;
     margin: 10px;
     min-width: 30%;
-    max-width: 30%;
+    max-width: 33%;
     border: 2px solid #99BB95;
     padding: 5px;
     border-radius:15px; 

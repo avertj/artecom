@@ -85,8 +85,6 @@ public class ProductQuantity implements Serializable {
             return false;
         }
 
-        System.out.println("Product.equals : this.id = " + id);
-        System.out.println("Product.equals : other.id = " + p.getId());
         if (product.equals(p)) {
             return true;
         }

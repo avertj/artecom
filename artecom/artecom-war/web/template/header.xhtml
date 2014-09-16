@@ -27,9 +27,9 @@ and open the template in the editor.
                 <div id="page-header-user">
                     <div id="page-header-user-info">
                         <c:if test="#{loginManagedBean.login==null}">
-                            <span><p:commandLink oncomplete="PF('loginDialog').show();" value="Log in"/></span>
+                            <span><p:commandLink oncomplete="PF('loginDialog').show();" value="Se connecter"/></span>
                             <span>-</span>
-                            <span><p:link outcome="compte" value="Sign in"/></span>
+                            <span><p:link outcome="compte" value="S'enregistrer"/></span>
                         </c:if>
                         <c:if test="#{loginManagedBean.login!=null}">
                             <h:form>
@@ -39,13 +39,13 @@ and open the template in the editor.
                                 <c:if test="#{not loginManagedBean.craftsman}">
                                     <span><p:link outcome="/client/index.jsf" value="#{loginManagedBean.login}"/></span>
                                 </c:if>
-                                <span><p:commandLink actionListener="#{loginManagedBean.logout}" value="logout"/></span>
+                                <span><p:commandLink actionListener="#{loginManagedBean.logout}" value="Se déconnecter"/></span>
                             </h:form>
                         </c:if>
                     </div>
                     <div id="page-header-user-cart">
-                        <span id="cart-icon"><h:graphicImage name="img/icon/glyphicons_202_shopping_cart.png" /></span>
-                        <p:outputPanel autoUpdate="true" id="cart-count" styleClass="cart-item-count">(<h:outputText value="#{cartManager.cart.size}" /> - <h:outputText value="#{cartManager.cart.price} €" />)</p:outputPanel>
+                        <span id="cart-icon"><h:link outcome="cart.jsf"><h:graphicImage name="img/icon/glyphicons_202_shopping_cart.png" /></h:link></span>
+                        <p:outputPanel autoUpdate="true" id="cart-count" styleClass="cart-item-count">(<h:outputText value="#{cartManager.cart.size}" /> - <h:outputText value="#{cartManager.cart.price} €"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText>)</p:outputPanel>
                     </div>
                 </div>
                 <p:dialog id="loginDialog" widgetVar="loginDialog">

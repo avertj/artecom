@@ -10,49 +10,48 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-         <ui:composition template="/template/layout.xhtml">
+        <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <h:form id="form">
-                    <h:panelGrid id="formGrid" columns="3">
-                            <h:outputLabel for="name" value="ID Product(1000,2000,..) :" style="font-weight:bold"/>
-                            <h:inputText id="proId" value="#{cartManagedBean.prodId}" required="true"/>
-                            <p:message for="proId" />
-                            
-                            <h:outputLabel for="quantity" value="Quantity :" style="font-weight:bold"/>
-                            <h:inputText id="quantity" value="#{cartManagedBean.quantity}">                                
-                            </h:inputText>
-                            <p:message for="quantity" />
-                            
-                    </h:panelGrid> 
-                    
-                    <p:commandButton value="Add To Cart" icon="ui-icon-check" validateClient="true" update="form :panel" action="#{cartManagedBean.addToCart()}"/>
-                    <p:commandButton value="Remove From Cart" icon="ui-icon-check" validateClient="true" update="form :panel" action="#{cartManagedBean.removeFromCart()}"/>
-                </h:form>
-                <h3>Carts list</h3>
+                <h3>Contenu du panier</h3>
                 <p:panel id="panel">
-                    <h:dataTable value="#{cartManagedBean.cart.list}" var="cart" styleClass="table"
+
+                    <h:dataTable value="#{cartManager.cart.list}" var="pq" style="width: 100%"
                                  headerClass="tableHeader"
                                  rowClasses="tableEvenRow,tableOddRow">
-                       
+
                         <h:column>    				
-                            <f:facet name="header">Numero</f:facet>    				
-                                #{cart.id}
+                            <f:facet name="header">Produit</f:facet>    				
+                                #{pq.product.name}
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Product</f:facet>
-                                #{cart.product.name}
-                        </h:column>  
+                            <f:facet name="header">Artisan</f:facet>
+                                #{pq.product.craftsman.firstName} #{pq.product.craftsman.lastName}
+                        </h:column>
                         <h:column>
-                            <f:facet name="header">Quantity</f:facet>
-                                #{cart.quantity}
-                        </h:column>  
-                         <h:column>
                             <f:facet name="header">Price</f:facet>
-                                #{cart.price}
-                        </h:column>  
+                                #{pq.product.price}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Quantité</f:facet>
+                            <h:form>
+                                <p:spinner value="#{pq.quantity}" min="1" >
+                                    <p:ajax listener="#{cartManager.updateClick}" process="@this" />
+                                    <f:param name="prodId" value="#{pq.product.id}" />
+                                </p:spinner>
+                            </h:form>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Supprimer</f:facet>
+                            <h:form>
+                                <p:commandButton value="Supprimer" actionListener="#{cartManager.removeClick}" update=":panel">
+                                    <f:param name="prodId" value="#{pq.product.id}" />
+                                </p:commandButton>
+                            </h:form>
+                        </h:column>
                     </h:dataTable>
                 </p:panel>
-       
+
+                <p:outputPanel autoUpdate="true" style="text-align: right; font-size: 1.2em">Total : <h:outputText value="#{cartManager.cart.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText> €</p:outputPanel>
             </ui:define>
         </ui:composition>
     </h:body>

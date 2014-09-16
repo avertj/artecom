@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import model.entity.Cart;
 import model.entity.Product;
 import model.entity.ProductQuantity;
@@ -43,13 +44,20 @@ public class CartManager implements Serializable {
         String qty = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("qty");
 
         Product p = productFacade.find(Long.valueOf(prodId));
-        System.out.println("Adding " + p.getId() + " to cart.");
         cart.add(new ProductQuantity(p, Integer.valueOf(qty)));
 
     }
 
-    public void removeClick() {
-
+    public void removeClick(ActionEvent actionEvent) {
         String prodId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("prodId");
+        Product p = productFacade.find(Long.valueOf(prodId));
+        cart.remove(new ProductQuantity(p, 0));
+    }
+
+    public void updateClick(AjaxBehaviorEvent evt) {
+        String prodId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("prodId");
+        Integer qty = (Integer) evt.getComponent().getAttributes().get("value");
+        Product p = productFacade.find(Long.valueOf(prodId));
+        cart.updateQuantity(new ProductQuantity(p, 0));
     }
 }
