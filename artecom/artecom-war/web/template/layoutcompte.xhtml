@@ -1,15 +1,14 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
         <f:facet name="last">
             <h:outputStylesheet name="css/base.css" />
-            <h:outputStylesheet name="css/common-style.css" />
         </f:facet>
     </h:head>
     <h:body>
@@ -24,22 +23,11 @@
                     <ui:include src="/template/menu.xhtml" />
                 </ui:insert>
             </div>
-            
-            
-            
             <div id="page-content">
-                <div id="sidebar">
-                <ui:insert name="sidebar" >
-                    <ui:include src="/template/sidebar.xhtml" />
-                </ui:insert>              
-                </div>
-                <div id="content">
                 <ui:insert name="content" >
                     <ui:include src="/template/content.xhtml" />
                 </ui:insert>
-                </div>
             </div>
-            
             <div id="page-footer">
                 <ui:insert name="footer" >
                     <ui:include src="/template/footer.xhtml" />
