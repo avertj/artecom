@@ -9,9 +9,20 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <ui:composition template="/template/layoutcompte.xhtml">
-            <ui:define name="page-content-manager-body">
-                
+        <ui:composition template="/template/layout.xhtml">
+             <ui:define name="menu">
+                 <ui:insert>
+                     <ui:include src="/template/main-menu.xhtml" />
+                 </ui:insert>
+             </ui:define>
+             <ui:define name="sidebar">
+                 <ui:insert>
+                     <ui:include src="/template/sidebar.xhtml" />
+                 </ui:insert>
+             </ui:define>
+                 
+           <ui:define name="content">
+                         
                 Bienvenue, <h:outputText value="#{craftSpaceManagedBean.display.firstName}"/>
                    <p><h2>Mes commandes en cours</h2></p>
                    <c:if test="#{not empty saleManagedBean.craftsmanSales}">

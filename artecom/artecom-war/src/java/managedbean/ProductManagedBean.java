@@ -33,14 +33,6 @@ public class ProductManagedBean implements Serializable{
     private LoginManagedBean lg;
     
     private Boolean editMode=Boolean.FALSE;
-
-    public Boolean getEditMode() {
-        return editMode;
-    }
-
-    public void setEditMode(Boolean editMode) {
-        this.editMode = editMode;
-    }
     
     @ManagedProperty(value="#{craftManagedBean}")
     private CraftManagedBean cm;
@@ -49,6 +41,20 @@ public class ProductManagedBean implements Serializable{
     private SiteManagedBean sm;
     
     private SiteQueries siteQueries;
+    
+    
+    private Product produit;
+    
+    private Product editProd=null;
+    
+    
+    public Boolean getEditMode() {
+        return editMode;
+    }
+
+    public void setEditMode(Boolean editMode) {
+        this.editMode = editMode;
+    }
 
     public SiteQueries getSiteQueries() {
         siteQueries=sm.getSiteQueries();
@@ -76,11 +82,6 @@ public class ProductManagedBean implements Serializable{
         this.cm = cm;
     }
     
-    
-    private Product produit;
-    
-    private Product editProd=null;
-
     public Product getEditProd() {
         return editProd;
     }
@@ -183,6 +184,10 @@ public class ProductManagedBean implements Serializable{
     }
 
    public List<Product> getProducts() {
+        products=productFacade.findAll();
+        return products;
+    }
+   public List<Product> getCraftsmanProducts() {
         String login = lg.getLogin();
         Client user = clientQuery.getClientByLogin(login);
         craftsman= (Craftsman) user;
