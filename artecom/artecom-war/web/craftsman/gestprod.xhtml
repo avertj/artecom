@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -22,8 +23,8 @@
              </ui:define>
                  
            <ui:define name="content">
-
-                    <p:panel id="panel">
+               <c:if test="#{not empty productManagedBean.products}">
+                     <p:panel id="panel">
                         <h2><h:outputText value="Mes produits"/></h2>
                         <h:dataTable value="#{productManagedBean.craftsmanProducts}" var="item"
                                  headerClass="tableHeader"
@@ -127,6 +128,7 @@
                             </h:column>
                         </h:dataTable>
                      </p:panel>
+               </c:if>
                <h:form id="ajout">
                    <p:commandButton icon="ui-icon-plus" value="Ajouter" action="#{productManagedBean.ajoutMode()}" rendered="#{not productManagedBean.editMode}" update="ajout :form"/>
                </h:form>
