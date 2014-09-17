@@ -11,6 +11,10 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  *
@@ -18,6 +22,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @DiscriminatorValue("P")
+@Indexed
 public class Craftsman extends Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,6 +34,7 @@ public class Craftsman extends Client implements Serializable {
     private List<Site> sites;
 
     @Lob
+    @Field(index=org.hibernate.search.annotations.Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String description;
 
     @OneToMany

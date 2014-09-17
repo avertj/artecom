@@ -19,13 +19,41 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
+import org.apache.solr.analysis.ASCIIFoldingFilterFactory;
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.PhoneticFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.AnalyzerDefs;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
 
 /**
  *
  * @author bmf
  */
 @Entity
-@NamedQuery(name = "", query = "select OBJECT(p) from Product p where p.name like :nom")
+@Indexed
+@NamedQuery(name = "Product.getByName", query = "select OBJECT(p) from Product p where p.name like :nom")
+@AnalyzerDefs({
+    @AnalyzerDef(name = "fr.full",
+      tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+      filters = {
+        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
+        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+        @TokenFilterDef(factory = PhoneticFilterFactory.class, params = {
+            @Parameter(name = "encoder", value="BMPM")
+        }),
+        @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+            @Parameter(name = "language", value = "French")
+        })
+      })
+})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,18 +63,22 @@ public class Product implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "CRAFTSMAN_ID", nullable = false)
+    @IndexedEmbedded
     private Craftsman craftsman;
     @ManyToOne
     @JoinColumn(name = "SITE_ID", nullable = false)
     private Site site;
     @ManyToOne
     @JoinColumn(name = "CRAFT_ID", nullable = false)
+    @IndexedEmbedded
     private Craft craft;
+    @Analyzer(definition = "fr.full")
     private String name;
     
     private Boolean editable;
 
     @Lob
+    @Analyzer(definition = "fr.full")
     private String description; // sera probablement une chaine html générée par un editeur riche en js
 
     private Float price;
