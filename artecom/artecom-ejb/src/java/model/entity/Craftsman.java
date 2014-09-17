@@ -7,6 +7,7 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -35,6 +36,7 @@ public class Craftsman extends Client implements Serializable {
 
     @Lob
     @Field(index=org.hibernate.search.annotations.Index.YES, analyze=Analyze.YES, store=Store.NO)
+    @Column(length=20971520)
     private String description;
 
     @OneToMany

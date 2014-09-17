@@ -7,6 +7,7 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,14 +22,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import org.apache.solr.analysis.ASCIIFoldingFilterFactory;
 import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.NGramFilterFactory;
 import org.apache.solr.analysis.PhoneticFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.AnalyzerDefs;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.NumericField;
 import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
@@ -47,11 +51,15 @@ import org.hibernate.search.annotations.TokenizerDef;
         @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
         @TokenFilterDef(factory = LowerCaseFilterFactory.class),
         @TokenFilterDef(factory = PhoneticFilterFactory.class, params = {
-            @Parameter(name = "encoder", value="BMPM")
+            @Parameter(name = "encoder", value="SOUNDEX")
         }),
         @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
             @Parameter(name = "language", value = "French")
-        })
+        }),
+        @TokenFilterDef(factory = NGramFilterFactory.class,
+            params = { 
+        @Parameter(name = "minGramSize", value = "3"),
+        @Parameter(name = "maxGramSize", value = "3") })
       })
 })
 public class Product implements Serializable {
@@ -73,14 +81,19 @@ public class Product implements Serializable {
     @IndexedEmbedded
     private Craft craft;
     @Analyzer(definition = "fr.full")
+    @Field
     private String name;
     
     private Boolean editable;
 
     @Lob
+    @Column(length=20971520)
     @Analyzer(definition = "fr.full")
+    @Field
     private String description; // sera probablement une chaine html générée par un editeur riche en js
 
+    @NumericField
+    @Field
     private Float price;
     // un poids faisant varier le prix des frais de port ou une valeur fixe pour les frais de ports ?
     private Float weight;
@@ -97,7 +110,7 @@ public class Product implements Serializable {
     }
     @Enumerated(EnumType.ORDINAL)
     private Availability availability;
-
+    
     /**
      * For coccurente edition of Craftsman stock!
      */

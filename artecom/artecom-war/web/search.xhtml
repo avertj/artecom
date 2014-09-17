@@ -13,10 +13,10 @@
                 <h:form>
                     <p:panelGrid columns="2">
                         <p:outputLabel value="recherche"/>
-                        <p:inputText value="#{searchManagedBean.keyword}"/>
+                        <p:inputText value="#{searchManagedBean.max}"/>
                     </p:panelGrid>
                     <h:commandButton value="index" action="#{searchManagedBean.indexing}"/>
-                    <h:commandButton value="recherche" action="#{searchManagedBean.recherche}"/>
+                    <h:commandButton value="recherche" action="#{searchManagedBean.search}"/>
                     <br/>
                     <p:dataList value="#{searchManagedBean.products}" var="p">
                         #{p.name}

@@ -32,6 +32,16 @@ public class SearchManagedBean {
     private IndexerBean indexerBean;
     private List<Product> products = new ArrayList();
     private String keyword;
+    
+    private int max;
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
 
     public List<Product> getProducts() {
         return products;
@@ -54,7 +64,8 @@ public class SearchManagedBean {
     }
     
     public String search() {
-        products = searchingBean.shearchProduct(keyword);
+//        products = searchingBean.shearchProduct(keyword);
+        products = searchingBean.lessthan(max);
         return "search";
     }
     

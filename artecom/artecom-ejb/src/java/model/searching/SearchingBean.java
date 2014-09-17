@@ -11,7 +11,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.entity.Product;
+import org.apache.lucene.search.NumericRangeQuery;
 import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.query.dsl.QueryBuilder;
 
 /**
@@ -37,6 +39,15 @@ public class SearchingBean {
         javax.persistence.Query jpaQuery =
             fullTextEntityManager.createFullTextQuery(luceneQuery, Product.class);
         return jpaQuery.getResultList();
+    }
+    
+    public List<Product> lessthan (float f) {
+        FullTextEntityManager fullTextEntityManager = 
+                org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
+        NumericRangeQuery<Float> rangeQuery = NumericRangeQuery.newFloatRange(
+                "price", 0f, f, true, true);
+        FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(rangeQuery, Product.class);
+        return fullTextQuery.getResultList();
     }
 
     // Add business logic below. (Right-click in editor and choose
