@@ -20,6 +20,7 @@ import model.entity.Client;
 import model.entity.Craft;
 import model.entity.Craftsman;
 import model.entity.Site;
+import model.entity.Site.Type;
 import model.facade.AddressFacade;
 import model.facade.SiteFacade;
 import model.queries.AddressQuery;
@@ -229,6 +230,7 @@ public class SiteManagedBean implements Serializable{
         addressFacade.create(address);
         Address adr = addressQuery.getAddressByName(address.getName());
         site.setAddress(adr);
+        site.setType(getType(idtype));
         site.setCraftsman(craftsman);
         site.setCraftsmanships(siteCrafts); 
         siteFacade.create(site);
@@ -237,4 +239,32 @@ public class SiteManagedBean implements Serializable{
         siteCrafts= new ArrayList();
         
     }
+    
+    private int idtype;
+
+    public int getIdtype() {
+        return idtype;
+    }
+
+    public void setIdtype(int idtype) {
+        this.idtype = idtype;
+    }
+    public Type getType(int id){
+        Type type=null;
+        switch(id){
+            case 0 : 
+                return null;
+            case 1 :
+                type=Type.ONMARKET;
+                break;
+            case 2 :
+                type=Type.WORKSHOP;
+                break;
+            case 3 :
+                type=Type.STORE;
+                break;            
+        }
+        return type;
+    }
+    
 }

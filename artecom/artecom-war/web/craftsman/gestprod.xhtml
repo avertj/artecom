@@ -9,12 +9,23 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-         <ui:composition template="/template/layoutcompte.xhtml">
-           <ui:define name="page-content-manager-body">
+         <ui:composition template="/template/layout.xhtml">
+            <ui:define name="menu">
+                 <ui:insert>
+                     <ui:include src="/template/main-menu.xhtml" />
+                 </ui:insert>
+             </ui:define>
+             <ui:define name="sidebar">
+                 <ui:insert>
+                     <ui:include src="/template/sidebar.xhtml" />
+                 </ui:insert>
+             </ui:define>
+                 
+           <ui:define name="content">
 
                     <p:panel id="panel">
-                        <h1><h:outputText value="List"/></h1>
-                        <h:dataTable value="#{productManagedBean.products}" var="item" styleClass="table"
+                        <h2><h:outputText value="Mes produits"/></h2>
+                        <h:dataTable value="#{productManagedBean.craftsmanProducts}" var="item"
                                  headerClass="tableHeader"
                                  rowClasses="tableEvenRow,tableOddRow"  >
                             <h:column>
