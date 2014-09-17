@@ -33,8 +33,11 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.Spatial;
+import org.hibernate.search.annotations.SpatialMode;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
+import org.hibernate.search.spatial.Coordinates;
 
 /**
  *
@@ -68,7 +71,6 @@ public class Site implements Serializable {
     private Craftsman craftsman;
 
     @Embedded
-    @IndexedEmbedded
     private LatLng latlng;
 
     // une enum pour les types de site
@@ -92,6 +94,21 @@ public class Site implements Serializable {
     @Analyzer(definition = "light")
     @Field
     private String opening;
+    
+    @Spatial
+    public Coordinates getLocation() {
+        return new Coordinates() {
+            @Override
+            public Double getLatitude() {
+                return latlng.getLat();
+            }
+
+            @Override
+            public Double getLongitude() {
+                return latlng.getLng();
+            }
+        };
+    }
 
     public Site(Address address, List<Craft> crafts, Craftsman craftsman, Type type, String description) {
         this.address = address;

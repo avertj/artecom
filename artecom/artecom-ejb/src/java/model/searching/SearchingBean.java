@@ -11,12 +11,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import model.entity.Product;
+import model.entity.Site;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.NumericRangeQuery;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.hibernate.search.query.dsl.Unit;
 
 /**
  *
@@ -27,7 +29,7 @@ public class SearchingBean {
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
     
-    public List<Product> shearchProduct (ProductSearchOption option) {
+    public List<Product> searchProduct (ProductSearchOption option) {
         FullTextEntityManager fullTextEntityManager = 
                 org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
         BooleanQuery bq = new BooleanQuery();
@@ -56,6 +58,23 @@ public class SearchingBean {
 
         javax.persistence.Query jpaQuery =
             fullTextEntityManager.createFullTextQuery(bq, Product.class);
+        return jpaQuery.getResultList();
+    }
+    
+    public List<Site> searchSite (SiteSearchOption option) {
+        FullTextEntityManager fullTextEntityManager = 
+                org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
+        QueryBuilder builder = fullTextEntityManager.getSearchFactory()
+            .buildQueryBuilder().forEntity( Site.class ).get();
+
+          org.apache.lucene.search.Query luceneQuery = builder.spatial()
+            .onDefaultCoordinates()
+            .within(option.getDist(), Unit.KM )
+            .ofLatitude( option.getLat() )
+            .andLongitude( option.getLon() )
+            .createQuery();   
+        javax.persistence.Query jpaQuery =
+            fullTextEntityManager.createFullTextQuery(luceneQuery, Site.class);
         return jpaQuery.getResultList();
     }
 

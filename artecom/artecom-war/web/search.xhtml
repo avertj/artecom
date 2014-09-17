@@ -15,17 +15,29 @@
                 <h:form>
                     <p:panelGrid id="searching" columns="2">
                         <p:outputLabel value="rechercher un : "/>
-                        <p:selectOneMenu>
-                            <f:selectItem itemLabel="produit"/>
+                        <p:selectOneMenu value="#{searchManagedBean.mode}">
+                            <p:ajax update="searching"/>
+                            <f:selectItem itemLabel="produit" itemValue="produit"/>
+                            <f:selectItem itemLabel="site" itemValue="site"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="mot clef requie : "/>
-                        <p:selectBooleanButton offLabel="Non" onLabel="Oui" value="#{searchManagedBean.option.keywordRequiered}"/>
-                        <p:outputLabel value="mot clef : "/>
-                        <p:inputText value="#{searchManagedBean.option.keyword}"/>
-                        <p:outputLabel value="prix maximum : "/>
-                        <p:inputText value="#{searchManagedBean.option.prixMax}"/>
+                        <c:if test="#{searchManagedBean.mode=='produit'}">
+                            <p:outputLabel value="mot clef requie : "/>
+                            <p:selectBooleanButton offLabel="Non" onLabel="Oui" value="#{searchManagedBean.option.keywordRequiered}"/>
+                            <p:outputLabel value="mot clef : "/>
+                            <p:inputText value="#{searchManagedBean.option.keyword}"/>
+                            <p:outputLabel value="prix maximum : "/>
+                            <p:inputText value="#{searchManagedBean.option.prixMax}"/>
+                        </c:if>
+                        <c:if test="#{searchManagedBean.mode=='site'}">
+                            <p:outputLabel for="lat" value="latitude : "/>
+                            <p:inputText id="lat" value="#{searchManagedBean.optionSite.lat}" required="true"/>
+                            <p:outputLabel for="lng" value="longitude : "/>
+                            <p:inputText id="lng" value="#{searchManagedBean.optionSite.lon}" required="true"/>
+                            <p:outputLabel for="dist" value="distance (en km) : "/>
+                            <p:inputText id="dist" value="#{searchManagedBean.optionSite.dist}" required="true"/>
+                        </c:if>
                     </p:panelGrid>
-                    <h:commandButton value="index" action="#{searchManagedBean.indexing}" rendered="false"/>
+                    <h:commandButton value="index" action="#{searchManagedBean.indexing}" rendered="true"/>
                     <h:commandButton value="recherche" action="#{searchManagedBean.search}"/>
                     <br/>
                 </h:form>
@@ -42,6 +54,9 @@
                         </h:form>
                         <div class="description">#{prod.description}</div>
                     </div><br/>
+                </c:forEach>
+                <c:forEach var="site" items="#{searchManagedBean.sites}" >
+                    #{site.description}
                 </c:forEach>
              </ui:define>
         </ui:composition>

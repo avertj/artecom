@@ -7,23 +7,15 @@ package model.entity;
 
 import java.io.Serializable;
 import javax.persistence.Embeddable;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Latitude;
-import org.hibernate.search.annotations.Longitude;
-import org.hibernate.search.annotations.Spatial;
 
 /**
  *
  * @author bmf
  */
 @Embeddable
-@Spatial
-@Indexed
 public class LatLng implements Serializable {
 
-    @Latitude
     private Double lat;
-    @Longitude
     private Double lng;
 
     public LatLng() {
