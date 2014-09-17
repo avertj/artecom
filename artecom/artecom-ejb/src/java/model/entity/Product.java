@@ -22,6 +22,7 @@ import javax.persistence.Version;
 import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Store;
 
 /**
@@ -40,13 +41,16 @@ public class Product implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "CRAFTSMAN_ID", nullable = false)
+    @IndexedEmbedded
     private Craftsman craftsman;
     @ManyToOne
     @JoinColumn(name = "SITE_ID", nullable = false)
     private Site site;
     @ManyToOne
     @JoinColumn(name = "CRAFT_ID", nullable = false)
+    @IndexedEmbedded
     private Craft craft;
+    @Field(index=org.hibernate.search.annotations.Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String name;
     
     private Boolean editable;

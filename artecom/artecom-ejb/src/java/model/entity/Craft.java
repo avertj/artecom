@@ -13,12 +13,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  *
  * @author bmf
  */
 @Entity
+@Indexed
 public class Craft implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,6 +36,7 @@ public class Craft implements Serializable {
     @ManyToOne
     private Craft parent;
 
+    @Field(index=org.hibernate.search.annotations.Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String name;
 
     public Craft(String name, Craft parent) {

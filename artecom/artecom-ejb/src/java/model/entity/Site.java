@@ -20,12 +20,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 /**
  *
  * @author inilog
  */
 @Entity
+@Indexed
 public class Site implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +47,7 @@ public class Site implements Serializable {
     private Craftsman craftsman;
 
     @Embedded
+    @IndexedEmbedded
     private LatLng latlng;
 
     // une enum pour les types de site

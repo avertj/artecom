@@ -31,7 +31,7 @@ public class SearchManagedBean {
     @EJB
     private IndexerBean indexerBean;
     private List<Product> products = new ArrayList();
-    private String word;
+    private String keyword;
 
     public List<Product> getProducts() {
         return products;
@@ -41,25 +41,25 @@ public class SearchManagedBean {
         this.products = products;
     }
 
-    public String getWord() {
-        return word;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setWord(String word) {
-        this.word = word;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
     
     public void indexing() {
         indexerBean.indexing();
     }
     
-    public void recherche() {
-        products = searchingBean.shearchProduct(word);
+    public String search() {
+        products = searchingBean.shearchProduct(keyword);
+        return "search";
     }
     
     @PostConstruct
     public void init() {
-//        this.products = productFacade.findAll();
     }
     
 
