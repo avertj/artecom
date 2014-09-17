@@ -8,7 +8,6 @@ package managedbean;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import model.entity.Craft;
@@ -21,10 +20,12 @@ import model.queries.CraftQueries;
  */
 @ManagedBean(name = "craftManagedBean")
 @SessionScoped
-public class CraftManagedBean implements Serializable{
+public class CraftManagedBean implements Serializable {
 
     @EJB
     private CraftFacade craftFacade;
+    @EJB
+    private CraftQueries craftQueries;
 
     private Craft craft;
 
@@ -62,24 +63,24 @@ public class CraftManagedBean implements Serializable{
     }
 
     public List<Craft> getCrafts() {
-        crafts = craftFacade.findAll();
+        crafts = craftQueries.getCrafts();
         return crafts;
     }
 
     public void add() {
-        Craft c= getCraftById(idparent);
+        Craft c = getCraftById(idparent);
         craft.setParent(c);
         craftFacade.create(craft);
         craft = new Craft();
     }
-    
-    public Craft getCraftById(Long idparent){
+
+    public Craft getCraftById(Long idparent) {
         Craft good = null;
-       for (Craft c : crafts) {
+        for (Craft c : crafts) {
             if (c.getId().equals(idparent)) {
-                good=c;
+                good = c;
             }
-        } 
-       return good;
+        }
+        return good;
     }
 }

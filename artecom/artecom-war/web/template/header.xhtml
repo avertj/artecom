@@ -45,7 +45,7 @@ and open the template in the editor.
                     </div>
                     <div id="page-header-user-cart">
                         <span id="cart-icon"><h:link outcome="cart.jsf"><h:graphicImage name="img/icon/glyphicons_202_shopping_cart.png" /></h:link></span>
-                        <p:outputPanel autoUpdate="true" id="cart-count" styleClass="cart-item-count">(<h:outputText value="#{cartManager.cart.size}" /> - <h:outputText value="#{cartManager.cart.price} €"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText>)</p:outputPanel>
+                        <p:outputPanel autoUpdate="true" id="cart-count" styleClass="cart-item-count">(<h:outputText value="#{cartManager.cart.size}" /> - <h:outputText value="#{cartManager.cart.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText>  €)</p:outputPanel>
                     </div>
                 </div>
                 <p:dialog id="loginDialog" widgetVar="loginDialog">

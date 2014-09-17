@@ -23,18 +23,23 @@ public class CraftQueries {
     private EntityManager em;
 
     public Craft getCraft(Long choix) {
-        TypedQuery<Craft> q = em.createQuery("select distinct OBJECT(c) from Craft c where c.id=:choix", Craft.class);
+        TypedQuery<Craft> q = em.createQuery("select distinct OBJECT(c) from Craft c where c.id=:choix ORDER BY c.name ASC", Craft.class);
         q.setParameter("choix", choix);
         return q.getSingleResult();
     }
 
+    public List<Craft> getCrafts() {
+        TypedQuery<Craft> q = em.createQuery("select distinct OBJECT(c) from Craft c ORDER BY c.name ASC", Craft.class);
+        return q.getResultList();
+    }
+
     public List<Craft> getRootCrafts() {
-        TypedQuery<Craft> q = em.createQuery("select distinct OBJECT(c) from Craft c where c.parent = NULL", Craft.class);
+        TypedQuery<Craft> q = em.createQuery("select distinct OBJECT(c) from Craft c where c.parent = NULL ORDER BY c.name ASC", Craft.class);
         return q.getResultList();
     }
 
     public List<Craft> getSubCrafts(Craft c) {
-        TypedQuery<Craft> q = em.createQuery("select distinct OBJECT(c) from Craft c where c.parent=:p", Craft.class);
+        TypedQuery<Craft> q = em.createQuery("select distinct OBJECT(c) from Craft c where c.parent=:p ORDER BY c.name ASC", Craft.class);
         q.setParameter("p", c);
         return q.getResultList();
     }

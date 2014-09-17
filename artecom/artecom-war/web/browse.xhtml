@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/layout.xhtml">
+            <ui:define name="menu">
+                <ui:include src="/template/main-menu.xhtml" />
+            </ui:define>
+            <ui:define name="sidebar">
+                <h:form>
+                    <p:selectManyCheckbox value="#{browseView.crafts}" layout="pageDirection">
+                        <f:selectItems value="#{browseView.crafts}" var="craft" itemLabel="#{craft.toString()}" itemValue="#{craft}"  />
+                    </p:selectManyCheckbox>
+                </h:form>
+            </ui:define>
+            <ui:define name="content">
+                <p:outputPanel id="products" styleClass="page-content-product-list">
+                    <ui:repeat var="prod" value="#{browseView.products}">
+                        <div class="page-content-product-item">
+                            <div class="page-content-product-item-desc">
+                                <div class="name"><a href="#">#{prod.name}</a></div>
+                                <div class="craftsman">Proposé par <h:link outcome="craftsman"><f:param name="craftsmanId" value="#{prod.craftsman.id}" />#{prod.craftsman.firstName} #{prod.craftsman.lastName}</h:link></div>
+                            </div>
+                            <h:form>
+                                <p:commandLink actionListener="#{cartManager.addClick}">
+                                    <f:param name="prodId" value="#{prod.id}" />
+                                    <f:param name="qty" value="1" />
+                                    <div class="cart-add"><span><h:outputText value="#{prod.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText> €</span><h:graphicImage name="img/icon/glyphicons_209_cart_in.png" /></div>
+                                </p:commandLink>
+                            </h:form>
+                        </div>
+                    </ui:repeat>
+                </p:outputPanel>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

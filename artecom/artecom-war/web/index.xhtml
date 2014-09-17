@@ -11,102 +11,103 @@
     </h:head>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
+            <ui:define name="menu">
+                <ui:include src="/template/main-menu.xhtml" />
+            </ui:define>
+            <ui:define name="content-head">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus
+                    justo et sollicitudin malesuada. Suspendisse gravida volutpat nisl.
+                    Nullam dui mauris, ultrices eu lorem at, molestie congue eros. Nullam
+                    tempus efficitur maximus. <a href="#">Fusce</a> tristique, nisl ut maximus fermentum,
+                    felis sapien commodo mi, id pellentesque erat metus non ipsum.
+                    Praesent pretium elit non ante consectetur gravida. Integer in
+                    tincidunt lacus, et <a href="#">dapibus magna</a>. Maecenas nisl sapien, molestie in
+                    posuere ac, egestas non metus. Maecenas facilisis leo vitae dictum
+                    pulvinar. Sed congue, dui in dignissim rutrum, neque dui pulvinar
+                    odio, at dignissim nunc velit sit amet augue. Curabitur aliquet nulla
+                    et pulvinar sollicitudin.</p>
+            </ui:define>
             <ui:define name="content">
                 <c:set var="tab" value="shop" scope="request" />
-                <div id="page-content-head">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus
-                        justo et sollicitudin malesuada. Suspendisse gravida volutpat nisl.
-                        Nullam dui mauris, ultrices eu lorem at, molestie congue eros. Nullam
-                        tempus efficitur maximus. <a href="#">Fusce</a> tristique, nisl ut maximus fermentum,
-                        felis sapien commodo mi, id pellentesque erat metus non ipsum.
-                        Praesent pretium elit non ante consectetur gravida. Integer in
-                        tincidunt lacus, et <a href="#">dapibus magna</a>. Maecenas nisl sapien, molestie in
-                        posuere ac, egestas non metus. Maecenas facilisis leo vitae dictum
-                        pulvinar. Sed congue, dui in dignissim rutrum, neque dui pulvinar
-                        odio, at dignissim nunc velit sit amet augue. Curabitur aliquet nulla
-                        et pulvinar sollicitudin.</p>
-                </div>
-
-                <div id="page-content-body">
-                    <p:outputPanel id="shop">
-                        <p:outputPanel id="breadcrumb" styleClass="page-content-breadcrumb">
-                            <h:form>
-                                <c:choose>
-                                    <c:when test="#{shopView.currentCraft == null}">
-                                        <h:outputText value="Categorie principale" />
-                                    </c:when>
-                                    <c:otherwise>
-                                        <p:commandLink value="Categorie principale" actionListener="#{shopView.categoryClick}" update=":shop">
-                                            <f:param name="catId" />
-                                        </p:commandLink>
-                                    </c:otherwise>
-                                </c:choose>
-                                <ui:repeat value="#{shopView.breadcrumbs}" var="bread">
-                                    <h:outputText value=" / " />
-                                    <p:commandLink value="#{bread.name}" actionListener="#{shopView.categoryClick}" update=":shop">
-                                        <f:param name="catId" value="#{bread.id}" />
+                <p:outputPanel id="shop">
+                    <p:outputPanel id="breadcrumb" styleClass="page-content-breadcrumb">
+                        <h:form>
+                            <c:choose>
+                                <c:when test="#{shopView.currentCraft == null}">
+                                    <h:outputText value="Categorie principale" />
+                                </c:when>
+                                <c:otherwise>
+                                    <p:commandLink value="Categorie principale" actionListener="#{shopView.categoryClick}" update=":shop">
+                                        <f:param name="catId" />
                                     </p:commandLink>
-                                </ui:repeat>
-                                <c:if test="#{shopView.currentCraft != null}">
-                                    <h:outputText value=" / " />
-                                    <h:outputText value="#{shopView.currentCraft.name}" />
-                                </c:if>
-                            </h:form>
-                        </p:outputPanel>
+                                </c:otherwise>
+                            </c:choose>
+                            <ui:repeat value="#{shopView.breadcrumbs}" var="bread">
+                                <h:outputText value=" / " />
+                                <p:commandLink value="#{bread.name}" actionListener="#{shopView.categoryClick}" update=":shop">
+                                    <f:param name="catId" value="#{bread.id}" />
+                                </p:commandLink>
+                            </ui:repeat>
+                            <c:if test="#{shopView.currentCraft != null}">
+                                <h:outputText value=" / " />
+                                <h:outputText value="#{shopView.currentCraft.name}" />
+                            </c:if>
+                        </h:form>
+                    </p:outputPanel>
 
-                        <p:outputPanel id="categories" styleClass="page-content-category-list">
-                            <ui:repeat var="cat" value="#{shopView.crafts}">
-                                <div class="page-content-category-item">
+                    <p:outputPanel id="categories" styleClass="page-content-category-list">
+                        <ui:repeat var="cat" value="#{shopView.crafts}">
+                            <div class="page-content-category-item">
+                                <h:form>
+                                    <p:commandLink actionListener="#{shopView.categoryClick}" update=":shop">
+                                        <f:param name="catId" value="#{cat.id}" />
+                                        <div class="page-content-category-item-image">
+                                            <img src="http://placehold.it/180x180" />
+                                        </div>
+                                        <div class="page-content-category-item-desc">
+                                            <span>
+                                                <h:outputText value="#{cat.name}" />
+                                            </span>
+                                        </div>
+                                    </p:commandLink>
+                                </h:form>
+                            </div>
+                        </ui:repeat>
+                    </p:outputPanel>
+
+                    <c:choose>
+                        <c:when test="#{not empty shopView.products}">
+                            <p:outputPanel id="products-title" styleClass="page-content-product-title">
+                                <h:outputText value="Produits dans cette categorie" />
+                            </p:outputPanel>
+                        </c:when>
+                        <c:when test="#{shopView.currentCraft != null}">
+                            <p:outputPanel id="products-title" styleClass="page-content-product-title">
+                                <h:outputText value="Aucun produit dans cette categorie" />
+                            </p:outputPanel>
+                        </c:when>
+                    </c:choose>
+
+                    <c:if test="#{not empty shopView.products}">
+                        <p:outputPanel id="products" styleClass="page-content-product-list">
+                            <ui:repeat var="prod" value="#{shopView.products}">
+                                <div class="page-content-product-item">
+                                    <div class="page-content-product-item-desc">
+                                        <div class="name"><a href="#">#{prod.name}</a></div>
+                                        <div class="craftsman">Proposé par <h:link outcome="craftsman"><f:param name="craftsmanId" value="#{prod.craftsman.id}" />#{prod.craftsman.firstName} #{prod.craftsman.lastName}</h:link></div>
+                                    </div>
                                     <h:form>
-                                        <p:commandLink actionListener="#{shopView.categoryClick}" update=":shop">
-                                            <f:param name="catId" value="#{cat.id}" />
-                                            <div class="page-content-category-item-image">
-                                                <img src="http://placehold.it/180x180" />
-                                            </div>
-                                            <div class="page-content-category-item-desc">
-                                                <span>
-                                                    <h:outputText value="#{cat.name}" />
-                                                </span>
-                                            </div>
+                                        <p:commandLink actionListener="#{cartManager.addClick}" >
+                                            <f:param name="prodId" value="#{prod.id}" />
+                                            <f:param name="qty" value="1" />
+                                            <div class="cart-add"><span><h:outputText value="#{prod.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText> €</span><h:graphicImage name="img/icon/glyphicons_209_cart_in.png" /></div>
                                         </p:commandLink>
                                     </h:form>
                                 </div>
                             </ui:repeat>
                         </p:outputPanel>
-
-
-                        <p:outputPanel id="products-title" styleClass="page-content-product-title">
-                            <c:choose>
-                                <c:when test="#{not empty shopView.products}">
-                                    <h:outputText value="Produits dans cette categorie" />
-                                </c:when>
-                                <c:when test="#{shopView.currentCraft != null}">
-                                    <h:outputText value="Aucun produit dans cette categorie" />
-                                </c:when>
-                            </c:choose>
-                        </p:outputPanel>
-
-                        <p:outputPanel id="products" styleClass="page-content-product-list">
-                            <c:if test="#{not empty shopView.products}">
-                                <ui:repeat var="prod" value="#{shopView.products}">
-                                    <div class="page-content-product-item">
-                                        <div class="page-content-product-item-desc">
-                                            <div class="name"><a href="#">#{prod.name}</a></div>
-                                            <div class="craftsman">Proposé par <h:link outcome="craftsman"><f:param name="craftsmanId" value="#{prod.craftsman.id}" />#{prod.craftsman.firstName} #{prod.craftsman.lastName}</h:link></div>
-                                        </div>
-                                        <h:form>
-                                            <p:commandLink actionListener="#{cartManager.addClick}" >
-                                                <f:param name="prodId" value="#{prod.id}" />
-                                                <f:param name="qty" value="1" />
-                                                <div class="cart-add"><span><h:outputText value="#{prod.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText> €</span><h:graphicImage name="img/icon/glyphicons_209_cart_in.png" /></div>
-                                            </p:commandLink>
-                                        </h:form>
-                                    </div>
-                                </ui:repeat>
-                            </c:if>
-                        </p:outputPanel>
-                    </p:outputPanel>
-                </div>
+                    </c:if>
+                </p:outputPanel>
             </ui:define>
         </ui:composition>
     </h:body>

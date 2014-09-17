@@ -39,7 +39,7 @@ public class CartManager implements Serializable {
     }
 
     public void addClick(ActionEvent actionEvent) {
-
+        System.out.println("add");
         String prodId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("prodId");
         String qty = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("qty");
 

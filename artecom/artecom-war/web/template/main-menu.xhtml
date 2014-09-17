@@ -13,9 +13,10 @@ and open the template in the editor.
         <ui:composition>
             <span class="page-menu-item ${tab == 'shop' ? 'page-menu-item-selected' : ''}"><a href="index.jsf"><h:graphicImage class="page-menu-icon" id="page-menu-icon-shop" name="img/icon/glyphicons_350_shopping_bag.png" /><span>Magasin</span></a></span>
             <span class="page-menu-item ${tab == 'map' ? 'page-menu-item-selected' : ''}"><a href="map.jsf"><h:graphicImage class="page-menu-icon" id="page-menu-icon-map" name="img/icon/glyphicons_370_globe_af.png" /><span>Carte</span></a></span>
+            <span class="page-menu-item ${tab == 'cart' ? 'page-menu-item-selected' : ''}"><a href="cart.jsf"><h:graphicImage class="page-menu-icon" id="page-menu-icon-cart" name="img/icon/glyphicons_202_shopping_cart.png" /><span>Panier</span></a></span>
             <!--<span class="page-menu-item"><a href="#"><img class="page-menu-icon" id="page-menu-icon-about" src="resource/img/icons/glyphicons_195_circle_info.png" /><span>About</span></a></span>-->
             <span class="page-menu-item" id="page-menu-item-blank"></span>
-            <span class="page-menu-item" id="page-menu-item-search"><h:form><p:inputText id="search" /><p:watermark for="search" value="Chercher..." /></h:form></span>
+            <span class="page-menu-item" id="page-menu-item-search"><h:form><p:inputText valueChangeListener="#{browseView.valueChanged}" id="search" /><p:watermark for="search" value="Chercher..." /></h:form></span>
         </ui:composition>
     </body>
 </html>

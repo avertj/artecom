@@ -11,7 +11,11 @@
     </h:head>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
+            <ui:define name="menu">
+                <ui:include src="/template/main-menu.xhtml" />
+            </ui:define>
             <ui:define name="content">
+                <c:set var="tab" value="cart" scope="request" />
                 <h3>Contenu du panier</h3>
                 <p:panel id="panel">
 
@@ -29,7 +33,7 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Price</f:facet>
-                                #{pq.product.price}
+                            <h:outputText value="#{pq.product.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText> €
                         </h:column>
                         <h:column>
                             <f:facet name="header">Quantité</f:facet>

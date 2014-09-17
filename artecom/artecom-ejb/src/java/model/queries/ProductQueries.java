@@ -34,10 +34,24 @@ public class ProductQueries {
         q.setParameter("c", c);
         return q.getResultList();
     }
-    
+
     public List<Product> getProductsById(Long c) {
         TypedQuery<Product> q = em.createQuery("select distinct OBJECT(p) from Product p where p.craftsman.id=:c", Product.class);
         q.setParameter("c", c);
+        return q.getResultList();
+    }
+
+    public List<Product> getFilteredProducts(List<Craft> c, Float min, Float max) {
+        System.out.println(c.size());
+        TypedQuery<Product> q;
+        if (!c.isEmpty()) {
+            q = em.createQuery("select distinct OBJECT(p) from Product p where p.craft IN :c and p.price BETWEEN :min AND :max", Product.class);
+            q.setParameter("c", c);
+        } else {
+            q = em.createQuery("select distinct OBJECT(p) from Product p where p.price BETWEEN :min AND :max", Product.class);
+        }
+        q.setParameter("min", min);
+        q.setParameter("max", max);
         return q.getResultList();
     }
 }

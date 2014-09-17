@@ -20,13 +20,24 @@
             </div>
             <div id="page-menu">
                 <ui:insert name="menu" >
-                    <ui:include src="/template/menu.xhtml" />
                 </ui:insert>
             </div>
             <div id="page-content">
-                <ui:insert name="content" >
-                    <ui:include src="/template/content.xhtml" />
-                </ui:insert>
+                <div id="page-content-head">
+                    <ui:insert name="content-head" >
+                    </ui:insert>
+                </div>
+                <div id="page-content-body">
+                    <div id="page-content-sidebar">
+                        <ui:insert name="sidebar" >
+                        </ui:insert>
+                    </div>
+                    <div id="page-content-content">
+                        <ui:insert name="content" >
+                            <!--<ui:include src="/template/content.xhtml" />-->
+                        </ui:insert>
+                    </div>
+                </div>
             </div>
             <div id="page-footer">
                 <ui:insert name="footer" >
