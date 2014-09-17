@@ -8,7 +8,16 @@
     </h:head>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
-            
+             <ui:define name="menu">
+                 <ui:insert>
+                     <ui:include src="/template/main-menu.xhtml" />
+                 </ui:insert>
+             </ui:define>
+             <ui:define name="sidebar">
+                 <ui:insert>
+                     <ui:include src="/template/sidebarclient.xhtml" />
+                 </ui:insert>
+             </ui:define>
         </ui:composition>
     </h:body>
 </html>

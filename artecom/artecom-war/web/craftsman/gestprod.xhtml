@@ -17,12 +17,13 @@
             </ui:insert>
         </ui:define>
         <ui:define name="sidebar">
-            <ui:insert>
+            <ui:insert> 
                 <ui:include src="/template/sidebar.xhtml" />
             </ui:insert>
         </ui:define>
 
       <ui:define name="content">
+          <div id="content-edit">
           <c:if test="#{not empty productManagedBean.craftsmanProducts}">
         <p:panel id="panel">
            <h2><h:outputText value="Mes produits"/></h2>
@@ -172,7 +173,7 @@
                                <p:commandButton value="Cancel" icon="ui-icon-cancel" update="form :ajout" actionListener="#{productManagedBean.cancelMode()}"/>
                            </h:panelGrid>
                        </h:form>
-         
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>
