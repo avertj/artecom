@@ -15,6 +15,7 @@ import javax.faces.bean.SessionScoped;
 import model.entity.Client;
 import model.entity.Craftsman;
 import model.entity.Product;
+import model.entity.Product.Availability;
 import model.entity.Site;
 import model.facade.ProductFacade;
 import model.queries.ClientQuery;
@@ -32,7 +33,17 @@ public class ProductManagedBean implements Serializable{
     @ManagedProperty(value="#{loginManagedBean}")
     private LoginManagedBean lg;
     
-    private Boolean editMode=Boolean.FALSE;
+    private Boolean editMode;
+    
+    private int idAvailability;
+
+    public int getIdAvailability() {
+        return idAvailability;
+    }
+
+    public void setIdAvailability(int idAvailability) {
+        this.idAvailability = idAvailability;
+    }
     
     @ManagedProperty(value="#{craftManagedBean}")
     private CraftManagedBean cm;
@@ -219,6 +230,7 @@ public class ProductManagedBean implements Serializable{
     
     public ProductManagedBean(){
         produit= new Product();
+        editMode=false;
         //editProd=new Product();
         
     }
@@ -235,6 +247,7 @@ public class ProductManagedBean implements Serializable{
     public void add(){
         produit.setEditable(Boolean.FALSE);
         produit.setSite(getSite(idsite));
+        produit.setAvailability(getAvailability(idAvailability));
         produit.setCraft(cm.getCraftById(idcraft));
         produit.setCraftsman(craftsman);
         productFacade.create(produit);
@@ -278,8 +291,24 @@ public class ProductManagedBean implements Serializable{
     public void ajoutMode(){
         setEditMode(true);
     }
-     public void cancelMode(){
+     public String cancelMode(){
         setEditMode(false);
+        return "/craftsman/gestprod.jsf";
+    }
+     
+     public Availability getAvailability(int id){
+        Availability type=null;
+        switch(id){
+            case 0 : 
+                return null;
+            case 1 :
+                type=Availability.NOT_SHIPPABLE;
+                break;
+            case 2 :
+                type=Availability.SHIPPABLE;
+                break;            
+        }
+        return type;
     }
     
    
