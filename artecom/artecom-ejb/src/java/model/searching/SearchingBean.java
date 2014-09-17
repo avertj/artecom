@@ -51,7 +51,8 @@ public class SearchingBean {
         //valeur prix max
         NumericRangeQuery<Float> priceQuery = NumericRangeQuery.newFloatRange(
                 "price", 0f, option.getPrixMax(), true, true);
-        bq.add(priceQuery, BooleanClause.Occur.MUST);
+        if (option.getPrixMax()>=0.01f)
+            bq.add(priceQuery, BooleanClause.Occur.MUST);
 
         javax.persistence.Query jpaQuery =
             fullTextEntityManager.createFullTextQuery(bq, Product.class);

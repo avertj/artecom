@@ -55,11 +55,7 @@ import org.hibernate.search.annotations.TokenizerDef;
         }),
         @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
             @Parameter(name = "language", value = "French")
-        }),
-        @TokenFilterDef(factory = NGramFilterFactory.class,
-            params = { 
-        @Parameter(name = "minGramSize", value = "3"),
-        @Parameter(name = "maxGramSize", value = "3") })
+        })
       })
 })
 public class Product implements Serializable {
