@@ -46,9 +46,11 @@ import org.hibernate.search.annotations.TokenizerDef;
       filters = {
         @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
         @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-        @TokenFilterDef(factory = PhoneticFilterFactory.class),
+        @TokenFilterDef(factory = PhoneticFilterFactory.class, params = {
+            @Parameter(name = "encoder", value="BMPM")
+        }),
         @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
-          @Parameter(name = "language", value = "French")
+            @Parameter(name = "language", value = "French")
         })
       })
 })
