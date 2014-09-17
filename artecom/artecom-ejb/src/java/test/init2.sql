@@ -54,13 +54,13 @@ INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTN
 
 --sites
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
-	VALUES (1, 'A défaut de défandre la patrie nous défandont la poterie!', 'Ouvert tous les lundi de 10H à 23H et le premier jeudi du moi.', 1, '45.7549593', '4.8428779', 5, 5);
+	VALUES (1, 'A défaut de défandre la patrie nous défandont la poterie!', 'Ouvert tous les lundi de 10H à 23H et le premier jeudi du moi.', 1, 45.7549593, 4.8428779, 5, 5);
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
-	VALUES (2, 'Atelier en blance', 'fermer sauf des foie', 0, '45.7577277', '4.8348908', 5, 7);
+	VALUES (2, 'Atelier en blance', 'fermer sauf des foie', 0, 45.7577277, 4.8348908, 5, 7);
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
-	VALUES (3, 'Vente de nutella en poudre', NULL, 0, '45.1868352', '5.723845799999999', 6, 4);
+	VALUES (3, 'Vente de nutella en poudre', NULL, 0, 45.1868352, 5.723845799999999, 6, 4);
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
-	VALUES (4, 'miel et boneurs dans mon atelier', NULL, 1, '45.1860015', '5.7259214', 7, 3);
+	VALUES (4, 'miel et boneurs dans mon atelier', NULL, 1, 45.1860015, 5.7259214, 7, 3);
 
 
 --products

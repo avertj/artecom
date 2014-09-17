@@ -16,7 +16,7 @@
                     <p:panelGrid id="searching" columns="2">
                         <p:outputLabel value="rechercher un : "/>
                         <p:selectOneMenu>
-                            <f:selectItem value="produit"/>
+                            <f:selectItem itemLabel="produit"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="mot clef requie : "/>
                         <p:selectBooleanButton offLabel="Non" onLabel="Oui" value="#{searchManagedBean.option.keywordRequiered}"/>
@@ -28,21 +28,21 @@
                     <h:commandButton value="index" action="#{searchManagedBean.indexing}" rendered="false"/>
                     <h:commandButton value="recherche" action="#{searchManagedBean.search}"/>
                     <br/>
-                    <c:forEach var="prod" items="#{searchManagedBean.products}" >
-                        <div class="search-product-item-desc">
-                            <div class="name"><a href="#">#{prod.name}</a></div>
-                            <div class="craftsman">Proposé par <h:link outcome="craftsman"><f:param name="craftsmanId" value="#{prod.craftsman.id}" />#{prod.craftsman.firstName} #{prod.craftsman.lastName}</h:link></div>
-                            <h:form>
-                                <p:commandLink actionListener="#{cartManager.addClick}">
-                                    <f:param name="prodId" value="#{prod.id}" />
-                                    <f:param name="qty" value="1" />
-                                    <div class="cart-add"><span><h:outputText value="#{prod.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText> €</span><h:graphicImage name="img/icon/glyphicons_209_cart_in.png" /></div>
-                                </p:commandLink>
-                            </h:form>
-                            <div class="description">#{prod.description}</div>
-                        </div><br/>
-                    </c:forEach>
                 </h:form>
+                <c:forEach var="prod" items="#{searchManagedBean.products}" >
+                    <div class="search-product-item-desc">
+                        <div class="name"><a href="#">#{prod.name}</a></div>
+                        <div class="craftsman">Proposé par <h:link outcome="craftsman"><f:param name="craftsmanId" value="#{prod.craftsman.id}" />#{prod.craftsman.firstName} #{prod.craftsman.lastName}</h:link></div>
+                        <h:form>
+                            <p:commandLink actionListener="#{cartManager.addClick}">
+                                <f:param name="prodId" value="#{prod.id}" />
+                                <f:param name="qty" value="1" />
+                                <div class="cart-add"><span><h:outputText value="#{prod.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText> €</span><h:graphicImage name="img/icon/glyphicons_209_cart_in.png" /></div>
+                            </p:commandLink>
+                        </h:form>
+                        <div class="description">#{prod.description}</div>
+                    </div><br/>
+                </c:forEach>
              </ui:define>
         </ui:composition>
     </h:body>
