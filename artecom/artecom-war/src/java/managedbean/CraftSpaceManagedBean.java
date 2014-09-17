@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package managedbean;
 
 import java.io.IOException;
@@ -20,13 +19,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import model.entity.Client;
 import model.entity.Craftsman;
 import model.entity.Sale;
 import model.entity.User;
-import model.facade.ClientFacade;
 import model.facade.CraftsmanFacade;
 import model.facade.SaleFacade;
 import model.facade.UserFacade;
@@ -38,11 +35,13 @@ import org.primefaces.model.UploadedFile;
  *
  * @author donatien
  */
-@ManagedBean(name="craftSpaceManagedBean")
+@ManagedBean(name = "craftSpaceManagedBean")
 @SessionScoped
 public class CraftSpaceManagedBean {
+
     //liste de toutes les commandes
-    private List<Sale> sales ;
+
+    private List<Sale> sales;
     private SaleFacade saleFacade;
     private Sale sale;
     private String confirmation;
@@ -54,13 +53,13 @@ public class CraftSpaceManagedBean {
     public void setConfirmation(String confirmation) {
         this.confirmation = confirmation;
     }
-    
+
     @EJB
     private UserFacade userFacade;
     @EJB
     private CraftsmanFacade craftsmanFacade;
-    
-    private Boolean editMode=false;
+
+    private Boolean editMode = false;
 
     public Boolean getEditMode() {
         return editMode;
@@ -107,10 +106,9 @@ public class CraftSpaceManagedBean {
     private Craftsman craftsman;
 
     public CraftSpaceManagedBean() {
-        user= new User();
-        craftsman= new Craftsman();
+        user = new User();
+        craftsman = new Craftsman();
     }
-
 
     public Sale getSale() {
         return sale;
@@ -119,15 +117,16 @@ public class CraftSpaceManagedBean {
     public void setSale(Sale sale) {
         this.sale = sale;
     }
-    
+
     public List<Sale> getSales() {
-        sales=saleFacade.findAll();
+        sales = saleFacade.findAll();
         return sales;
     }
 
     public void setSales(List<Sale> sales) {
         this.sales = sales;
     }
+
     public SaleFacade getSaleFacade() {
         return saleFacade;
     }
@@ -135,8 +134,8 @@ public class CraftSpaceManagedBean {
     public void setSaleFacade(SaleFacade saleFacade) {
         this.saleFacade = saleFacade;
     }
-    
-     public String crypt(String pass) {
+
+    public String crypt(String pass) {
         MessageDigest md;
         try {
             md = java.security.MessageDigest.getInstance("SHA-256");
@@ -151,10 +150,10 @@ public class CraftSpaceManagedBean {
     }
 
     public void add() {
-        if(!user.getPassword().equals(confirmation))
+        if (!user.getPassword().equals(confirmation)) {
             FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "confirmation différente du message", null));
-        else {
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "confirmation différente du message", null));
+        } else {
             user.setLogin(craftsman.getLogin());
             user.setPassword(crypt(user.getPassword()));
             user.setGroupname("craftsman");
@@ -163,10 +162,10 @@ public class CraftSpaceManagedBean {
                 craftsmanFacade.create(craftsman);
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "email existant!", null));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "email existant!", null));
                 return;
             }
-            
+
             try {
                 FacesContext context = FacesContext.getCurrentInstance();
                 HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
@@ -176,26 +175,27 @@ public class CraftSpaceManagedBean {
             }
         }
     }
-    public void removeInfo(){
-       
-        
+
+    public void removeInfo() {
+
     }
-    
-    public void editInfo(){
+
+    public void editInfo() {
         setEditMode(true);
-  
+
     }
-    public void cancelInfo(){
-      setEditMode(false);
+
+    public void cancelInfo() {
+        setEditMode(false);
     }
-    
-    public void saveInfo(){
-               
+
+    public void saveInfo() {
+        craftsmanFacade.edit(getDisplay());
     }
-    
-    @ManagedProperty(value="#{loginManagedBean}")
+
+    @ManagedProperty(value = "#{loginManagedBean}")
     private LoginManagedBean lg;
-    
+
     @EJB
     private ClientQuery clientQuery;
 
@@ -214,15 +214,15 @@ public class CraftSpaceManagedBean {
     public void setClientQuery(ClientQuery clientQuery) {
         this.clientQuery = clientQuery;
     }
-    
-    public Craftsman getDisplay(){
+
+    public Craftsman getDisplay() {
         String login = lg.getLogin();
         Client usert = clientQuery.getClientByLogin(login);
-        craftsman= (Craftsman) usert;
+        craftsman = (Craftsman) usert;
         return craftsman;
     }
-     private UploadedFile getUploadedPicture()
-    {
+
+    private UploadedFile getUploadedPicture() {
         FacesContext context = FacesContext.getCurrentInstance();
         ELContext elContext = context.getELContext();
         UploadImgBean uploadBean = (UploadImgBean) elContext.getELResolver().getValue(elContext, null, "uploadBean");
