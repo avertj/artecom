@@ -27,40 +27,31 @@ public class SearchingBean {
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
     
-    public List<Product> shearchProduct(String word) {
+    public List<Product> shearchProduct (ProductSearchOption option) {
         FullTextEntityManager fullTextEntityManager = 
                 org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
-        QueryBuilder qb = fullTextEntityManager.getSearchFactory()
-            .buildQueryBuilder().forEntity(Product.class).get();
-        org.apache.lucene.search.Query luceneQuery = qb
-                .keyword()
-                .onFields("description")
-                .matching(word)
-                .createQuery();
-        javax.persistence.Query jpaQuery =
-            fullTextEntityManager.createFullTextQuery(luceneQuery, Product.class);
-        return jpaQuery.getResultList();
-    }
-    
-    public List<Product> lessthan (float f, String word) {
-        FullTextEntityManager fullTextEntityManager = 
-                org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
-//        QueryBuilder qb = fullTextEntityManager.getSearchFactory()
-//            .buildQueryBuilder().forEntity(Product.class).get();
-//        org.apache.lucene.search.Query luceneQuery = qb.range().onField("price")
-//                .from(0).to(i).excludeLimit().createQuery();
-        NumericRangeQuery<Float> rangeQuery = NumericRangeQuery.newFloatRange(
-                "price", 0f, f, true, true);
-        QueryBuilder qb = fullTextEntityManager.getSearchFactory()
-            .buildQueryBuilder().forEntity(Product.class).get();
-        org.apache.lucene.search.Query luceneQuery = qb
-                .keyword()
-                .onFields("description")
-                .matching(word)
-                .createQuery();
         BooleanQuery bq = new BooleanQuery();
-        bq.add(rangeQuery, BooleanClause.Occur.MUST);
-        bq.add(luceneQuery, BooleanClause.Occur.MUST);
+        
+        //recherche par mot clef
+        QueryBuilder qb = fullTextEntityManager.getSearchFactory()
+            .buildQueryBuilder().forEntity(Product.class).get();
+        org.apache.lucene.search.Query keywordQuery;
+        if (!option.getKeyword().equals("")) {
+            keywordQuery = qb
+                    .keyword()
+                    .onFields("description")
+                    .matching(option.getKeyword())
+                    .createQuery();
+            if (option.isKeywordRequiered())
+                bq.add(keywordQuery, BooleanClause.Occur.MUST);
+            else
+                bq.add(keywordQuery, BooleanClause.Occur.SHOULD);
+        }
+        
+        //valeur prix max
+        NumericRangeQuery<Float> priceQuery = NumericRangeQuery.newFloatRange(
+                "price", 0f, option.getPrixMax(), true, true);
+        bq.add(priceQuery, BooleanClause.Occur.MUST);
 
         javax.persistence.Query jpaQuery =
             fullTextEntityManager.createFullTextQuery(bq, Product.class);

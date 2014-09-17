@@ -14,10 +14,12 @@
             <ui:define name="content">
                 <h:form>
                     <p:panelGrid columns="2">
+                        <p:outputLabel value="mot clef requie : "/>
+                        <p:selectBooleanButton offLabel="Non" onLabel="Oui" value="#{searchManagedBean.option.keywordRequiered}"/>
                         <p:outputLabel value="mot clef : "/>
-                        <p:inputText value="#{searchManagedBean.keyword}"/>
+                        <p:inputText value="#{searchManagedBean.option.keyword}"/>
                         <p:outputLabel value="prix maximum : "/>
-                        <p:inputText value="#{searchManagedBean.max}"/>
+                        <p:inputText value="#{searchManagedBean.option.prixMax}"/>
                     </p:panelGrid>
                     <h:commandButton value="index" action="#{searchManagedBean.indexing}"/>
                     <h:commandButton value="recherche" action="#{searchManagedBean.search}"/>

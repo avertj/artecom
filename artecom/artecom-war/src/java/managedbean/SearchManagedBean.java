@@ -15,6 +15,7 @@ import javax.faces.bean.RequestScoped;
 import model.entity.Product;
 import model.facade.ProductFacade;
 import model.searching.IndexerBean;
+import model.searching.ProductSearchOption;
 import model.searching.SearchingBean;
 
 /**
@@ -25,22 +26,19 @@ import model.searching.SearchingBean;
 @RequestScoped
 public class SearchManagedBean {
     @EJB
-    private ProductFacade productFacade;
-    @EJB
     private SearchingBean searchingBean;
     @EJB
     private IndexerBean indexerBean;
     private List<Product> products = new ArrayList();
-    private String keyword;
     
-    private int max;
+    private ProductSearchOption option = new ProductSearchOption();
 
-    public int getMax() {
-        return max;
+    public ProductSearchOption getOption() {
+        return option;
     }
 
-    public void setMax(int max) {
-        this.max = max;
+    public void setOption(ProductSearchOption option) {
+        this.option = option;
     }
 
     public List<Product> getProducts() {
@@ -50,14 +48,6 @@ public class SearchManagedBean {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
     
     public void indexing() {
         indexerBean.indexing();
@@ -65,7 +55,7 @@ public class SearchManagedBean {
     
     public String search() {
 //        products = searchingBean.shearchProduct(keyword);
-        products = searchingBean.lessthan(max, keyword);
+        products = searchingBean.shearchProduct(option);
         return "search";
     }
     
