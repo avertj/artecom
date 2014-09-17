@@ -6,6 +6,8 @@
 
 package model.searching;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,15 +23,15 @@ import org.hibernate.search.jpa.Search;
  */
 @Stateless
 public class IndexerBean {
-    @EJB
-    private ProductFacade productFacade;
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
     
     public void indexing () {
-        FullTextEntityManager ftem = Search.getFullTextEntityManager(em);
-        for (Object prod : productFacade.findAll()) {
-            ftem.index((Product)prod);
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
+        try {
+            fullTextEntityManager.createIndexer().startAndWait();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(IndexerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
