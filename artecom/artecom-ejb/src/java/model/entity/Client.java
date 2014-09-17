@@ -115,6 +115,25 @@ public class Client implements Serializable {
         this.login = login;
     }
 
+    public void addAddress(Address addr)
+    {
+        this.address.add(addr);
+    } 
+    public void removeAddress(Address addr)
+    {
+        if(address.contains(addr))
+        {
+            System.out.println("Contain" + address.size());
+            this.address.remove(addr);
+            System.out.println("Remove" + address.size());
+        }
+        
+    }
+    
+    public void updateAddress(int pos, Address newAddr)
+    {
+          this.address.set(pos, newAddr);        
+    }    
     @Override
     public int hashCode() {
         int hash = 0;

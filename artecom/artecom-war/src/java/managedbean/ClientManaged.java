@@ -9,13 +9,22 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 import model.entity.Client;
 import model.entity.User;
 import model.facade.ClientFacade;
@@ -27,7 +36,7 @@ import org.apache.commons.codec.binary.Base64;
  * @author donatien
  */
 @ManagedBean(name = "clientManagedBean")
-public class ClientManagedBean {
+public class ClientManaged {
     
     @EJB
     private UserFacade userFacade;
@@ -37,8 +46,6 @@ public class ClientManagedBean {
     private User user;
 
     private Client client;
-    
-    private Client newClient ;
     
     private String confirmation;
 
@@ -50,22 +57,12 @@ public class ClientManagedBean {
         this.confirmation = confirmation;
     }
 
-    public ClientManagedBean() {
+    public ClientManaged() {
         user = new User();
         client = new Client();
-        newClient = new Client();
 
     }
 
-    public Client getNewClient() {
-        return newClient;
-    }
-
-    public void setNewClient(Client newClient) {
-        this.newClient = newClient;
-    }
-
-    
     public User getUser() {
         return user;
     }
@@ -83,7 +80,6 @@ public class ClientManagedBean {
     }
 
     public Client getClient() {
-        client = clientFacade.find((long)1000); // pour tester 
         return client;
     }
 
@@ -100,7 +96,7 @@ public class ClientManagedBean {
             return Base64.encodeBase64String(passwordDigest);
 
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-            Logger.getLogger(ClientManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientManaged.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
     }
@@ -128,26 +124,9 @@ public class ClientManagedBean {
                 HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
                 context.getExternalContext().redirect(request.getContextPath() + "/client/");
             } catch (SecurityException | IllegalStateException | IOException ex) {
-                Logger.getLogger(ClientManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClientManaged.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
-    public void prepareNewClient()
-    {
-        client = clientFacade.find((long)1000);
-        newClient.setFirstName(client.getFirstName());
-        newClient.setLastName(client.getLastName());
-        newClient.setLogin(client.getLogin());        
-    }
-    
-    public void updateClient()
-    {
-        client = clientFacade.find((long)1000);
-        System.out.println("Client Name "+ newClient.getFirstName());
-        client.setFirstName(newClient.getFirstName());
-        client.setLastName(newClient.getLastName());
-        client.setLogin(newClient.getLogin());
-        clientFacade.edit(client);    
-    }
+
 }
