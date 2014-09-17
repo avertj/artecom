@@ -65,7 +65,7 @@ public class SearchManagedBean {
     
     public String search() {
 //        products = searchingBean.shearchProduct(keyword);
-        products = searchingBean.lessthan(max);
+        products = searchingBean.lessthan(max, keyword);
         return "search";
     }
     

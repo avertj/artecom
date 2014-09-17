@@ -14,7 +14,9 @@
             <ui:define name="content">
                 <h:form>
                     <p:panelGrid columns="2">
-                        <p:outputLabel value="recherche"/>
+                        <p:outputLabel value="mot clef : "/>
+                        <p:inputText value="#{searchManagedBean.keyword}"/>
+                        <p:outputLabel value="prix maximum : "/>
                         <p:inputText value="#{searchManagedBean.max}"/>
                     </p:panelGrid>
                     <h:commandButton value="index" action="#{searchManagedBean.indexing}"/>
