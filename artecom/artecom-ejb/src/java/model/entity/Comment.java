@@ -7,6 +7,7 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,6 +37,7 @@ public class Comment implements Serializable {
     private Integer rating;
 
     @Lob
+    @Column(length=20971520)
     private String content;
 
     public Comment(Client author, Date createdOn, Integer rating, String content) {

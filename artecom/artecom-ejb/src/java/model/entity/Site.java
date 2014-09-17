@@ -7,6 +7,7 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -62,8 +63,10 @@ public class Site implements Serializable {
     private Type type;
 
     @Lob
+    @Column(length=20971520)
     private String description;
     @Lob
+    @Column(length=20971520)
     private String opening;
 
     public Site(Address address, List<Craft> crafts, Craftsman craftsman, Type type, String description) {

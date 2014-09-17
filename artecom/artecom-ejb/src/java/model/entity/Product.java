@@ -7,6 +7,7 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -86,6 +87,7 @@ public class Product implements Serializable {
     private Boolean editable;
 
     @Lob
+    @Column(length=20971520)
     @Analyzer(definition = "fr.full")
     @Field
     private String description; // sera probablement une chaine html générée par un editeur riche en js
