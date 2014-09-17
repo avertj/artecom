@@ -32,6 +32,8 @@ import org.hibernate.search.annotations.AnalyzerDefs;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Latitude;
+import org.hibernate.search.annotations.Longitude;
 import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.Spatial;
 import org.hibernate.search.annotations.SpatialMode;
@@ -53,6 +55,7 @@ import org.hibernate.search.spatial.Coordinates;
         @TokenFilterDef(factory = LowerCaseFilterFactory.class)
       })
 })
+@Spatial(spatialMode = SpatialMode.GRID)
 public class Site implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -95,19 +98,14 @@ public class Site implements Serializable {
     @Field
     private String opening;
     
-    @Spatial
-    public Coordinates getLocation() {
-        return new Coordinates() {
-            @Override
-            public Double getLatitude() {
-                return latlng.getLat();
-            }
+    @Latitude
+    public Double getLatitude() {
+        return latlng.getLat();
+    }
 
-            @Override
-            public Double getLongitude() {
-                return latlng.getLng();
-            }
-        };
+    @Longitude
+    public Double getLongitude() {
+        return latlng.getLng();
     }
 
     public Site(Address address, List<Craft> crafts, Craftsman craftsman, Type type, String description) {

@@ -11,31 +11,31 @@ package model.searching;
  * @author inilog
  */
 public class SiteSearchOption {
-    private Long lat;
-    private Long lon;
-    private Long dist;
+    private long lat;
+    private long lon;
+    private long dist;
 
-    public Long getLat() {
+    public long getLat() {
         return lat;
     }
 
-    public void setLat(Long lat) {
+    public void setLat(long lat) {
         this.lat = lat;
     }
 
-    public Long getLon() {
+    public long getLon() {
         return lon;
     }
 
-    public void setLon(Long lon) {
+    public void setLon(long lon) {
         this.lon = lon;
     }
 
-    public Long getDist() {
+    public long getDist() {
         return dist;
     }
 
-    public void setDist(Long dist) {
+    public void setDist(long dist) {
         this.dist = dist;
     }
     
