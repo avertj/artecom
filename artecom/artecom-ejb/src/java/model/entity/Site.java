@@ -21,8 +21,20 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.apache.solr.analysis.ASCIIFoldingFilterFactory;
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.PhoneticFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.AnalyzerDefs;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
 
 /**
  *
@@ -30,6 +42,14 @@ import org.hibernate.search.annotations.IndexedEmbedded;
  */
 @Entity
 @Indexed
+@AnalyzerDefs({
+    @AnalyzerDef(name = "light",
+      tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+      filters = {
+        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
+        @TokenFilterDef(factory = LowerCaseFilterFactory.class)
+      })
+})
 public class Site implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -64,9 +84,13 @@ public class Site implements Serializable {
 
     @Lob
     @Column(length=20971520)
+    @Analyzer(definition = "fr.full")
+    @Field
     private String description;
     @Lob
     @Column(length=20971520)
+    @Analyzer(definition = "light")
+    @Field
     private String opening;
 
     public Site(Address address, List<Craft> crafts, Craftsman craftsman, Type type, String description) {
