@@ -27,6 +27,7 @@ import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.AnalyzerDefs;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Parameter;
@@ -47,7 +48,7 @@ import org.hibernate.search.annotations.TokenizerDef;
         @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
         @TokenFilterDef(factory = LowerCaseFilterFactory.class),
         @TokenFilterDef(factory = PhoneticFilterFactory.class, params = {
-            @Parameter(name = "encoder", value="BMPM")
+            @Parameter(name = "encoder", value="SOUNDEX")
         }),
         @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
             @Parameter(name = "language", value = "French")
@@ -73,12 +74,14 @@ public class Product implements Serializable {
     @IndexedEmbedded
     private Craft craft;
     @Analyzer(definition = "fr.full")
+    @Field
     private String name;
     
     private Boolean editable;
 
     @Lob
     @Analyzer(definition = "fr.full")
+    @Field
     private String description; // sera probablement une chaine html générée par un editeur riche en js
 
     private Float price;
@@ -97,7 +100,7 @@ public class Product implements Serializable {
     }
     @Enumerated(EnumType.ORDINAL)
     private Availability availability;
-
+    
     /**
      * For coccurente edition of Craftsman stock!
      */
