@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="profil" required="true"/>
+        <cc:attribute name="managedBean" required="true"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form >
+            <h:panelGrid id="formGrid" columns="2">
+                <p:outputLabel for="firstname" value="Prenom :"/>
+                <p:inputText id="firstname" value="#{cc.attrs.profil.firstName}" required="true"/>
+                <p:outputLabel for="lastname" value="Nom :"/>
+                <p:inputText id="lastname" value="#{cc.attrs.profil.lastName}" required="true"/>
+                <p:outputLabel for="login" value="E-mail :"/>
+                <p:inputText id="login" value="#{cc.attrs.profil.login}" required="true">
+                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                </p:inputText>
+                <p:outputLabel for="password" value="Password :"/>
+                <p:password id="password" value="#{cc.attrs.managedBean.user.password}" required="true">
+                    <f:validateLength minimum="8"/>
+                </p:password>
+                <p:outputLabel for="confirm" value="confirmation :"/>
+                <p:password id="confirm" value="#{cc.attrs.managedBean.confirmation}" required="true">
+                    <f:validateLength minimum="8"/>
+                </p:password>
+
+            </h:panelGrid>
+            <h:commandButton value="Ajouter" action="#{cc.attrs.managedBean.add}" />
+        </h:form>
+    </cc:implementation>
+</html>

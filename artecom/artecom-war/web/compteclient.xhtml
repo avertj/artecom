@@ -5,36 +5,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:artecom="http://xmlns.jcp.org/jsf/composite/artecom">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <h:form >
-                    <h:panelGrid id="formGrid" columns="2">
-
-                        <p:outputLabel for="firstname" value="Prenom :"/>
-                        <p:inputText id="firstname" value="#{clientManagedBean.client.firstName}" required="true"/>
-                        <p:outputLabel for="lastname" value="Nom :"/>
-                        <p:inputText id="lastname" value="#{clientManagedBean.client.lastName}" required="true"/>
-                        <p:outputLabel for="login" value="e-mail :"/>
-                        <p:inputText id="login" value="#{clientManagedBean.client.login}" required="true">
-                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
-                        </p:inputText>
-                        <p:outputLabel for="password" value="Password :"/>
-                        <p:password id="password" value="#{clientManagedBean.user.password}" required="true">
-                            <f:validateLength minimum="8"/>
-                        </p:password>
-                        <p:outputLabel for="confirm" value="confirmation :"/>
-                        <p:password id="confirm" value="#{clientManagedBean.confirmation}" required="true">
-                            <f:validateLength minimum="8"/>
-                        </p:password>
-
-                    </h:panelGrid>
-                    <h:commandButton value="Ajouter" action="#{clientManagedBean.add}" />
-                </h:form>
+                <artecom:creatuser profil="#{clientManagedBean.client}" managedBean="#{clientManagedBean}"/>
             </ui:define>
         </ui:composition>
     </h:body>
