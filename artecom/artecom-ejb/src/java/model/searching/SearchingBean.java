@@ -31,7 +31,7 @@ public class SearchingBean {
         org.apache.lucene.search.Query luceneQuery;
         luceneQuery = qb
                 .keyword()
-                .onFields("description")
+                .onFields("description", "name")
                 .matching(word)
                 .createQuery();
         javax.persistence.Query jpaQuery =
