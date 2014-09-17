@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -210,12 +211,15 @@ public class SiteManagedBean implements Serializable{
     }
     
     
+    @RolesAllowed({"craftsman"})
     public void addCraft(){
         
         craft = craftQueries.getCraft(craft.getId());
         siteCrafts.add(craft);
         craft= new Craft();      
     }
+    
+    @RolesAllowed({"craftsman"})
     public void removeCraft(Craft c){
         
         for(int i=0;i<siteCrafts.size();i++){
