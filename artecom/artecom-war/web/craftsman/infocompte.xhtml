@@ -23,6 +23,7 @@
              </ui:define>
                  
            <ui:define name="content">
+               <div id="content-edit">
                  <h:form id="panel" >
                      <h:panelGrid columns="2">
                     <h:outputLabel value="Portrait:" for="portrait" />
@@ -55,7 +56,7 @@
                                 <p:commandButton value="Sauvegarder" icon="ui-icon-check" validateClient="true" action="#{craftSpaceManagedBean.saveInfo()}" update="forml :panel" rendered="#{craftSpaceManagedBean.editMode}"/>
                                 <p:commandButton value="Cancel" icon="ui-icon-cancel" validateClient="true" action="#{craftSpaceManagedBean.cancelInfo()}" update="forml :panel" rendered="#{craftSpaceManagedBean.editMode}"/>
                 </h:form>
-
+               </div>
             </ui:define>
                 
         </ui:composition>

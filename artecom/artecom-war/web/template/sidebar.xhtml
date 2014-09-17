@@ -10,14 +10,18 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     
     <body>
-        <ui:composition>
-           <ul>
-                <li><h:link outcome="/craftsman/orders" value="Mes commandes" /> </li>
-                <li><h:link outcome="/craftsman/site" value="Mes sites" /></li> 
-                <li><h:link outcome="/craftsman/gestprod" value="Mes produits" /></li> 
-                <li><h:link outcome="/craftsman/infocompte" value="Mes informations" /></li>
-                
-            </ul>
+        <ui:composition>    
+            <div id="sidebar">    
+                <ul>
+                    
+
+                    <li><h:link outcome="/craftsman/orders" value="Mes commandes" /> </li>
+                    <li><h:link outcome="/craftsman/site" value="Mes sites" /></li> 
+                    <li><h:link outcome="/craftsman/gestprod" value="Mes produits" /></li> 
+                    <li><h:link outcome="/craftsman/infocompte" value="Mes informations" /></li>
+
+                </ul>
+            </div>
         </ui:composition>
     </body>
 </html>
