@@ -9,22 +9,22 @@
     </h:head>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
-            
+            <ui:define name="menu">
+                <ui:include src="template/creation-menu.xhtml" />
+            </ui:define>
             <ui:define name="content">
                 <table border="1">
                     <tbody>
                         <tr>
                             <td>
                                 <ul>
-                    <li><h:link value="Creer un compte artisan" outcome="compteartisan" /></li>
-                    <li><h:link value="Creer un compte client" outcome="compteclient" /></li>
-                </ul> 
+                                    <li><h:link value="Creer un compte artisan" outcome="compteartisan" /></li>
+                                    <li><h:link value="Creer un compte client" outcome="compteclient" /></li>
+                                </ul> 
                             </td>
                         </tr>
                     </tbody>
                 </table>
-
-               
             </ui:define>
         </ui:composition>
     </h:body>

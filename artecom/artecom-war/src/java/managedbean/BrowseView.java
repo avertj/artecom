@@ -60,7 +60,7 @@ public class BrowseView implements Serializable {
     public void valueChanged(ValueChangeEvent evt) {
         System.out.println("VALUECHANGED");
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/shop.jsf");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("search.jsf");
         } catch (IOException ex) {
             Logger.getLogger(BrowseView.class.getName()).log(Level.SEVERE, null, ex);
         }

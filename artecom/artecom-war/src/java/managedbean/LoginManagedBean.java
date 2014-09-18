@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ManagedBean(name = "loginManagedBean")
 @SessionScoped
-public class LoginManagedBean implements Serializable{
+public class LoginManagedBean implements Serializable {
 
     private String login;
     private String password;
@@ -66,6 +66,9 @@ public class LoginManagedBean implements Serializable{
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             String navigateString = "";
+            System.out.println(request.getContextPath());
+            System.out.println(request.getRequestURI());
+            System.out.println(request.getRequestURL());
             request.login(login, password);
             principal = request.getUserPrincipal();
             if (!dontmove) {
@@ -78,6 +81,7 @@ public class LoginManagedBean implements Serializable{
                 }
             }
             try {
+                System.out.println(request.getServletPath());
                 context.getExternalContext().redirect(request.getContextPath() + navigateString);
             } catch (IOException ex) {
 
@@ -89,8 +93,8 @@ public class LoginManagedBean implements Serializable{
             login = null;
         }
     }
-    
-    public void logout () {
+
+    public void logout() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 

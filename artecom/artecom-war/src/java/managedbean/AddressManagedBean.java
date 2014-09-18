@@ -5,17 +5,19 @@ package managedbean;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import geocoder.GoogleGeocoder;
+import geocoder.GoogleGeocoderResponse;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import model.entity.Address;
 import model.facade.AddressFacade;
-import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
 //import org.primefaces.context.RequestContext;
 
 /**
@@ -35,23 +37,6 @@ public class AddressManagedBean {
     //private Address address;
     @PostConstruct
     public void init() {
-        /*create("8 Place de la Gare", "Grenoble", 38000);
-         create("2 Place Doyen Gosse", "Grenoble", 38000);
-         create("4 Rue Félix Poulat", "Grenoble", 38000);
-         create("1 Rue Casimir Périer", "Grenoble", 38000);*/
-        simpleModel = new DefaultMapModel();
-
-        //Shared coordinates
-        LatLng coord1 = new LatLng(36.879466, 30.667648);
-        LatLng coord2 = new LatLng(36.883707, 30.689216);
-        LatLng coord3 = new LatLng(36.879703, 30.706707);
-        LatLng coord4 = new LatLng(36.885233, 30.702323);
-
-        //Basic marker
-        simpleModel.addOverlay(new Marker(coord1, "Konyaalti"));
-        simpleModel.addOverlay(new Marker(coord2, "Ataturk Parki"));
-        simpleModel.addOverlay(new Marker(coord3, "Karaalioglu Parki"));
-        simpleModel.addOverlay(new Marker(coord4, "Kaleici"));
     }
 
     /*private void create(String street, String city, Integer postcode) {
@@ -62,6 +47,16 @@ public class AddressManagedBean {
      addressFacade.create(addr);
      }*/
     public void add() {
+        try {
+            GoogleGeocoderResponse resp = GoogleGeocoder.getGeocoderResponse(address);
+            if (resp.results.length > 0 && resp.results[0].types[0].equalsIgnoreCase("street_address")) {
+                address.setStreet(resp.results[0].address_components[0].long_name + " " + resp.results[0].address_components[1].long_name);
+                address.setCity(resp.results[0].address_components[2].long_name);
+                address.setPostcode(Integer.valueOf(resp.results[0].address_components[6].long_name));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(AddressManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         addressFacade.create(address);
         address = new Address();
         //craft = new Craft();

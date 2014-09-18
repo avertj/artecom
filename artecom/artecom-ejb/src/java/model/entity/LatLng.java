@@ -15,31 +15,31 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class LatLng implements Serializable {
 
-    private String lat;
-    private String lng;
+    private Double lat;
+    private Double lng;
+
+    public LatLng(Double lat, Double lng) {
+        this.lat = lat;
+        this.lng = lng;
+    }
 
     public LatLng() {
     }
 
-    public LatLng(String lat, String lng) {
-        this.lat = lat;
-        this.lng = lng;
-    }
-
-    public String getLng() {
-        return lng;
-    }
-
-    public void setLng(String lng) {
-        this.lng = lng;
-    }
-
-    public String getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 
 }

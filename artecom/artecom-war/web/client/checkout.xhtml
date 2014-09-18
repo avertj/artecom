@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Passer commande</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/layout.xhtml">
+            <ui:define name="menu">
+                <ui:include src="/template/main-menu.xhtml" />
+            </ui:define>
+            <ui:define name="content-head">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus
+                    justo et sollicitudin malesuada. Suspendisse gravida volutpat nisl.
+                    Nullam dui mauris, ultrices eu lorem at, molestie congue eros. Nullam
+                    tempus efficitur maximus. <a href="#">Fusce</a> tristique, nisl ut maximus fermentum,
+                    felis sapien commodo mi, id pellentesque erat metus non ipsum.
+                    Praesent pretium elit non ante consectetur gravida. Integer in
+                    tincidunt lacus, et <a href="#">dapibus magna</a>. Maecenas nisl sapien, molestie in
+                    posuere ac, egestas non metus. Maecenas facilisis leo vitae dictum
+                    pulvinar. Sed congue, dui in dignissim rutrum, neque dui pulvinar
+                    odio, at dignissim nunc velit sit amet augue. Curabitur aliquet nulla
+                    et pulvinar sollicitudin.</p>
+            </ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <p:wizard flowListener="#{checkoutView.onFlowProcess}">
+                        <p:tab id="shipping" title="Adresse de livraison">
+                            <p:panel header="Choisissez une adresse de livraison">
+                                <p:messages />
+                                <p:dataTable id="shippingAddress" var="saddr" value="#{checkoutView.addresses}" selection="#{checkoutView.shippingAddress}" rowKey="#{saddr.id}" style="margin-bottom:0">
+                                    <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                                    <p:column>
+                                        <h:outputText value="#{saddr.formattedAddress}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="billing" title="Adresse de facturation">
+                            <p:panel header="Choisissez une adresse de facturation">
+                                <p:messages />
+                                <p:dataTable id="billingAddress" var="baddr" value="#{checkoutView.addresses}" selection="#{checkoutView.billingAddress}" rowKey="#{baddr.id}" style="margin-bottom:0">
+                                    <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                                    <p:column>
+                                        <h:outputText value="#{baddr.formattedAddress}" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="payment" title="Paiement">
+                            <p:panel header="Entrez vos informations de paiement">
+                                <p:messages />
+                                <h:outputLabel value="Numéro de carte" for="card-number" />
+                                <p:inputMask id="card-number" value="#{checkoutView.cardNumber}" mask="9999 9999 9999 9999" size="16" required="true"/>
+                                <p:inputMask id="card-security" value="#{checkoutView.securityCode}" mask="999" size="1" required="true"/>
+
+                                <br />
+                                <h:outputLabel value="Date d'expiration" />
+                                <h:selectOneMenu id="expiration-date-month" value="#{checkoutView.expirationMonth}">
+                                    <c:forEach begin="1" end="12" var="i">
+                                        <f:selectItem itemLabel="#{i}" itemValue="#{i}" />
+                                    </c:forEach>
+                                </h:selectOneMenu>
+                                <h:selectOneMenu id="expiration-date-year" value="#{checkoutView.expirationYear}">
+                                    <c:forEach begin="1" end="20" var="j">
+                                        <f:selectItem itemLabel="#{j + 2013}" itemValue="#{j + 2013}" />
+                                    </c:forEach>
+                                </h:selectOneMenu>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="confirm" title="Confirmation">
+                            <p:panel header="Confirmez-vous votre commande ?">
+                                <p:messages />
+                                Total à payer <h:outputText value="#{cartManager.cart.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText> €
+                                <br />
+                                Adresse de livraison <h:outputText value="#{checkoutView.shippingAddress.formattedAddress}" />
+                                <br />
+                                Adresse de facturation <h:outputText value="#{checkoutView.billingAddress.formattedAddress}" />
+                                <br />
+                                Numéro de carte <h:outputText value="#{checkoutView.cardNumber}" />
+                                <br />
+                                Code de sécurité <h:outputText value="#{checkoutView.securityCode}" />
+                                <br />
+                                Date d'expiration <h:outputText value="#{checkoutView.expirationMonth} / #{checkoutView.expirationYear}" />
+                            </p:panel>
+                            <p:commandButton value="Confirmer" actionListener="#{checkoutView.add}" process="@this"/>
+                        </p:tab>
+                    </p:wizard>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

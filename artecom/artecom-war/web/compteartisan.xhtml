@@ -12,6 +12,9 @@
     </h:head>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
+            <ui:define name="menu">
+                <ui:include src="/template/creation-menu.xhtml" />
+            </ui:define>
             <ui:define name="content">
                 <artecom:creatuser profil="#{craftSpaceManagedBean.craftsman}" managedBean="#{craftSpaceManagedBean}"/>
             </ui:define>

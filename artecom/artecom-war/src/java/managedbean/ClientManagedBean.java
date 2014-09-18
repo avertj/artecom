@@ -9,22 +9,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
 import model.entity.Client;
 import model.entity.User;
 import model.facade.ClientFacade;
@@ -37,7 +28,7 @@ import org.apache.commons.codec.binary.Base64;
  */
 @ManagedBean(name = "clientManagedBean")
 public class ClientManagedBean {
-    
+
     @EJB
     private UserFacade userFacade;
     @EJB
@@ -46,7 +37,7 @@ public class ClientManagedBean {
     private User user;
 
     private Client client;
-    
+
     private String confirmation;
 
     public String getConfirmation() {
@@ -102,11 +93,11 @@ public class ClientManagedBean {
     }
 
     public void add() {
-        
-        if(!user.getPassword().equals(confirmation))
+        System.out.println("ADD");
+        if (!user.getPassword().equals(confirmation)) {
             FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "confirmation différente du message", null));
-        else {
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Erreur de confirmation du mot de passe.", null));
+        } else {
             user.setLogin(client.getLogin());
             user.setPassword(crypt(user.getPassword()));
             user.setGroupname("client");
@@ -115,10 +106,10 @@ public class ClientManagedBean {
                 clientFacade.create(client);
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "email existant!", null));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Un compte utilise déjà cet email.", null));
                 return;
             }
-            
+
             try {
                 FacesContext context = FacesContext.getCurrentInstance();
                 HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();

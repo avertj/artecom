@@ -3,16 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.queries;
 
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import model.entity.Address;
-import model.entity.Craft;
 
 /**
  *
@@ -20,7 +17,8 @@ import model.entity.Craft;
  */
 @Stateless
 public class AddressQuery {
-     @PersistenceContext(unitName = "artecomPU")
+
+    @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
 
     public Address getAddressByName(String choix) {
@@ -29,14 +27,4 @@ public class AddressQuery {
         return q.getSingleResult();
     }
 
-    public List<Craft> getRootCrafts() {
-        TypedQuery<Craft> q = em.createQuery("select distinct OBJECT(c) from Craft c where c.parent = NULL", Craft.class);
-        return q.getResultList();
-    }
-
-    public List<Craft> getSubCrafts(Craft c) {
-        TypedQuery<Craft> q = em.createQuery("select distinct OBJECT(c) from Craft c where c.parent=:p", Craft.class);
-        q.setParameter("p", c);
-        return q.getResultList();
-    }
 }

@@ -78,6 +78,10 @@ public class Address implements Serializable {
         this.postcode = postcode;
     }
 
+    public String getFormattedAddress() {
+        return street + ", " + city + ", " + postcode;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

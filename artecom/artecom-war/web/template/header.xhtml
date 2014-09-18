@@ -20,7 +20,7 @@ and open the template in the editor.
                         <h:graphicImage name="img/france2.png" height="100px" />
                     </div>
                     <div id="page-header-banner-text">
-                        <span><a href="#">Artecom</a></span>
+                        <span><h:link outcome="/index.jsf">Artecom</h:link></span>
                     </div>
                 </div>
 
@@ -29,7 +29,7 @@ and open the template in the editor.
                         <c:if test="#{loginManagedBean.login==null}">
                             <span><p:commandLink oncomplete="PF('loginDialog').show();" value="Se connecter"/></span>
                             <span>-</span>
-                            <span><p:link outcome="compte" value="S'enregistrer"/></span>
+                            <span><p:link outcome="/compte.jsf" value="S'enregistrer"/></span>
                         </c:if>
                         <c:if test="#{loginManagedBean.login!=null}">
                             <h:form>
@@ -44,7 +44,7 @@ and open the template in the editor.
                         </c:if>
                     </div>
                     <div id="page-header-user-cart">
-                        <span id="cart-icon"><h:link outcome="cart.jsf"><h:graphicImage name="img/icon/glyphicons_202_shopping_cart.png" /></h:link></span>
+                        <span id="cart-icon"><h:link outcome="/cart.jsf"><h:graphicImage name="img/icon/glyphicons_202_shopping_cart.png" /></h:link></span>
                         <p:outputPanel autoUpdate="true" id="cart-count" styleClass="cart-item-count">(<h:outputText value="#{cartManager.cart.size}" /> - <h:outputText value="#{cartManager.cart.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText>  €)</p:outputPanel>
                     </div>
                 </div>

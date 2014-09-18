@@ -12,6 +12,7 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,13 +38,15 @@ public class Client implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GenericGenerator(name = "generator", strategy = "increment")
+//    @GeneratedValue(generator = "generator")
     private Long id;
 
     private String firstName;
     private String lastName;
 
-    @OneToMany
-    private List<Address> address;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Address> addresses;
 
     private Long lastBillingAdress;
     private Long lastShippingAdress;
@@ -83,12 +86,12 @@ public class Client implements Serializable {
         this.lastName = lastName;
     }
 
-    public List<Address> getAddress() {
-        return address;
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setAddress(List<Address> address) {
-        this.address = address;
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public Long getLastBillingAdress() {

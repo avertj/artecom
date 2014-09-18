@@ -43,17 +43,17 @@ import org.hibernate.search.annotations.TokenizerDef;
 @NamedQuery(name = "Product.getByName", query = "select OBJECT(p) from Product p where p.name like :nom")
 @AnalyzerDefs({
     @AnalyzerDef(name = "fr.full",
-      tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
-      filters = {
-        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
-        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-        @TokenFilterDef(factory = PhoneticFilterFactory.class, params = {
-            @Parameter(name = "encoder", value="SOUNDEX")
-        }),
-        @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
-            @Parameter(name = "language", value = "French")
-        })
-      })
+            tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+            filters = {
+                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
+                @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+                @TokenFilterDef(factory = PhoneticFilterFactory.class, params = {
+                    @Parameter(name = "encoder", value = "SOUNDEX")
+                }),
+                @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+                    @Parameter(name = "language", value = "French")
+                })
+            })
 })
 public class Product implements Serializable {
 
@@ -76,8 +76,6 @@ public class Product implements Serializable {
     @Analyzer(definition = "fr.full")
     @Field
     private String name;
-    
-    private Boolean editable;
 
     @Lob
     @Analyzer(definition = "fr.full")
@@ -100,7 +98,7 @@ public class Product implements Serializable {
     }
     @Enumerated(EnumType.ORDINAL)
     private Availability availability;
-    
+
     /**
      * For coccurente edition of Craftsman stock!
      */
@@ -116,7 +114,6 @@ public class Product implements Serializable {
         this.weight = weight;
         this.quantity = quantity;
         this.availability = availability;
-        this.editable=Boolean.FALSE;
     }
 
     public Product() {
@@ -231,17 +228,6 @@ public class Product implements Serializable {
         }
         return sum / comments.size();
     }
-    
- 
-
-    public Boolean getEditable() {
-        return editable;
-    }
-
-    public void setEditable(Boolean editable) {
-        this.editable = editable;
-    }
-    
 
     @Override
     public int hashCode() {
