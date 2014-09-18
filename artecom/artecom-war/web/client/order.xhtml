@@ -7,8 +7,8 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <ui:composition template="/template/layout.xhtml">
-             <ui:define name="menu">
+       <ui:composition template="/template/layout.xhtml">
+            <ui:define name="menu">
                  <ui:insert>
                      <ui:include src="/template/main-menu.xhtml" />
                  </ui:insert>
@@ -18,6 +18,13 @@
                      <ui:include src="/template/sidebarclient.xhtml" />
                  </ui:insert>
              </ui:define>
+             
+             <ui:define name="content">
+                <div id="content-edit"> 
+                    
+                    
+                </div>
+            </ui:define>
         </ui:composition>
     </h:body>
 </html>
