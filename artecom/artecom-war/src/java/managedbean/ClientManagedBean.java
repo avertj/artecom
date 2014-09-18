@@ -5,6 +5,8 @@
  */
 package managedbean;
 
+import geocoder.GoogleGeocoder;
+import geocoder.GoogleGeocoderResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -35,35 +37,34 @@ import org.apache.commons.codec.binary.Base64;
 @ManagedBean(name = "clientManagedBean")
 @SessionScoped
 public class ClientManagedBean {
-    
+
     @EJB
     private AddressFacade addressFacade;
     @EJB
     private UserFacade userFacade;
     @EJB
     private ClientFacade clientFacade;
-    
-    @ManagedProperty(value="#{loginManagedBean}")
+
+    @ManagedProperty(value = "#{loginManagedBean}")
     private LoginManagedBean lg;
 
     @EJB
     private ClientQuery clientQuery;
-   
 
     private User user;
 
     private Client client;
-    
-    private Client newClient ;
-    
+
+    private Client newClient;
+
     private String confirmation;
-    
-    private List<Address> addresses ;
-    
-    private Address addr ;
-    
-    private Address selectedAddr ;
-    
+
+    private List<Address> addresses;
+
+    private Address addr;
+
+    private Address selectedAddr;
+
     private int editposition;
 
     public String getConfirmation() {
@@ -78,13 +79,12 @@ public class ClientManagedBean {
         user = new User();
         client = new Client();
         newClient = new Client();
-        
+
         addr = new Address();
         selectedAddr = new Address();
     }
 
     // Address Getter-setter
-    
     public AddressFacade getAddressFacade() {
         return addressFacade;
     }
@@ -96,7 +96,7 @@ public class ClientManagedBean {
     public List<Address> getAddresses() {
         addresses = getDisplay().getAddresses();
         return addresses;
-        
+
     }
 
     public void setAddresses(List<Address> addresses) {
@@ -110,6 +110,7 @@ public class ClientManagedBean {
     public void setAddr(Address addr) {
         this.addr = addr;
     }
+
     public Address getSelectedAddr() {
         return selectedAddr;
     }
@@ -134,7 +135,6 @@ public class ClientManagedBean {
         this.newClient = newClient;
     }
 
-    
     public User getUser() {
         return user;
     }
@@ -151,8 +151,8 @@ public class ClientManagedBean {
         this.clientFacade = clientFacade;
     }
 
-    public Client getClient() {  
-        
+    public Client getClient() {
+
         return client;
     }
 
@@ -176,7 +176,6 @@ public class ClientManagedBean {
         this.clientQuery = clientQuery;
     }
 
-    
     public String crypt(String pass) {
         MessageDigest md;
         try {
@@ -192,11 +191,11 @@ public class ClientManagedBean {
     }
 
     public void add() {
-        
-        if(!user.getPassword().equals(confirmation))
+
+        if (!user.getPassword().equals(confirmation)) {
             FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "confirmation différente du message", null));
-        else {
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "confirmation différente du message", null));
+        } else {
             user.setLogin(client.getLogin());
             user.setPassword(crypt(user.getPassword()));
             user.setGroupname("client");
@@ -205,10 +204,10 @@ public class ClientManagedBean {
                 clientFacade.create(client);
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "email existant!", null));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "email existant!", null));
                 return;
             }
-            
+
             try {
                 FacesContext context = FacesContext.getCurrentInstance();
                 HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
@@ -218,78 +217,91 @@ public class ClientManagedBean {
             }
         }
     }
-    
-    public Client getDisplay()
-    {
-        String login = lg.getLogin();     
+
+    public Client getDisplay() {
+        String login = lg.getLogin();
         System.out.println(login);
-        client = clientQuery.getClientByLogin(login); 
-        return client ;
+        client = clientQuery.getClientByLogin(login);
+        return client;
     }
-    
-    public void prepareNewClient()
-    {
-        client  = getDisplay();
-        System.out.println("Prepare: "+client.getLogin());
+
+    public void prepareNewClient() {
+        client = getDisplay();
+        System.out.println("Prepare: " + client.getLogin());
         newClient.setFirstName(client.getFirstName());
         newClient.setLastName(client.getLastName());
-        newClient.setLogin(client.getLogin());        
+        newClient.setLogin(client.getLogin());
     }
-    
-    public void updateClient()
-    {   
-        client  = getDisplay();
-        System.out.println("Client Name "+ newClient.getFirstName());
+
+    public void updateClient() {
+        client = getDisplay();
+        System.out.println("Client Name " + newClient.getFirstName());
         client.setFirstName(newClient.getFirstName());
         client.setLastName(newClient.getLastName());
         client.setLogin(newClient.getLogin());
-        System.out.println("Client Updated : "+client.getFirstName());
-        clientFacade.edit(client);    
+        System.out.println("Client Updated : " + client.getFirstName());
+        clientFacade.edit(client);
     }
+
     /// Address Function
-    public void addAddress()
-    {
-        
+    public void addAddress() {
+
         client = getDisplay();
+        try {
+            GoogleGeocoderResponse resp = GoogleGeocoder.getGeocoderResponse(addr);
+            if (resp.results.length > 0 && resp.results[0].types[0].equalsIgnoreCase("street_address")) {
+                addr.setStreet(resp.results[0].address_components[0].long_name + " " + resp.results[0].address_components[1].long_name);
+                addr.setCity(resp.results[0].address_components[2].long_name);
+                addr.setPostcode(Integer.valueOf(resp.results[0].address_components[6].long_name));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(AddressManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         addressFacade.create(addr);
         System.out.println(addr.getId() + " " + addr.getName());
-        
+
         client.addAddress(addr);
         clientFacade.edit(client);
-        addr = null ;
+        addr = null;
 
     }
-    
-     public void removeSelectedAddress()
-    {
+
+    public void removeSelectedAddress() {
         client = getDisplay();
-       
+
         client.removeAddress(selectedAddr);
-       
+
         clientFacade.edit(client);
-    
-    }  
-    public void selectedPosition()
-    {
-        if(addresses.contains(selectedAddr))
-        {
+
+    }
+
+    public void selectedPosition() {
+        if (addresses.contains(selectedAddr)) {
             editposition = addresses.indexOf(selectedAddr);
             System.out.println(editposition);
         }
-    }     
-    public void updateAddress()
-    {
-       
-      client = getDisplay();
-      addressFacade.edit(selectedAddr);
-      client.updateAddress(editposition, selectedAddr);
-      
-      clientFacade.edit(client);
-      addresses = client.getAddresses();
-      System.out.println("After : "+selectedAddr.getName() + " " + addresses.get(editposition).getCity());
-      
-    }   
-    
-    
-    
+    }
+
+    public void updateAddress() {
+
+        client = getDisplay();
+        try {
+            GoogleGeocoderResponse resp = GoogleGeocoder.getGeocoderResponse(selectedAddr);
+            if (resp.results.length > 0 && resp.results[0].types[0].equalsIgnoreCase("street_address")) {
+                selectedAddr.setStreet(resp.results[0].address_components[0].long_name + " " + resp.results[0].address_components[1].long_name);
+                selectedAddr.setCity(resp.results[0].address_components[2].long_name);
+                selectedAddr.setPostcode(Integer.valueOf(resp.results[0].address_components[6].long_name));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(AddressManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        addressFacade.edit(selectedAddr);
+        client.updateAddress(editposition, selectedAddr);
+
+        clientFacade.edit(client);
+        addresses = client.getAddresses();
+        System.out.println("After : " + selectedAddr.getName() + " " + addresses.get(editposition).getCity());
+
+    }
+
 }
