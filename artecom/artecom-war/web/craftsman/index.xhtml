@@ -11,22 +11,18 @@
     <h:body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="menu">
-                <ui:insert>
-                    <ui:include src="/template/main-menu.xhtml" />
-                </ui:insert>
+                <ui:include src="/template/main-menu.xhtml" />
             </ui:define>
             <ui:define name="sidebar">
-                <ui:insert>
-                    <ui:include src="/template/sidebar.xhtml" />
-                </ui:insert>
+                <ui:include src="/template/sidebar.xhtml" />
             </ui:define>
 
             <ui:define name="content">
 
                 <div id="content-edit">
 
-                    Bienvenue, <h:outputText value="#{craftSpaceManagedBean.display.firstName}"/>
-                    <p><h2>Mes commandes en cours</h2></p>
+                    <p>Bienvenue, <h:outputText value="#{saleManagedBean.craftsman.firstName}"/></p>
+                    <h2>Mes commandes en cours</h2>
                     <c:if test="#{not empty saleManagedBean.craftsmanSales}">
                         <h:form>
 
@@ -35,37 +31,28 @@
                                     <f:facet name="header">
                                         <h:outputText value="BillingAdress"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.billingAdress}"/>
+                                    <h:outputText value="#{item.billingAdress.formattedAddress}"/>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="ShippingAdress"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.shippingAdress}"/>
+                                    <h:outputText value="#{item.shippingAdress.formattedAddress}"/>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
-                                        <h:outputText value="Price"/>
+                                        <h:outputText value="Produits"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.price}"/>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Cart"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.cart}"/>
+                                    <ui:repeat value="#{item.getProducts(saleManagedBean.craftsman)}" var="pq">
+                                        <h:outputText value="#{pq.product.name}"/> x <h:outputText value="#{pq.quantity}"/>
+                                        <br />
+                                    </ui:repeat>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Status"/>
                                     </f:facet>
                                     <h:outputText value="#{item.status}"/>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Id"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.id}"/>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
@@ -78,7 +65,7 @@
                             </h:dataTable>
                         </h:form>
                     </c:if>
-                    <c:if test="#{empty saleManagedBean.clientSales}">
+                    <c:if test="#{empty saleManagedBean.craftsmanSales}">
                         <p>
                             Aucune commande en cours
                         </p>

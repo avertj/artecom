@@ -12,6 +12,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -59,9 +60,9 @@ public class Site implements Serializable {
     private Long id;
     @OneToOne
     private Address address;
-    @ManyToMany(mappedBy = "sites")
+    @ManyToMany(mappedBy = "sites", fetch = FetchType.EAGER)
     private List<Craft> crafts;
-    @OneToMany(mappedBy = "site")
+    @OneToMany(mappedBy = "site", fetch = FetchType.EAGER)
     private List<Product> products;
 
     @ManyToOne

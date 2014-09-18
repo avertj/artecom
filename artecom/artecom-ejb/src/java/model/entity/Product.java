@@ -19,6 +19,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import org.apache.solr.analysis.ASCIIFoldingFilterFactory;
 import org.apache.solr.analysis.LowerCaseFilterFactory;
@@ -109,6 +110,9 @@ public class Product implements Serializable {
      */
     @Version
     private Long version;
+
+    @Transient
+    private boolean editable = false;
 
     public Product(String name, String description, Float price, Float weight, Integer quantity, Availability availability, Craftsman craftsman, Craft craft, Boolean edit) {
         this.craftsman = craftsman;
@@ -224,6 +228,14 @@ public class Product implements Serializable {
 
     public void setSite(Site site) {
         this.site = site;
+    }
+
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 
     public Float getRating() {

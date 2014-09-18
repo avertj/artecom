@@ -10,12 +10,8 @@ a {
 /*Content*/
 
 #content-edit
-{   
-    float: left;
-    padding-left:20px;
-    margin-left: 220px;
-    margin-top:20px;
-    min-width:800px;
+{
+    padding: 15px;
     background:#fff;
     border:1px #ccc solid;
     border-radius:10px;
@@ -25,11 +21,8 @@ a {
 /* Sidebar */
 
 #sidebar {
-    margin-top: 20px;
-    float: right;
-    width: 20px;
-    min-width:200px;
-    margin-right:20px;
+
+    padding: 16px;
     background:#fff;
     border:1px #ccc solid;
     border-radius:10px;
@@ -38,11 +31,8 @@ a {
 }
 
 #sidebar ul {
-    margin: 15px;
-    padding: 10px;	
-    list-style: normal;
-    height:50%;
-
+    list-style: none outside none;
+    margin-left: -35px;
 }
 
 #sidebar li {
@@ -53,20 +43,20 @@ a {
 
 #sidebar li ul {
 
-    padding: 25px 0;
+    /*padding: 25px 0;*/
 }
 
 #sidebar li li {
-    padding-left: 40px;
+    /*padding-left: 40px;*/
 
     border-bottom: 1px dotted #4A3903;
     background:#689324;
 }
 
 #sidebar h2 {
-    margin: 0;
+    /*margin: 0;
     padding: 20px 0 2px 30px;
-    background:center;
+    background:center;*/
     border-bottom: 2px solid #4A3903;
 }
 
@@ -274,10 +264,10 @@ a {
     width: 100%;
     display: inline-flex;
     justify-content: flex-start;
-    align-items: baseline;
+    /*align-items: baseline;*/
 }
 #page-content-sidebar {
-    position:absolute;
+    /*position:absolute;*/
     flex-grow:0;
     flex-shrink:0;
     /*border: 2px solid #99BB95;

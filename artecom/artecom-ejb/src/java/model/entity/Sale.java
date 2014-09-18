@@ -6,11 +6,13 @@
 package model.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +36,7 @@ public class Sale implements Serializable {
     private Long id;
     //@OneToOne
     //private Cart cart; // A VOIR !! pourquoi ne pas mettre la list ProductQuantity ici ?
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<ProductQuantity> products;
     private float price;
     @ManyToOne
@@ -112,6 +114,16 @@ public class Sale implements Serializable {
      public void setShippingMethod(ShippingMethod shippingMethod) {
      this.shippingMethod = shippingMethod;
      }*/
+    public List<ProductQuantity> getProducts(Craftsman c) {
+        List<ProductQuantity> list = new ArrayList<>();
+        for (ProductQuantity pq : products) {
+            if (pq.getProduct().getCraftsman().equals(c)) {
+                list.add(pq);
+            }
+        }
+        return list;
+    }
+
     public Status getStatus() {
         return status;
     }
