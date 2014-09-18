@@ -57,3 +57,62 @@ and open the template in the editor.
         </ui:composition>
     </body>
 </html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:artecom="http://xmlns.jcp.org/jsf/composite/artecom"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <body>
+        <ui:composition>
+            <h:form>
+                <div id="page-header-banner">
+                    <div id="page-header-banner-logo">
+                        <h:graphicImage name="img/france2.png" height="100px" />
+                    </div>
+                    <div id="page-header-banner-text">
+                        <span><h:link value="Artecom" outcome="index.jsf"/></span>
+                    </div>
+                </div>
+
+                <div id="page-header-user">
+                    <div id="page-header-user-info">
+                        <c:if test="#{loginManagedBean.login==null}">
+                            <span><p:commandLink oncomplete="PF('loginDialog').show();" value="Se connecter"/></span>
+                            <span>-</span>
+                            <span><p:link outcome="compte" value="S'enregistrer"/></span>
+                        </c:if>
+                        <c:if test="#{loginManagedBean.login!=null}">
+                            <h:form>
+                                <c:if test="#{loginManagedBean.craftsman}">
+                                    <span><p:link outcome="/craftsman/index.jsf" value="#{loginManagedBean.login}"/></span>
+                                </c:if>
+                                <c:if test="#{not loginManagedBean.craftsman}">
+                                    <span><p:link outcome="/client/index.jsf" value="#{loginManagedBean.login}"/></span>
+                                </c:if>
+                                <span><p:commandLink actionListener="#{loginManagedBean.logout}" value="Se déconnecter"/></span>
+                            </h:form>
+                        </c:if>
+                    </div>
+                    <div id="page-header-user-cart">
+                        <span id="cart-icon"><h:link outcome="cart.jsf"><h:graphicImage name="img/icon/glyphicons_202_shopping_cart.png" /></h:link></span>
+                        <p:outputPanel autoUpdate="true" id="cart-count" styleClass="cart-item-count">(<h:outputText value="#{cartManager.cart.size}" /> - <h:outputText value="#{cartManager.cart.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText>  €)</p:outputPanel>
+                    </div>
+                </div>
+                <p:dialog id="loginDialog" widgetVar="loginDialog">
+                    <h:form>
+                        <artecom:login loginBean="#{loginManagedBean}" dontmove="true"/>
+                    </h:form>
+                </p:dialog>
+            </h:form>
+        </ui:composition>
+    </body>
+</html>
