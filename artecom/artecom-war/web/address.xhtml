@@ -11,7 +11,10 @@
     </h:head>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
-            <ui:define name="content">
+            <ui:define name="menu">
+                <ui:include src="/template/main-menu.xhtml" />
+            </ui:define>
+            <ui:define name="sidebar">
                 <h:form  id="form">
                     <h:panelGrid columns="3">
                         <h:outputLabel for="name" value="Nom :" style="font-weight:bold"/>
@@ -29,7 +32,8 @@
                     </h:panelGrid>
                     <p:commandButton value="Add" icon="ui-icon-check" validateClient="true" update="form :panel" action="#{addressManagedBean.add()}" />
                 </h:form>
-
+            </ui:define>
+            <ui:define name="content">
                 <h3>Liste des Adresses:</h3>
                 <p:panel id="panel">
                     <h:dataTable value="#{addressManagedBean.addresses}" var="address" styleClass="table"

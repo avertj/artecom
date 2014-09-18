@@ -7,6 +7,8 @@ package model.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,9 +33,18 @@ public class ProductQuantity implements Serializable {
     private Product product;
     private int quantity;
 
+    public enum Status {
+
+        NEW, // prevenir l'artisan pat notif qu'un nouveau produit lui est commandé
+        VIEWED // l'artisan a vu la nouvelle commande
+    }
+    @Enumerated(EnumType.ORDINAL)
+    private Status status;
+
     public ProductQuantity(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
+        this.status = Status.NEW;
     }
 
     public ProductQuantity() {
@@ -72,6 +83,14 @@ public class ProductQuantity implements Serializable {
 
     public float getPrice() {
         return product.getPrice() * quantity;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override

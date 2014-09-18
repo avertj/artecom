@@ -1,0 +1,110 @@
+-- addresses
+INSERT INTO ARTECOM.ADDRESS (ID, CITY, "NAME", POSTCODE, STREET) 
+	VALUES (1, 'Grenoble', 'Pathé Chavant', 38000, '21 Boulevard Maréchal Lyautey');
+INSERT INTO ARTECOM.ADDRESS (ID, CITY, "NAME", POSTCODE, STREET) 
+	VALUES (2, 'Grenoble', 'Rectorat de Grenoble', 38021, '7 Place Bir Hakeim');
+INSERT INTO ARTECOM.ADDRESS (ID, CITY, "NAME", POSTCODE, STREET) 
+	VALUES (3, 'Grenoble', 'College Champollion', 38000, '10 Rue François Raoult');
+INSERT INTO ARTECOM.ADDRESS (ID, CITY, "NAME", POSTCODE, STREET) 
+	VALUES (4, 'Grenoble', 'Le Subway', 38000, '2 Rue Lakanal');
+INSERT INTO ARTECOM.ADDRESS (ID, CITY, "NAME", POSTCODE, STREET) 
+	VALUES (5, 'Lyon', 'McDonald''s', 69007, '6 Place Gabriel Péri');
+INSERT INTO ARTECOM.ADDRESS (ID, CITY, "NAME", POSTCODE, STREET) 
+	VALUES (6, 'Lyon', 'La Poste', 69003, '150 Rue Pierre Corneille');
+INSERT INTO ARTECOM.ADDRESS (ID, CITY, "NAME", POSTCODE, STREET) 
+	VALUES (7, 'Lyon', 'A La Pêche Aux Moules', 69002, '2 Rue des Marronniers');
+INSERT INTO ARTECOM.ADDRESS (ID, CITY, "NAME", POSTCODE, STREET) 
+	VALUES (8, 'Paris', 'Le Petit Palais', 75008, 'Avenue Winston Churchill');
+INSERT INTO ARTECOM.ADDRESS (ID, CITY, "NAME", POSTCODE, STREET) 
+	VALUES (9, 'Paris', 'Unisson', 75008, '61 Rue de l''Arcade');
+INSERT INTO ARTECOM.ADDRESS (ID, CITY, "NAME", POSTCODE, STREET) 
+	VALUES (10, 'Noirmoutier-en-l''Île', 'L''Aquarium', 85330, 'Rue de l''Écluse');
+
+-- craft
+INSERT INTO ARTECOM.CRAFT (ID, "NAME", PARENT_ID) 
+	VALUES (1, 'nouriture', NULL);
+INSERT INTO ARTECOM.CRAFT (ID, "NAME", PARENT_ID) 
+	VALUES (2, 'outil', NULL);
+INSERT INTO ARTECOM.CRAFT (ID, "NAME", PARENT_ID) 
+	VALUES (3, 'art', NULL);
+INSERT INTO ARTECOM.CRAFT (ID, "NAME", PARENT_ID) 
+	VALUES (4, 'apiculture', 1);
+INSERT INTO ARTECOM.CRAFT (ID, "NAME", PARENT_ID) 
+	VALUES (5, 'glacier', 1);
+INSERT INTO ARTECOM.CRAFT (ID, "NAME", PARENT_ID) 
+	VALUES (6, 'poterie', 3);
+
+--client
+INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
+	VALUES (1, 'C', 'Bob', NULL, 'Buffet', NULL, 'client1', NULL);
+INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
+	VALUES (2, 'C', 'Alice', NULL, 'Jacques', NULL, 'client2', NULL);
+INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
+	VALUES (3, 'C', 'Luce', NULL, 'Fremont', NULL, 'client3', NULL);
+INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
+	VALUES (4, 'C', 'Bernadette', NULL, 'Laude', NULL, 'client4', NULL);
+INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
+	VALUES (5, 'P', 'Paulette', NULL, 'Le strat', NULL, 'artisan1', 'Potier comme le chanteur! (même si si ce n était pas vraiment un chanteur');
+INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
+	VALUES (6, 'P', 'Maurice', NULL, 'Blanco', NULL, 'artisan2', 'Vente de peinture blanche uniquement!');
+INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
+	VALUES (7, 'P', 'Christophe', NULL, 'Marquant', NULL, 'artisan3', 'Inventeur du nutéla en poudre!');
+INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
+	VALUES (8, 'P', 'Arthur', NULL, 'Maire', NULL, 'artisan4', 'Happy cultureur');
+
+--sites
+INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
+	VALUES (1, 'A défaut de défandre la patrie nous défandont la poterie!', 'Ouvert tous les lundi de 10H à 23H et le premier jeudi du moi.', 1, 45.7549593, 4.8428779, 5, 5);
+INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
+	VALUES (2, 'Atelier en blance', 'fermer sauf des foie', 0, 45.7577277, 4.8348908, 5, 7);
+INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
+	VALUES (3, 'Vente de nutella en poudre', NULL, 0, 45.1868352, 5.723845799999999, 6, 4);
+INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
+	VALUES (4, 'miel et boneurs dans mon atelier', NULL, 1, 45.1860015, 5.7259214, 7, 3);
+
+
+--products
+INSERT INTO ARTECOM.PRODUCT (ID, AVAILABILITY, DESCRIPTION, "NAME", PRICE, QUANTITY, VERSION, WEIGHT, CRAFT_ID, CRAFTSMAN_ID, SITE_ID) 
+	VALUES (1, 0, 'Plusieur chansson dont une ou deux à la cornemuse. Certains interprête ont même, parait-il, répété avant!!!', 'vinyl de chansson loraine!', 2.0, 20, 0, 0.3, 1, 5, 1);
+INSERT INTO ARTECOM.PRODUCT (ID, AVAILABILITY, DESCRIPTION, "NAME", PRICE, QUANTITY, VERSION, WEIGHT, CRAFT_ID, CRAFTSMAN_ID, SITE_ID) 
+	VALUES (2, 0, 'Un ame qui ressort grace à la fougue de cette toile! une telle profondeur insondable vous tirera à la courte pail!', 'Un carré blanc', 5000.0, 2, 0, 0.2, 1, 6, 3);
+INSERT INTO ARTECOM.PRODUCT (ID, AVAILABILITY, DESCRIPTION, "NAME", PRICE, QUANTITY, VERSION, WEIGHT, CRAFT_ID, CRAFTSMAN_ID, SITE_ID) 
+	VALUES (3, 1, 'le steak de cheval à la côte. Mais il ne peut plus la monté comme il est à point (et la côte ni est pas!)', 'steak de cheval', 5.0, 75, 0, 1.0, 5, 6, 3);
+INSERT INTO ARTECOM.PRODUCT (ID, AVAILABILITY, DESCRIPTION, "NAME", PRICE, QUANTITY, VERSION, WEIGHT, CRAFT_ID, CRAFTSMAN_ID, SITE_ID) 
+	VALUES (4, 0, 'vous aimé ouvrir les cages aux oiseaux! acheté un oiseal!', 'un petit oiseal', 45.0, 45, 0, 3.0, 2, 7, 4);
+INSERT INTO ARTECOM.PRODUCT (ID, AVAILABILITY, DESCRIPTION, "NAME", PRICE, QUANTITY, VERSION, WEIGHT, CRAFT_ID, CRAFTSMAN_ID, SITE_ID) 
+	VALUES (5, 0, 'le nimporte quoi? une barbe', 'barbe de nain', 100.0, 50, 0, 0.8, 2, 6, 3);
+INSERT INTO ARTECOM.PRODUCT (ID, AVAILABILITY, DESCRIPTION, "NAME", PRICE, QUANTITY, VERSION, WEIGHT, CRAFT_ID, CRAFTSMAN_ID, SITE_ID) 
+	VALUES (6, 1, 'Le miel est une substance sucrée produite par les abeilles à miel à partir de nectar ou de miellat. Elles l entreposent dans la ruche et s en nourrissent tout au long de l année, en particulier lors de périodes climatiques défavorables. Il est aussi consommé par d autres espèces animales, dont l espèce humaine qui organise sa production par l élevage des abeilles à miel.', 'miel', 20.0, 70, 0, 0.2, 3, 7, 4);
+INSERT INTO ARTECOM.PRODUCT (ID, AVAILABILITY, DESCRIPTION, "NAME", PRICE, QUANTITY, VERSION, WEIGHT, CRAFT_ID, CRAFTSMAN_ID, SITE_ID) 
+	VALUES (7, 0, 'vous aimez le nutella! gouter le nuttela en poudre! directement dans les narine!', 'miam', 5.0, 70, 0, 0.2, 3, 5, 1);
+INSERT INTO ARTECOM.PRODUCT (ID, AVAILABILITY, DESCRIPTION, "NAME", PRICE, QUANTITY, VERSION, WEIGHT, CRAFT_ID, CRAFTSMAN_ID, SITE_ID) 
+	VALUES (8, 0, 'Plus tôt ou plus tard avec le chien de mickey!', 'Plutot', 9.99, 70, 0, 0.45, 3, 7, 4);
+
+
+--client_address
+INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESS_ID) 
+	VALUES (1, 1);
+INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESS_ID) 
+	VALUES (1, 6);
+INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESS_ID) 
+	VALUES (2, 2);
+INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESS_ID) 
+	VALUES (3, 8);
+
+
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (1, 1);
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (2, 1);
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (3, 1);
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (2, 2);
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (3, 3);
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (4, 4);
+INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
+	VALUES (2, 3);
+

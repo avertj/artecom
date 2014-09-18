@@ -16,6 +16,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import model.entity.Craft;
 import model.entity.Product;
 import model.queries.CraftQueries;
@@ -58,9 +59,10 @@ public class BrowseView implements Serializable {
     }
 
     public void valueChanged(ValueChangeEvent evt) {
-        System.out.println("VALUECHANGED");
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/shop.jsf");
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+            FacesContext.getCurrentInstance().getExternalContext().redirect(request.getContextPath() + "/search.jsf");
         } catch (IOException ex) {
             Logger.getLogger(BrowseView.class.getName()).log(Level.SEVERE, null, ex);
         }

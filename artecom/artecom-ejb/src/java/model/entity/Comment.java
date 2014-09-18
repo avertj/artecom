@@ -37,7 +37,7 @@ public class Comment implements Serializable {
     private Integer rating;
 
     @Lob
-    @Column(length=20971520)
+    @Column(length = 20971520)
     private String content;
 
     public Comment(Client author, Date createdOn, Integer rating, String content) {

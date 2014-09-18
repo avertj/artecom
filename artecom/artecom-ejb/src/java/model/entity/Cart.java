@@ -70,64 +70,10 @@ public class Cart implements Serializable {
         return list.size();
     }
 
-    public int isInCart(Long id) {
-        for (int i = 0; i < this.list.size(); i++) {
-            if (this.list.get(i).getProduct().getId().equals(id)) {
-                return i;
-            }
-        }
-        return -1;
+    public void empty() {
+        list.clear();
     }
 
-    public void majProd(int index, int quantite) {
-        this.list.get(index).setQuantity(quantite);
-    }
-
-    public void removeProduct(int pos) {
-        this.list.remove(pos);
-    }
-
-    public void addtoCart(ProductQuantity pq) {
-        this.list.add(pq);
-    }
-
-    public float getPriceOfCart() {
-        int tot = 0;
-        if (this.list.size() > 0) {
-            for (int i = 0; i < this.list.size(); i++) {
-                tot += this.list.get(i).getPrice();
-            }
-        }
-        return tot;
-    }
-
-    /*public Long getId() {
-     return id;
-     }
-
-     public void setId(Long id) {
-     this.id = id;
-     }
-
-     @Override
-     public int hashCode() {
-     int hash = 0;
-     hash += (id != null ? id.hashCode() : 0);
-     return hash;
-     }
-
-     @Override
-     public boolean equals(Object object) {
-     // TODO: Warning - this method won't work in the case the id fields are not set
-     if (!(object instanceof Cart)) {
-     return false;
-     }
-     Cart other = (Cart) object;
-     if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-     return false;
-     }
-     return true;
-     }*/
     @Override
     public String toString() {
         return "model.entity.Cart [ " + list.size() + " products ]";

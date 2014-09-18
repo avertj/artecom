@@ -54,8 +54,18 @@
                         </h:column>
                     </h:dataTable>
                 </p:panel>
-
-                <p:outputPanel autoUpdate="true" style="text-align: right; font-size: 1.2em">Total : <h:outputText value="#{cartManager.cart.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText> €</p:outputPanel>
+                <p:outputPanel autoUpdate="true">
+                    <p:outputPanel style="text-align: right; font-size: 1.2em">
+                        Total : <h:outputText value="#{cartManager.cart.price}"><f:convertNumber maxFractionDigits="2" minFractionDigits="2" /></h:outputText> €
+                    </p:outputPanel>
+                    <c:if test="#{cartManager.cart.size > 0}" >
+                        <p:outputPanel style="text-align: right; font-size: 1.2em">
+                            <h:form>
+                                <p:commandButton value="Passer commande" action="#{cartManager.checkout}" />
+                            </h:form>
+                        </p:outputPanel>
+                    </c:if>
+                </p:outputPanel>
             </ui:define>
         </ui:composition>
     </h:body>

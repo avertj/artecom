@@ -3,16 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package managedbean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -27,57 +24,54 @@ import model.facade.SiteFacade;
 import model.queries.AddressQuery;
 import model.queries.ClientQuery;
 import model.queries.CraftQueries;
-import model.queries.SaleQuery;
 import model.queries.SiteQueries;
 
 /**
  *
  * @author donatien
  */
-@ManagedBean(name="siteManagedBean")
+@ManagedBean(name = "siteManagedBean")
 @SessionScoped
-public class SiteManagedBean implements Serializable{
-    
-     
-    @ManagedProperty(value="#{loginManagedBean}")
-    private LoginManagedBean lg; 
-    
-    
-    @ManagedProperty(value="#{craftManagedBean}")
+public class SiteManagedBean implements Serializable {
+
+    @ManagedProperty(value = "#{loginManagedBean}")
+    private LoginManagedBean lg;
+
+    @ManagedProperty(value = "#{craftManagedBean}")
     private CraftManagedBean cm;
-    
+
     private Craftsman craftsman;
-    
+
     @EJB
     private SiteFacade siteFacade;
-    
+
     @EJB
     private CraftQueries craftQueries;
-    
+
     @EJB
     private AddressQuery addressQuery;
-    
+
     @EJB
     private ClientQuery clientQuery;
-    
+
     @EJB
     private AddressFacade addressFacade;
-    
+
     @EJB
     private SiteQueries siteQueries;
-    
+
     private Address address;
-    
+
     private ArrayList<Craft> siteCrafts;
-    
+
     private List<Site> sites;
 
     private Site site;
-    
+
     private Long craftId;
-     
+
     private Craft craft;
-    
+
     public Craftsman getCraftsman() {
         return craftsman;
     }
@@ -141,7 +135,7 @@ public class SiteManagedBean implements Serializable{
     public void setSiteQueries(SiteQueries siteQueries) {
         this.siteQueries = siteQueries;
     }
-    
+
     public Craft getCraft() {
         return craft;
     }
@@ -149,15 +143,15 @@ public class SiteManagedBean implements Serializable{
     public void setCraft(Craft craft) {
         this.craft = craft;
     }
-      
-    public SiteManagedBean(){
-        site=new Site();
-        address= new Address(); 
-        siteCrafts= new ArrayList();
+
+    public SiteManagedBean() {
+        site = new Site();
+        address = new Address();
+        siteCrafts = new ArrayList();
         craft = new Craft();
-        
+
     }
-   
+
     public ArrayList<Craft> getSiteCrafts() {
         return siteCrafts;
     }
@@ -165,7 +159,7 @@ public class SiteManagedBean implements Serializable{
     public void setSiteCrafts(ArrayList<Craft> siteCrafts) {
         this.siteCrafts = siteCrafts;
     }
-    
+
     public Address getAddress() {
         return address;
     }
@@ -173,7 +167,7 @@ public class SiteManagedBean implements Serializable{
     public void setAddress(Address address) {
         this.address = address;
     }
-    
+
     public Long getCraftId() {
         return craftId;
     }
@@ -181,11 +175,11 @@ public class SiteManagedBean implements Serializable{
     public void setCraftId(Long craftId) {
         this.craftId = craftId;
     }
-    
+
     public List<Site> getSites() {
         String login = lg.getLogin();
         Client user = clientQuery.getClientByLogin(login);
-        craftsman= (Craftsman) user;
+        craftsman = (Craftsman) user;
         sites = siteQueries.getSites(craftsman);
         return sites;
     }
@@ -201,7 +195,7 @@ public class SiteManagedBean implements Serializable{
     public void setSite(Site site) {
         this.site = site;
     }
-    
+
     public SiteFacade getSiteFacade() {
         return siteFacade;
     }
@@ -209,41 +203,40 @@ public class SiteManagedBean implements Serializable{
     public void setSiteFacade(SiteFacade siteFacade) {
         this.siteFacade = siteFacade;
     }
-    
-    
+
     @RolesAllowed({"craftsman"})
-    public void addCraft(){
-        
+    public void addCraft() {
+
         craft = craftQueries.getCraft(craft.getId());
         siteCrafts.add(craft);
-        craft= new Craft();      
+        craft = new Craft();
     }
-    
+
     @RolesAllowed({"craftsman"})
-    public void removeCraft(Craft c){
-        
-        for(int i=0;i<siteCrafts.size();i++){
-            if (siteCrafts.get(i).equals(c)){
+    public void removeCraft(Craft c) {
+
+        for (int i = 0; i < siteCrafts.size(); i++) {
+            if (siteCrafts.get(i).equals(c)) {
                 siteCrafts.remove(i);
             }
         }
-            
+
     }
-    
-    public void addSite(){
+
+    public void addSite() {
         addressFacade.create(address);
         Address adr = addressQuery.getAddressByName(address.getName());
         site.setAddress(adr);
         site.setType(getType(idtype));
         site.setCraftsman(craftsman);
-        site.setCraftsmanships(siteCrafts); 
+        site.setCraftsmanships(siteCrafts);
         siteFacade.create(site);
         site = new Site();
-        address= new Address();
-        siteCrafts= new ArrayList();
-        
+        address = new Address();
+        siteCrafts = new ArrayList();
+
     }
-    
+
     private int idtype;
 
     public int getIdtype() {
@@ -253,22 +246,23 @@ public class SiteManagedBean implements Serializable{
     public void setIdtype(int idtype) {
         this.idtype = idtype;
     }
-    public Type getType(int id){
-        Type type=null;
-        switch(id){
-            case 0 : 
+
+    public Type getType(int id) {
+        Type type = null;
+        switch (id) {
+            case 0:
                 return null;
-            case 1 :
-                type=Type.ONMARKET;
+            case 1:
+                type = Type.ONMARKET;
                 break;
-            case 2 :
-                type=Type.WORKSHOP;
+            case 2:
+                type = Type.WORKSHOP;
                 break;
-            case 3 :
-                type=Type.STORE;
-                break;            
+            case 3:
+                type = Type.STORE;
+                break;
         }
         return type;
     }
-    
+
 }

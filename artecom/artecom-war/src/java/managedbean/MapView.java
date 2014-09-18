@@ -46,7 +46,7 @@ public class MapView implements Serializable {
         for (Site site : sites) {
             System.out.println(site.getDescription());
             System.out.println(site.getCraftsman().getFirstName());
-            SiteMarker m = new SiteMarker(new LatLng(Double.valueOf(site.getLatlng().getLat()), Double.valueOf(site.getLatlng().getLng())), site.getAddress().getName(), site);
+            SiteMarker m = new SiteMarker(new LatLng(site.getLatlng().getLat(), site.getLatlng().getLng()), site.getAddress().getName(), site);
             mapModel.addOverlay(m);
         }
     }

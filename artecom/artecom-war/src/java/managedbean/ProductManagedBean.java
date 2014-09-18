@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package managedbean;
 
 import java.io.Serializable;
@@ -26,15 +25,15 @@ import model.queries.SiteQueries;
  *
  * @author donatien
  */
-@ManagedBean(name="productManagedBean")
+@ManagedBean(name = "productManagedBean")
 @SessionScoped
-public class ProductManagedBean implements Serializable{
-    
-    @ManagedProperty(value="#{loginManagedBean}")
+public class ProductManagedBean implements Serializable {
+
+    @ManagedProperty(value = "#{loginManagedBean}")
     private LoginManagedBean lg;
-    
+
     private Boolean editMode;
-    
+
     private int idAvailability;
 
     public int getIdAvailability() {
@@ -44,21 +43,19 @@ public class ProductManagedBean implements Serializable{
     public void setIdAvailability(int idAvailability) {
         this.idAvailability = idAvailability;
     }
-    
-    @ManagedProperty(value="#{craftManagedBean}")
+
+    @ManagedProperty(value = "#{craftManagedBean}")
     private CraftManagedBean cm;
-    
-    @ManagedProperty(value="#{siteManagedBean}")
+
+    @ManagedProperty(value = "#{siteManagedBean}")
     private SiteManagedBean sm;
-    
+
     private SiteQueries siteQueries;
-    
-    
+
     private Product produit;
-    
-    private Product editProd=null;
-    
-    
+
+    private Product editProd = null;
+
     public Boolean getEditMode() {
         return editMode;
     }
@@ -68,7 +65,7 @@ public class ProductManagedBean implements Serializable{
     }
 
     public SiteQueries getSiteQueries() {
-        siteQueries=sm.getSiteQueries();
+        siteQueries = sm.getSiteQueries();
         return siteQueries;
     }
 
@@ -85,14 +82,14 @@ public class ProductManagedBean implements Serializable{
     }
 
     public CraftManagedBean getCm() {
-       
+
         return cm;
     }
 
     public void setCm(CraftManagedBean cm) {
         this.cm = cm;
     }
-    
+
     public Product getEditProd() {
         return editProd;
     }
@@ -100,11 +97,11 @@ public class ProductManagedBean implements Serializable{
     public void setEditProd(Product editProd) {
         this.editProd = editProd;
     }
-    
+
     private Long idcraft;
-    
+
     private Long idsite;
-    
+
     private Long idcraftl;
 
     public Long getIdcraftl() {
@@ -122,7 +119,7 @@ public class ProductManagedBean implements Serializable{
     public void setIdsitel(Long idsitel) {
         this.idsitel = idsitel;
     }
-    
+
     private Long idsitel;
 
     public Long getIdsite() {
@@ -140,17 +137,17 @@ public class ProductManagedBean implements Serializable{
     public void setIdcraft(Long idcraft) {
         this.idcraft = idcraft;
     }
-    
+
     private Craftsman craftsman;
 
     public Craftsman getCraftsman() {
-         return craftsman;
+        return craftsman;
     }
 
     public void setCraftsman(Craftsman craftsman) {
         this.craftsman = craftsman;
     }
-    
+
     @EJB
     private ClientQuery clientQuery;
 
@@ -194,122 +191,126 @@ public class ProductManagedBean implements Serializable{
         this.productQueries = productQueries;
     }
 
-   public List<Product> getProducts() {
-        products=productFacade.findAll();
+    public List<Product> getProducts() {
+        products = productFacade.findAll();
         return products;
     }
-   public List<Product> getCraftsmanProducts() {
+
+    public List<Product> getCraftsmanProducts() {
         String login = lg.getLogin();
         Client user = clientQuery.getClientByLogin(login);
-        craftsman= (Craftsman) user;
-        products= productQueries.getProductsById(user.getId());
+        craftsman = (Craftsman) user;
+        products = productQueries.getProductsById(user.getId());
         return products;
     }
-     /*public Hashtable<Boolean,Product> getProducts() {
-         Hashtable tableProd = new Hashtable();
-         String login = lg.getLogin();
-        Client user = clientQuery.getClientByLogin(login);
-        craftsman= (Craftsman) user;
-        products= productQueries.getProductsById(user.getId());
-        for(Product p:products){
-            tableProd.put(editMode,p);
-        }
-        return tableProd;
-    }*/
+    /*public Hashtable<Boolean,Product> getProducts() {
+     Hashtable tableProd = new Hashtable();
+     String login = lg.getLogin();
+     Client user = clientQuery.getClientByLogin(login);
+     craftsman= (Craftsman) user;
+     products= productQueries.getProductsById(user.getId());
+     for(Product p:products){
+     tableProd.put(editMode,p);
+     }
+     return tableProd;
+     }*/
+
     public void setProducts(List<Product> products) {
         this.products = products;
     }
-    
+
     @EJB
     private ProductFacade productFacade;
-    
+
     @EJB
     private ProductQueries productQueries;
-    
+
     private List<Product> products;
-    
-    public ProductManagedBean(){
-        produit= new Product();
-        editMode=false;
+
+    public ProductManagedBean() {
+        produit = new Product();
+        editMode = false;
         //editProd=new Product();
-        
+
     }
-    public Site getSite(Long id){
+
+    public Site getSite(Long id) {
         List<Site> list = sm.getSites();
-        Site site=null;
-        for(Site s:list){
-            if(s.getId().equals(id)){
-                site=s;
+        Site site = null;
+        for (Site s : list) {
+            if (s.getId().equals(id)) {
+                site = s;
             }
         }
         return site;
     }
-    public void add(){
-        produit.setEditable(Boolean.FALSE);
+
+    public void add() {
+        //produit.setEditable(Boolean.FALSE);
         produit.setSite(getSite(idsite));
         produit.setAvailability(getAvailability(idAvailability));
         produit.setCraft(cm.getCraftById(idcraft));
         produit.setCraftsman(craftsman);
         productFacade.create(produit);
         setEditMode(false);
-        produit= new Product();
-        idcraft=null;
-        idsite=null;
-        
+        produit = new Product();
+        idcraft = null;
+        idsite = null;
+
     }
-    
-      
-    public void removeProd(Product p){
+
+    public void removeProd(Product p) {
         productFacade.remove(p);
-        
+
     }
-    
-    public void editProd(Product p){
-        
+
+    public void editProd(Product p) {
+
         //setEditMode(Boolean.TRUE);
-        editProd=p;
-        p.setEditable(Boolean.TRUE);
+        editProd = p;
+        //p.setEditable(Boolean.TRUE);
         productFacade.edit(p);
-        
+
     }
-    public void cancelProd(Product p){
-        p.setEditable(Boolean.FALSE);
+
+    public void cancelProd(Product p) {
+        //p.setEditable(Boolean.FALSE);
         productFacade.edit(p);
     }
-    
-    public void saveProd(Product p){
-       
+
+    public void saveProd(Product p) {
+
         //editProd.setSite(getSite(idcraftl));
         //editProd.setCraft(cm.getCraftById(idcraftl));
         //p.setAvailability(editProd.getAvailability());
         //productFacade.find(p.getId());
-        p.setEditable(Boolean.FALSE);
+        //p.setEditable(Boolean.FALSE);
         productFacade.edit(p);
-        
+
     }
-    
-    public void ajoutMode(){
+
+    public void ajoutMode() {
         setEditMode(true);
     }
-     public String cancelMode(){
+
+    public String cancelMode() {
         setEditMode(false);
         return "/craftsman/gestprod.jsf";
     }
-     
-     public Availability getAvailability(int id){
-        Availability type=null;
-        switch(id){
-            case 0 : 
+
+    public Availability getAvailability(int id) {
+        Availability type = null;
+        switch (id) {
+            case 0:
                 return null;
-            case 1 :
-                type=Availability.NOT_SHIPPABLE;
+            case 1:
+                type = Availability.NOT_SHIPPABLE;
                 break;
-            case 2 :
-                type=Availability.SHIPPABLE;
-                break;            
+            case 2:
+                type = Availability.SHIPPABLE;
+                break;
         }
         return type;
     }
-    
-   
+
 }

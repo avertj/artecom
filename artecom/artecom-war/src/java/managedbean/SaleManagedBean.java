@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package managedbean;
 
 import java.io.Serializable;
@@ -21,25 +20,25 @@ import model.queries.SaleQuery;
  *
  * @author donatien
  */
-@ManagedBean(name="saleManagedBean")
+@ManagedBean(name = "saleManagedBean")
 @SessionScoped
-public class SaleManagedBean implements Serializable{
-    
+public class SaleManagedBean implements Serializable {
+
     @EJB
     private SaleQuery saleQuery;
-    
-    @ManagedProperty(value="#{loginManagedBean}")
+
+    @ManagedProperty(value = "#{loginManagedBean}")
     private LoginManagedBean lg;
-    
+
     @EJB
     private SaleFacade saleFacade;
-    
-    private List<Sale> ClientSales ;
-    
+
+    private List<Sale> ClientSales;
+
     private List<Sale> craftsmanSales;
 
     public List<Sale> getCraftsmanSales() {
-        craftsmanSales=saleFacade.findAll();
+        craftsmanSales = saleFacade.findAll();
         return craftsmanSales;
     }
 
@@ -56,7 +55,7 @@ public class SaleManagedBean implements Serializable{
     }
 
     public String getLogin() {
-        login=lg.getLogin();
+        login = lg.getLogin();
         return login;
     }
 
@@ -65,9 +64,9 @@ public class SaleManagedBean implements Serializable{
     }
 
     private String login;
-    
+
     private Long id;
-    
+
     @EJB
     private ClientQuery cq;
 
@@ -86,11 +85,11 @@ public class SaleManagedBean implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
-    
-    
-    public SaleManagedBean(){
-    
+
+    public SaleManagedBean() {
+
     }
+
     public SaleFacade getSaleFacade() {
         return saleFacade;
     }
@@ -100,14 +99,13 @@ public class SaleManagedBean implements Serializable{
     }
 
     public List<Sale> getClientSales() {
-        ClientSales=saleFacade.findAll();
+        ClientSales = saleFacade.findAll();
         return ClientSales;
     }
 
     public void setClientSales(List<Sale> ClientSales) {
         this.ClientSales = ClientSales;
     }
-    
 
     public SaleQuery getSaleQuery() {
         return saleQuery;
@@ -116,5 +114,5 @@ public class SaleManagedBean implements Serializable{
     public void setSaleQuery(SaleQuery saleQuery) {
         this.saleQuery = saleQuery;
     }
-    
+
 }

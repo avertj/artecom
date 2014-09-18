@@ -5,7 +5,10 @@
  */
 package managedbean;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -60,4 +63,13 @@ public class CartManager implements Serializable {
         Product p = productFacade.find(Long.valueOf(prodId));
         cart.updateQuantity(new ProductQuantity(p, 0));
     }
+
+    public void checkout() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("client/checkout.jsf");
+        } catch (IOException ex) {
+            Logger.getLogger(BrowseView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
