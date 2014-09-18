@@ -144,8 +144,36 @@
                             <f:selectItem itemValue="" itemLabel="None" />
                             <f:selectItems value="#{craftManagedBean.crafts}" var="craft" itemLabel="#{craft.toString()}" itemValue="#{craft.id}" />
 
+                        </h:selectOneMenu>
+                        <h:outputLabel value="Name:" for="name" />
+                        <h:inputText id="name" value="#{productManagedBean.produit.name}" title="Name" />
+                        <h:outputLabel value="Description:" for="description" />
+                        <h:inputTextarea rows="4" cols="30" id="description" value="#{productManagedBean.produit.description}" title="Description" />
+                        <h:outputLabel value="Price:" for="price" />
+                        <h:inputText id="price" value="#{productManagedBean.produit.price}" title="Price" />
+                        <h:outputLabel value="Weight:" for="weight" />
+                        <h:inputText id="weight" value="#{productManagedBean.produit.weight}" title="Weight" />
+                        <h:outputLabel value="Quantity:" for="quantity" />
+                        <h:inputText id="quantity" value="#{productManagedBean.produit.quantity}" title="Quantity" />
+                        <h:outputLabel value="Availability:" for="availability" />
+                        <h:selectOneMenu id="availability" value="#{productManagedBean.idAvailability}" title="Availability" >
+                            <f:selectItem itemValue="0" itemLabel="None" />
+                            <f:selectItem itemValue="1" itemLabel="Delivrable" />
+                            <f:selectItem itemValue="2" itemLabel="Pas Delivrable" />
+                        </h:selectOneMenu>
+                        <h:outputLabel value="Site:" for="site" />
+                        <h:selectOneMenu id="site" value="#{productManagedBean.idsite}" title="Site" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItem itemValue="" itemLabel="None" />
+                            <f:selectItems value="#{siteManagedBean.sites}" var="site" itemLabel="#{site.address.name}" itemValue="#{site.id}" />
+
+                        </h:selectOneMenu>
+                        <p:commandButton value="Ajouter" icon="ui-icon-plus" update="form :ajout" actionListener="#{productManagedBean.add()}"/>
+                        <p:commandButton value="Cancel" icon="ui-icon-cancel" update="form :ajout" actionListener="#{productManagedBean.cancelMode()}"/>
+                    </h:panelGrid>
+                </h:form>
+
             </ui:define>
         </ui:composition>
     </h:body>
 </html>
-
