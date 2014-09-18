@@ -26,7 +26,6 @@ public class LatLng implements Serializable {
         this.lng = lng;
     }
 
-
     public Double getLng() {
         return lng;
     }
