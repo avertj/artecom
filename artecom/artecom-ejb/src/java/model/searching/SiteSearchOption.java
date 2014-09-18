@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.searching;
 
 /**
@@ -11,6 +10,7 @@ package model.searching;
  * @author inilog
  */
 public class SiteSearchOption {
+
     private long lat;
     private long lon;
     private long dist;
@@ -38,5 +38,5 @@ public class SiteSearchOption {
     public void setDist(long dist) {
         this.dist = dist;
     }
-    
+
 }

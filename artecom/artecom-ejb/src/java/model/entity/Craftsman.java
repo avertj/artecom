@@ -34,7 +34,7 @@ public class Craftsman extends Client implements Serializable {
     private List<Site> sites;
 
     @Lob
-    @Column(length=20971520)
+    @Column(length = 20971520)
     @Analyzer(definition = "fr.full")
     @Field
     private String description;

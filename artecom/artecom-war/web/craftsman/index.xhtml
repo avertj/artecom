@@ -10,81 +10,81 @@
     </h:head>
     <h:body>
         <ui:composition template="/template/layout.xhtml">
-             <ui:define name="menu">
-                 <ui:insert>
-                     <ui:include src="/template/main-menu.xhtml" />
-                 </ui:insert>
-             </ui:define>
-             <ui:define name="sidebar">
-                 <ui:insert>
-                     <ui:include src="/template/sidebar.xhtml" />
-                 </ui:insert>
-             </ui:define>
-                 
-           <ui:define name="content">
-                
-               <div id="content-edit">
-               
-                Bienvenue, <h:outputText value="#{craftSpaceManagedBean.display.firstName}"/>
-                   <p><h2>Mes commandes en cours</h2></p>
-                   <c:if test="#{not empty saleManagedBean.craftsmanSales}">
-                    <h:form>
+            <ui:define name="menu">
+                <ui:insert>
+                    <ui:include src="/template/main-menu.xhtml" />
+                </ui:insert>
+            </ui:define>
+            <ui:define name="sidebar">
+                <ui:insert>
+                    <ui:include src="/template/sidebar.xhtml" />
+                </ui:insert>
+            </ui:define>
 
-                        <h:dataTable value="#{saleManagedBean.craftsmanSales}" var="item">
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="BillingAdress"/>
-                                </f:facet>
-                                <h:outputText value="#{item.billingAdress}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="ShippingAdress"/>
-                                </f:facet>
-                                <h:outputText value="#{item.shippingAdress}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Price"/>
-                                </f:facet>
-                                <h:outputText value="#{item.price}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Cart"/>
-                                </f:facet>
-                                <h:outputText value="#{item.cart}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Status"/>
-                                </f:facet>
-                                <h:outputText value="#{item.status}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Id"/>
-                                </f:facet>
-                                <h:outputText value="#{item.id}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="CreatedOn"/>
-                                </f:facet>
-                                <h:outputText value="#{item.createdOn}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                </h:outputText>
-                            </h:column>
-                        </h:dataTable>
-                    </h:form>
-                </c:if>
-           <c:if test="#{empty saleManagedBean.clientSales}">
-                 <p>
-                   Aucune commande en cours
-               </p>
-           </c:if>
-                   </div>
-    </ui:define>
+            <ui:define name="content">
+
+                <div id="content-edit">
+
+                    Bienvenue, <h:outputText value="#{craftSpaceManagedBean.display.firstName}"/>
+                    <p><h2>Mes commandes en cours</h2></p>
+                    <c:if test="#{not empty saleManagedBean.craftsmanSales}">
+                        <h:form>
+
+                            <h:dataTable value="#{saleManagedBean.craftsmanSales}" var="item">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="BillingAdress"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.billingAdress}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ShippingAdress"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.shippingAdress}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Price"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.price}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Cart"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.cart}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Status"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.status}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Id"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="CreatedOn"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.createdOn}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </c:if>
+                    <c:if test="#{empty saleManagedBean.clientSales}">
+                        <p>
+                            Aucune commande en cours
+                        </p>
+                    </c:if>
+                </div>
+            </ui:define>
 
 
         </ui:composition>

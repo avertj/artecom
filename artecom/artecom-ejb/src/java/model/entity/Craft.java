@@ -34,7 +34,7 @@ public class Craft implements Serializable {
 
     @ManyToOne
     private Craft parent;
-    
+
     @Analyzer(definition = "fr.full")
     @Field
     private String name;

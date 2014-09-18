@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.searching;
 
 import java.io.Serializable;
@@ -13,6 +12,7 @@ import java.io.Serializable;
  * @author inilog
  */
 public class ProductSearchOption implements Serializable {
+
     private String keyword;
     private boolean keywordRequiered = true;
     private float prixMax;
@@ -40,5 +40,5 @@ public class ProductSearchOption implements Serializable {
     public void setPrixMax(float prixMax) {
         this.prixMax = prixMax;
     }
-    
+
 }

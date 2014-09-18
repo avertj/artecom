@@ -22,8 +22,8 @@
                 </ui:insert>
             </ui:define>
 
-<ui:define name="content">
-    <div id="content-edit">
+            <ui:define name="content">
+                <div id="content-edit">
                     <h:form id="form">
                         <h:panelGrid id="formGrid" columns="2">
                             <h:outputLabel value="Nom site:"/>
@@ -38,103 +38,103 @@
                             <h:inputText value="#{siteManagedBean.site.description}"/>
                             <h:outputLabel value="Type de site :"/>
                             <h:selectOneMenu value="#{siteManagedBean.idtype}" required="true" requiredMessage="Veuillez indiquer un site">
-                                            <f:selectItem itemValue="0" itemLabel="None" />
-                                            <f:selectItem itemValue="1" itemLabel="Boutique" />
-                                            <f:selectItem itemValue="2" itemLabel="Atelier" />
-                                            <f:selectItem itemValue="3" itemLabel="Magasin" />
-                                      </h:selectOneMenu>
+                                <f:selectItem itemValue="0" itemLabel="None" />
+                                <f:selectItem itemValue="1" itemLabel="Boutique" />
+                                <f:selectItem itemValue="2" itemLabel="Atelier" />
+                                <f:selectItem itemValue="3" itemLabel="Magasin" />
+                            </h:selectOneMenu>
                         </h:panelGrid>
                         <p:commandButton value="Ajouter" update=":form :artisanatdetail" oncomplete="PF('artdialog').show()"/>
-                   </h:form>
-                        <p:dialog header="artisanat" widgetVar="artdialog" resizable="false" >                            
-                            <p:outputPanel id="artisanatdetail">
-                                
-                                 <h:outputLabel for="parent" value="Artisanat :" style="font-weight:bold"/>
-                                        <h:selectOneMenu value="#{siteManagedBean.craft.id}">
-                                            <f:selectItem itemValue="" itemLabel="None" />
-                                            <f:selectItems value="#{craftManagedBean.crafts}" var="craft" itemLabel="#{craft.toString()}" itemValue="#{craft.id}" />
-                                        </h:selectOneMenu>
-                                <h:form id="plus">
-                                 <p:commandButton  icon="ui-icon-plus" action="#{siteManagedBean.addCraft()}" update="plus :artisanatliste"/>
-                                 </h:form>
-                           </p:outputPanel>
-                            <p:outputPanel id="artisanatliste">
-                                 <h:dataTable id="table" value="#{siteManagedBean.siteCrafts}" var="craft" >
-                                    <h:column>    				
-                                        <f:facet name="header">Artisanat</f:facet>    				
-                                            #{craft.toString()}
-                                    </h:column>
-                                    <h:column>    				
-                                        <f:facet name="header">Options</f:facet>    				
-                                        <p:commandButton icon="ui-icon-minus" validateClient="true" action="#{siteManagedBean.removeCraft(craft)}"/>
-                                    </h:column>
-                                </h:dataTable>
-                                 <h:form>
-                                 <p:commandButton value="Valider"  action="#{siteManagedBean.addSite()}" update=":form :panell"/>
-                                 <p:commandButton value="Retour"  action="/craftsman/site?faces-redirect=true"/>
-                                 </h:form>
-                            </p:outputPanel>
-                        </p:dialog>
+                    </h:form>
+                    <p:dialog header="artisanat" widgetVar="artdialog" resizable="false" >                            
+                        <p:outputPanel id="artisanatdetail">
 
-                <h3>Liste des Sites:</h3>
-                <p:panel id="panell">
+                            <h:outputLabel for="parent" value="Artisanat :" style="font-weight:bold"/>
+                            <h:selectOneMenu value="#{siteManagedBean.craft.id}">
+                                <f:selectItem itemValue="" itemLabel="None" />
+                                <f:selectItems value="#{craftManagedBean.crafts}" var="craft" itemLabel="#{craft.toString()}" itemValue="#{craft.id}" />
+                            </h:selectOneMenu>
+                            <h:form id="plus">
+                                <p:commandButton  icon="ui-icon-plus" action="#{siteManagedBean.addCraft()}" update="plus :artisanatliste"/>
+                            </h:form>
+                        </p:outputPanel>
+                        <p:outputPanel id="artisanatliste">
+                            <h:dataTable id="table" value="#{siteManagedBean.siteCrafts}" var="craft" >
+                                <h:column>    				
+                                    <f:facet name="header">Artisanat</f:facet>    				
+                                        #{craft.toString()}
+                                </h:column>
+                                <h:column>    				
+                                    <f:facet name="header">Options</f:facet>    				
+                                    <p:commandButton icon="ui-icon-minus" validateClient="true" action="#{siteManagedBean.removeCraft(craft)}"/>
+                                </h:column>
+                            </h:dataTable>
+                            <h:form>
+                                <p:commandButton value="Valider"  action="#{siteManagedBean.addSite()}" update=":form :panell"/>
+                                <p:commandButton value="Retour"  action="/craftsman/site?faces-redirect=true"/>
+                            </h:form>
+                        </p:outputPanel>
+                    </p:dialog>
 
-                    <h:dataTable value="#{siteManagedBean.sites}" var="item" headerClass="tableHeader"
-                                 rowClasses="tableEvenRow,tableOddRow">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Id"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Craftsman"/>
-                            </f:facet>
-                            <h:outputText value="#{item.craftsman}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Description"/>
-                            </f:facet>
-                            <h:outputText value="#{item.description}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Opening"/>
-                            </f:facet>
-                            <h:outputText value="#{item.opening}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Craftsmanships"/>
-                            </f:facet>
-                            <ui:repeat value="#{item.craftsmanships}" var="craft">
-                                <h:outputText value="#{craft}" />
-                            </ui:repeat>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Address"/>
-                            </f:facet>
-                            <h:outputText value="#{item.address}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Type"/>
-                            </f:facet>
-                            <h:outputText value="#{item.type}"/>
-                        </h:column>
+                    <h3>Liste des Sites:</h3>
+                    <p:panel id="panell">
 
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Latlng"/>
-                            </f:facet>
-                            <h:outputText value="#{item.latlng}"/>
-                        </h:column>
-                    </h:dataTable>
-                </p:panel>
-    </div>
+                        <h:dataTable value="#{siteManagedBean.sites}" var="item" headerClass="tableHeader"
+                                     rowClasses="tableEvenRow,tableOddRow">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{item.id}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Craftsman"/>
+                                </f:facet>
+                                <h:outputText value="#{item.craftsman}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Description"/>
+                                </f:facet>
+                                <h:outputText value="#{item.description}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Opening"/>
+                                </f:facet>
+                                <h:outputText value="#{item.opening}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Craftsmanships"/>
+                                </f:facet>
+                                <ui:repeat value="#{item.craftsmanships}" var="craft">
+                                    <h:outputText value="#{craft}" />
+                                </ui:repeat>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Address"/>
+                                </f:facet>
+                                <h:outputText value="#{item.address}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Type"/>
+                                </f:facet>
+                                <h:outputText value="#{item.type}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Latlng"/>
+                                </f:facet>
+                                <h:outputText value="#{item.latlng}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </p:panel>
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>

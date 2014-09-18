@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model.queries;
 
 import java.util.List;
@@ -19,18 +18,19 @@ import model.entity.Sale;
  */
 @Stateless
 public class SaleQuery {
-    
+
     @PersistenceContext(unitName = "artecomPU")
     private EntityManager em;
-    
-    public List<Sale> getSalesCraftById(Long id){
-       Query q=em.createQuery("select OBJECT(s) from Sale s where s.products.product.craftsman.id=:idq");
-       q.setParameter("idq", id);
-       return q.getResultList(); 
+
+    public List<Sale> getSalesCraftById(Long id) {
+        Query q = em.createQuery("select OBJECT(s) from Sale s where s.products.product.craftsman.id=:idq");
+        q.setParameter("idq", id);
+        return q.getResultList();
     }
-    public List<Sale> getSalesClientById(Long id){
-       Query q=em.createQuery("select OBJECT(s) from Sale s where s.client.id=:idq");
-       q.setParameter("idq", id);
-       return q.getResultList(); 
+
+    public List<Sale> getSalesClientById(Long id) {
+        Query q = em.createQuery("select OBJECT(s) from Sale s where s.client.id=:idq");
+        q.setParameter("idq", id);
+        return q.getResultList();
     }
 }

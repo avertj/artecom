@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package managedbean;
 
 import java.io.ByteArrayInputStream;
@@ -20,26 +19,22 @@ import org.primefaces.model.UploadedFile;
  */
 @ManagedBean(name = "uploadImgBean")
 @SessionScoped
-public class UploadImgBean
-{
-    private UploadedFile    uploadedFile;
+public class UploadImgBean {
 
-    public UploadedFile getUploadedFile()
-    {
+    private UploadedFile uploadedFile;
+
+    public UploadedFile getUploadedFile() {
         return uploadedFile;
     }
 
-    public StreamedContent getUploadedFileAsStream()
-    {
-        if (uploadedFile != null)
-        {
+    public StreamedContent getUploadedFileAsStream() {
+        if (uploadedFile != null) {
             return new DefaultStreamedContent(new ByteArrayInputStream(uploadedFile.getContents()));
         }
         return null;
     }
 
-    public void uploadFile(FileUploadEvent event)
-    {
+    public void uploadFile(FileUploadEvent event) {
         uploadedFile = event.getFile();
     }
 }

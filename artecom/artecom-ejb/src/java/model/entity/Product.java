@@ -22,7 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import org.apache.solr.analysis.ASCIIFoldingFilterFactory;
 import org.apache.solr.analysis.LowerCaseFilterFactory;
-import org.apache.solr.analysis.NGramFilterFactory;
 import org.apache.solr.analysis.PhoneticFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
@@ -81,7 +80,7 @@ public class Product implements Serializable {
     private String name;
 
     @Lob
-    @Column(length=20971520)
+    @Column(length = 20971520)
     @Analyzer(definition = "fr.full")
     @Field
     private String description; // sera probablement une chaine html générée par un editeur riche en js

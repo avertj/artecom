@@ -6,135 +6,135 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
-         <ui:composition template="/template/layout.xhtml">
-            
-             
-             <ui:define name="content">
+        <ui:composition template="/template/layout.xhtml">
+
+
+            <ui:define name="content">
                 <h2>COMMANDES</h2>
                 <p:dataTable  id="saletable" value="#{saleManagedBean.clientSales}" var="sale">
 
-                        <p:column headerText="ID">    				
+                    <p:column headerText="ID">    				
 
-                            <f:facet name="output"> 
-                                <h:outputText value="#{sale.id}"></h:outputText>
-                            </f:facet>
- 
-                        </p:column>
-                        <p:column headerText="Name">
-                           
-                                <f:facet name="Client Name"> 
-                                    <h:outputText value="#{sale.client.firstName}"></h:outputText>
-                                </f:facet>
-                               
-                        </p:column>
-                        <p:column headerText="Price">
-                         
-                                <f:facet name="output"> 
-                                    <h:outputText value="#{sale.price}"></h:outputText>
-                                </f:facet>
-                           
-                        </p:column>
-                        <p:column headerText="Shipping">
-                 
-                                <f:facet name="output"> 
-                                    <h:outputText value="#{sale.shippingAdress.toString}"></h:outputText>
-                                </f:facet>
-                        
-                        </p:column>
-                        <p:column headerText="Status">
-                                <f:facet name="output"> 
-                                    <h:outputText value="#{sale.status}"></h:outputText>
-                                </f:facet>                              
-                        </p:column>
-                    </p:dataTable>
-                
-                
-                 
+                        <f:facet name="output"> 
+                            <h:outputText value="#{sale.id}"></h:outputText>
+                        </f:facet>
+
+                    </p:column>
+                    <p:column headerText="Name">
+
+                        <f:facet name="Client Name"> 
+                            <h:outputText value="#{sale.client.firstName}"></h:outputText>
+                        </f:facet>
+
+                    </p:column>
+                    <p:column headerText="Price">
+
+                        <f:facet name="output"> 
+                            <h:outputText value="#{sale.price}"></h:outputText>
+                        </f:facet>
+
+                    </p:column>
+                    <p:column headerText="Shipping">
+
+                        <f:facet name="output"> 
+                            <h:outputText value="#{sale.shippingAdress.toString}"></h:outputText>
+                        </f:facet>
+
+                    </p:column>
+                    <p:column headerText="Status">
+                        <f:facet name="output"> 
+                            <h:outputText value="#{sale.status}"></h:outputText>
+                        </f:facet>                              
+                    </p:column>
+                </p:dataTable>
+
+
+
                 <h2>PROFIL</h2>                
                 <h:form id="fprofil">
-                <p:outputPanel id="profil" style="text-align:center;">
-                    <p:panelGrid columns="2" style="width: 500px; color: #83c41a; " columnClasses="label,value">  
-                     
-                      <h:outputText value="First Name:" />  
-                      <h:outputText value="#{clientManagedBean.client.firstName}" />  
+                    <p:outputPanel id="profil" style="text-align:center;">
+                        <p:panelGrid columns="2" style="width: 500px; color: #83c41a; " columnClasses="label,value">  
 
-                      <h:outputText value="Last Name:" />  
-                      <h:outputText value="#{clientManagedBean.client.lastName}" />  
+                            <h:outputText value="First Name:" />  
+                            <h:outputText value="#{clientManagedBean.client.firstName}" />  
 
-                      <h:outputText value="Log In:" />  
-                      <h:outputText value="#{clientManagedBean.client.login}" />  
-                      
-                  </p:panelGrid>  
-                    
-                </p:outputPanel>
+                            <h:outputText value="Last Name:" />  
+                            <h:outputText value="#{clientManagedBean.client.lastName}" />  
+
+                            <h:outputText value="Log In:" />  
+                            <h:outputText value="#{clientManagedBean.client.login}" />  
+
+                        </p:panelGrid>  
+
+                    </p:outputPanel>
                     <p:commandButton update=":fprofil:clientDetail" icon="ui-icon-edit" value="Edit" oncomplete="PF('clientEditdialog').show()" action="#{clientManagedBean.prepareNewClient()}"/>
 
-                <p:dialog header="Client Detail" widgetVar="clientEditdialog" resizable="false"  
-                        width="500" showEffect="explode" hideEffect="explode">  
-                <p:outputPanel id="clientDetail" style="text-align:center;">
-                    <p:panelGrid columns="2"  columnClasses="label,value">  
+                    <p:dialog header="Client Detail" widgetVar="clientEditdialog" resizable="false"  
+                              width="500" showEffect="explode" hideEffect="explode">  
+                        <p:outputPanel id="clientDetail" style="text-align:center;">
+                            <p:panelGrid columns="2"  columnClasses="label,value">  
 
-                      
-                      <h:outputText value="First Name:" />  
-                      <h:inputText value="#{clientManagedBean.newClient.firstName}" rendered="true" />  
 
-                      <h:outputText value="Last Name:" />  
-                      <h:inputText value="#{clientManagedBean.newClient.lastName}" rendered="true"/>  
+                                <h:outputText value="First Name:" />  
+                                <h:inputText value="#{clientManagedBean.newClient.firstName}" rendered="true" />  
 
-                      <h:outputText value="Log-in:" />  
-                      <h:inputText value="#{clientManagedBean.newClient.login}" rendered="true"/>                       
-                      
-                      <p:commandButton update=":fprofil:profil" icon="ui-icon-submit" value="Save" oncomplete="PF('clientEditdialog').hide()" action="#{clientManagedBean.updateClient()}"/>
+                                <h:outputText value="Last Name:" />  
+                                <h:inputText value="#{clientManagedBean.newClient.lastName}" rendered="true"/>  
 
-                  </p:panelGrid> 
-                    
-                </p:outputPanel>
-              </p:dialog>      
-                
+                                <h:outputText value="Log-in:" />  
+                                <h:inputText value="#{clientManagedBean.newClient.login}" rendered="true"/>                       
+
+                                <p:commandButton update=":fprofil:profil" icon="ui-icon-submit" value="Save" oncomplete="PF('clientEditdialog').hide()" action="#{clientManagedBean.updateClient()}"/>
+
+                            </p:panelGrid> 
+
+                        </p:outputPanel>
+                    </p:dialog>      
+
                 </h:form>
                 <h2>ADDRESS</h2> 
                 <h:form  id="form">
-                <h:panelGrid id="formGrid" columns="2">  
-                    <h:outputLabel for="name" value="ID Client :" style="font-weight:bold"/>
-                    <h:outputText id="clientId" value="#{clientAddressManagedBean.clientId}"/>
-                    <h:outputLabel for="name" value="Nom :" style="font-weight:bold"/>
-                    <h:inputText id="name" value="#{clientAddressManagedBean.addr.name}" label="name"/>
-                    
-                    <h:outputLabel for="street" value="Rue :" style="font-weight:bold"/>
-                    <h:inputText id="street" value="#{clientAddressManagedBean.addr.street}" label="street"/>
-                   
-                    <h:outputLabel for="city" value="Ville :" style="font-weight:bold"/>
-                    <h:inputText id="city" value="#{clientAddressManagedBean.addr.city}" label="City"/>
-                    
-                    <h:outputLabel for="postcode" value="CP :" style="font-weight:bold"/>
-                    <h:inputText id="postcode" value="#{clientAddressManagedBean.addr.postcode}" label="Post code"/>
-                    <br></br>
-                        
-                    <p:commandButton id="Create" value="Add new address" icon="ui-icon-check" validateClient="true" update=":ftable:datatable" action="#{clientAddressManagedBean.addAddress()}" />
-                  
-                
-                </h:panelGrid>  
-  
-               </h:form>
+                    <h:panelGrid id="formGrid" columns="2">  
+                        <h:outputLabel for="name" value="ID Client :" style="font-weight:bold"/>
+                        <h:outputText id="clientId" value="#{clientAddressManagedBean.clientId}"/>
+                        <h:outputLabel for="name" value="Nom :" style="font-weight:bold"/>
+                        <h:inputText id="name" value="#{clientAddressManagedBean.addr.name}" label="name"/>
+
+                        <h:outputLabel for="street" value="Rue :" style="font-weight:bold"/>
+                        <h:inputText id="street" value="#{clientAddressManagedBean.addr.street}" label="street"/>
+
+                        <h:outputLabel for="city" value="Ville :" style="font-weight:bold"/>
+                        <h:inputText id="city" value="#{clientAddressManagedBean.addr.city}" label="City"/>
+
+                        <h:outputLabel for="postcode" value="CP :" style="font-weight:bold"/>
+                        <h:inputText id="postcode" value="#{clientAddressManagedBean.addr.postcode}" label="Post code"/>
+                        <br></br>
+
+                        <p:commandButton id="Create" value="Add new address" icon="ui-icon-check" validateClient="true" update=":ftable:datatable" action="#{clientAddressManagedBean.addAddress()}" />
+
+
+                    </h:panelGrid>  
+
+                </h:form>
                 <br></br>
                 <h:form  id="ftable">
-                    
+
                     <p:growl id="msgs" showDetail="true" />
-               
+
                     <p:dataTable  id="datatable" value="#{clientAddressManagedBean.addresses}" var="addre" rowKey="#{addre.id}" 
-                                 selection="#{clientAddressManagedBean.selectedAddr}" >
-                                    
+                                  selection="#{clientAddressManagedBean.selectedAddr}" >
+
                         <p:column selectionMode="single" style="width:16px;text-align:center"/>
                         <p:column headerText="ID">    				
 
-                           
+
                             <h:outputText value="#{addre.id}"></h:outputText>
 
                         </p:column>
                         <p:column headerText="Name">
 
                             <h:outputText value="#{addre.name}"></h:outputText>
-                               
+
                         </p:column>
                         <p:column headerText="Street">
 
@@ -151,70 +151,70 @@
                             <h:outputText value="#{addre.postcode}"></h:outputText>
 
                         </p:column>
-                        
+
                         <p:column>
                             <p:commandButton process="datatable" update=":ftable:addrDetail,:ftable:datatable" icon="ui-icon-edit" value="Edit" oncomplete="PF('addEditdialog').show()" action="#{clientAddressManagedBean.selectedPosition()}"/>
                         </p:column>
 
-                        
+
                         <f:facet name="footer">
                             <p:commandButton process="datatable" update=":ftable:carDetail" icon="ui-icon-search" value="View" oncomplete="PF('carDialog').show()" />
                             <p:commandButton update=":ftable:datatable" icon="ui-icon-delete" value="Delete" action="#{clientAddressManagedBean.removeSelectedAddress()}" />
                         </f:facet>
-  
-                       
+
+
                     </p:dataTable>
-                
-                    
-                    
-                <p:dialog header="Address Detail" widgetVar="carDialog" resizable="false"  
-                        width="200" showEffect="explode" hideEffect="explode">  
-                <p:outputPanel id="carDetail" style="text-align:center;">
-                    <p:panelGrid columns="2"  columnClasses="label,value">  
 
-                      
-                      <h:outputText value="Nom:" />  
-                      <h:outputText value="#{clientAddressManagedBean.selectedAddr.name}" />  
 
-                      <h:outputText value="Rue:" />  
-                      <h:outputText value="#{clientAddressManagedBean.selectedAddr.street}" />  
 
-                      <h:outputText value="Ville:" />  
-                      <h:outputText value="#{clientAddressManagedBean.selectedAddr.city}" />  
+                    <p:dialog header="Address Detail" widgetVar="carDialog" resizable="false"  
+                              width="200" showEffect="explode" hideEffect="explode">  
+                        <p:outputPanel id="carDetail" style="text-align:center;">
+                            <p:panelGrid columns="2"  columnClasses="label,value">  
 
-                      <h:outputText value="CP:" />  
-                      <h:outputText value="#{clientAddressManagedBean.selectedAddr.postcode}" />  
-                  </p:panelGrid>  
-                </p:outputPanel>
-              </p:dialog>  
-                    
-              <p:dialog header="Address Detail" widgetVar="addEditdialog" resizable="false"  
-                        width="400" showEffect="explode" hideEffect="explode">  
-                <p:outputPanel id="addrDetail" style="text-align:center;">
-                    <p:panelGrid columns="2"  columnClasses="label,value">  
 
-                      
-                      <h:outputText value="Nom:" />  
-                      <h:inputText value="#{clientAddressManagedBean.selectedAddr.name}" rendered="true"/>  
+                                <h:outputText value="Nom:" />  
+                                <h:outputText value="#{clientAddressManagedBean.selectedAddr.name}" />  
 
-                      <h:outputText value="Rue:" />  
-                      <h:inputText value="#{clientAddressManagedBean.selectedAddr.street}" rendered="true"/>  
+                                <h:outputText value="Rue:" />  
+                                <h:outputText value="#{clientAddressManagedBean.selectedAddr.street}" />  
 
-                      <h:outputText value="Ville:" />  
-                      <h:inputText value="#{clientAddressManagedBean.selectedAddr.city}" rendered="true"/>  
+                                <h:outputText value="Ville:" />  
+                                <h:outputText value="#{clientAddressManagedBean.selectedAddr.city}" />  
 
-                      <h:outputText value="CP:" />  
-                      <h:inputText value="#{clientAddressManagedBean.selectedAddr.postcode}" rendered="true"/>  
-                      
-                      <p:commandButton update=":ftable:datatable" icon="ui-icon-submit" value="Save" oncomplete="PF('addEditdialog').hide()" action="#{clientAddressManagedBean.updateAddress()}"/>
+                                <h:outputText value="CP:" />  
+                                <h:outputText value="#{clientAddressManagedBean.selectedAddr.postcode}" />  
+                            </p:panelGrid>  
+                        </p:outputPanel>
+                    </p:dialog>  
 
-                  </p:panelGrid> 
-                    
-                </p:outputPanel>
-              </p:dialog>        
-                    
+                    <p:dialog header="Address Detail" widgetVar="addEditdialog" resizable="false"  
+                              width="400" showEffect="explode" hideEffect="explode">  
+                        <p:outputPanel id="addrDetail" style="text-align:center;">
+                            <p:panelGrid columns="2"  columnClasses="label,value">  
 
-               </h:form>  
+
+                                <h:outputText value="Nom:" />  
+                                <h:inputText value="#{clientAddressManagedBean.selectedAddr.name}" rendered="true"/>  
+
+                                <h:outputText value="Rue:" />  
+                                <h:inputText value="#{clientAddressManagedBean.selectedAddr.street}" rendered="true"/>  
+
+                                <h:outputText value="Ville:" />  
+                                <h:inputText value="#{clientAddressManagedBean.selectedAddr.city}" rendered="true"/>  
+
+                                <h:outputText value="CP:" />  
+                                <h:inputText value="#{clientAddressManagedBean.selectedAddr.postcode}" rendered="true"/>  
+
+                                <p:commandButton update=":ftable:datatable" icon="ui-icon-submit" value="Save" oncomplete="PF('addEditdialog').hide()" action="#{clientAddressManagedBean.updateAddress()}"/>
+
+                            </p:panelGrid> 
+
+                        </p:outputPanel>
+                    </p:dialog>        
+
+
+                </h:form>  
             </ui:define>
         </ui:composition>
     </h:body>
