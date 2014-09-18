@@ -22,7 +22,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import org.apache.solr.analysis.ASCIIFoldingFilterFactory;
 import org.apache.solr.analysis.LowerCaseFilterFactory;
-import org.apache.solr.analysis.NGramFilterFactory;
 import org.apache.solr.analysis.PhoneticFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
@@ -46,21 +45,17 @@ import org.hibernate.search.annotations.TokenizerDef;
 @NamedQuery(name = "Product.getByName", query = "select OBJECT(p) from Product p where p.name like :nom")
 @AnalyzerDefs({
     @AnalyzerDef(name = "fr.full",
-      tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
-      filters = {
-        @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
-        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-        @TokenFilterDef(factory = PhoneticFilterFactory.class, params = {
-            @Parameter(name = "encoder", value="SOUNDEX")
-        }),
-        @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
-            @Parameter(name = "language", value = "French")
-        }),
-        @TokenFilterDef(factory = NGramFilterFactory.class,
-            params = { 
-        @Parameter(name = "minGramSize", value = "3"),
-        @Parameter(name = "maxGramSize", value = "3") })
-      })
+            tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+            filters = {
+                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
+                @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+                @TokenFilterDef(factory = PhoneticFilterFactory.class, params = {
+                    @Parameter(name = "encoder", value = "SOUNDEX")
+                }),
+                @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+                    @Parameter(name = "language", value = "French")
+                })
+            })
 })
 public class Product implements Serializable {
 
@@ -83,11 +78,9 @@ public class Product implements Serializable {
     @Analyzer(definition = "fr.full")
     @Field
     private String name;
-    
-    private Boolean editable;
 
     @Lob
-    @Column(length=20971520)
+    @Column(length = 20971520)
     @Analyzer(definition = "fr.full")
     @Field
     private String description; // sera probablement une chaine html générée par un editeur riche en js
@@ -110,7 +103,7 @@ public class Product implements Serializable {
     }
     @Enumerated(EnumType.ORDINAL)
     private Availability availability;
-    
+
     /**
      * For coccurente edition of Craftsman stock!
      */
@@ -126,7 +119,6 @@ public class Product implements Serializable {
         this.weight = weight;
         this.quantity = quantity;
         this.availability = availability;
-        this.editable=Boolean.FALSE;
     }
 
     public Product() {
@@ -241,17 +233,6 @@ public class Product implements Serializable {
         }
         return sum / comments.size();
     }
-    
- 
-
-    public Boolean getEditable() {
-        return editable;
-    }
-
-    public void setEditable(Boolean editable) {
-        this.editable = editable;
-    }
-    
 
     @Override
     public int hashCode() {
