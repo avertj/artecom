@@ -28,7 +28,7 @@ import org.apache.commons.codec.binary.Base64;
  */
 @ManagedBean(name = "clientManagedBean")
 public class ClientManagedBean {
-
+    
     @EJB
     private UserFacade userFacade;
     @EJB
@@ -106,11 +106,11 @@ public class ClientManagedBean {
     }
 
     public void add() {
-        System.out.println("ADD");
-        if (!user.getPassword().equals(confirmation)) {
+        
+        if(!user.getPassword().equals(confirmation))
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Erreur de confirmation du mot de passe.", null));
-        } else {
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "confirmation différente du message", null));
+        else {
             user.setLogin(client.getLogin());
             user.setPassword(crypt(user.getPassword()));
             user.setGroupname("client");
@@ -119,10 +119,10 @@ public class ClientManagedBean {
                 clientFacade.create(client);
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Un compte utilise déjà cet email.", null));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "email existant!", null));
                 return;
             }
-
+            
             try {
                 FacesContext context = FacesContext.getCurrentInstance();
                 HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
