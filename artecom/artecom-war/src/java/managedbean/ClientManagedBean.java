@@ -9,23 +9,17 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import model.entity.Address;
 import model.entity.Client;
 import model.entity.User;
-import model.facade.AddressFacade;
 import model.facade.ClientFacade;
 import model.facade.UserFacade;
-import model.queries.ClientQuery;
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -33,38 +27,20 @@ import org.apache.commons.codec.binary.Base64;
  * @author donatien
  */
 @ManagedBean(name = "clientManagedBean")
-@SessionScoped
 public class ClientManagedBean {
-    
-    @EJB
-    private AddressFacade addressFacade;
+
     @EJB
     private UserFacade userFacade;
     @EJB
     private ClientFacade clientFacade;
-    
-    @ManagedProperty(value="#{loginManagedBean}")
-    private LoginManagedBean lg;
-
-    @EJB
-    private ClientQuery clientQuery;
-   
 
     private User user;
 
     private Client client;
-    
-    private Client newClient ;
-    
+
+    private Client newClient;
+
     private String confirmation;
-    
-    private List<Address> addresses ;
-    
-    private Address addr ;
-    
-    private Address selectedAddr ;
-    
-    private int editposition;
 
     public String getConfirmation() {
         return confirmation;
@@ -78,52 +54,7 @@ public class ClientManagedBean {
         user = new User();
         client = new Client();
         newClient = new Client();
-        
-        addr = new Address();
-        selectedAddr = new Address();
-    }
 
-    // Address Getter-setter
-    
-    public AddressFacade getAddressFacade() {
-        return addressFacade;
-    }
-
-    public void setAddressFacade(AddressFacade addressFacade) {
-        this.addressFacade = addressFacade;
-    }
-
-    public List<Address> getAddresses() {
-        addresses = getDisplay().getAddress();
-        return addresses;
-        
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    public Address getAddr() {
-        return addr;
-    }
-
-    public void setAddr(Address addr) {
-        this.addr = addr;
-    }
-    public Address getSelectedAddr() {
-        return selectedAddr;
-    }
-
-    public void setSelectedAddr(Address selectedAddr) {
-        this.selectedAddr = selectedAddr;
-    }
-
-    public int getEditposition() {
-        return editposition;
-    }
-
-    public void setEditposition(int editposition) {
-        this.editposition = editposition;
     }
 
     public Client getNewClient() {
@@ -134,7 +65,6 @@ public class ClientManagedBean {
         this.newClient = newClient;
     }
 
-    
     public User getUser() {
         return user;
     }
@@ -151,8 +81,8 @@ public class ClientManagedBean {
         this.clientFacade = clientFacade;
     }
 
-    public Client getClient() {  
-        
+    public Client getClient() {
+        client = clientFacade.find((long) 1000); // pour tester
         return client;
     }
 
@@ -160,23 +90,6 @@ public class ClientManagedBean {
         this.client = client;
     }
 
-    public LoginManagedBean getLg() {
-        return lg;
-    }
-
-    public void setLg(LoginManagedBean lg) {
-        this.lg = lg;
-    }
-
-    public ClientQuery getClientQuery() {
-        return clientQuery;
-    }
-
-    public void setClientQuery(ClientQuery clientQuery) {
-        this.clientQuery = clientQuery;
-    }
-
-    
     public String crypt(String pass) {
         MessageDigest md;
         try {
@@ -192,11 +105,11 @@ public class ClientManagedBean {
     }
 
     public void add() {
-        
-        if(!user.getPassword().equals(confirmation))
+
+        if (!user.getPassword().equals(confirmation)) {
             FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "confirmation différente du message", null));
-        else {
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "confirmation différente du message", null));
+        } else {
             user.setLogin(client.getLogin());
             user.setPassword(crypt(user.getPassword()));
             user.setGroupname("client");
@@ -205,10 +118,10 @@ public class ClientManagedBean {
                 clientFacade.create(client);
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "email existant!", null));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "email existant!", null));
                 return;
             }
-            
+
             try {
                 FacesContext context = FacesContext.getCurrentInstance();
                 HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
@@ -218,77 +131,20 @@ public class ClientManagedBean {
             }
         }
     }
-    
-    public Client getDisplay()
-    {
-        String login = lg.getLogin();
-        client = clientQuery.getClientByLogin(login); 
-        return client ;
-    }
-    
-    public void prepareNewClient()
-    {
-        client  = getDisplay();
-        System.out.println("Prepare: "+client.getLogin());
+
+    public void prepareNewClient() {
+        client = clientFacade.find((long) 1000);
         newClient.setFirstName(client.getFirstName());
         newClient.setLastName(client.getLastName());
-        newClient.setLogin(client.getLogin());        
+        newClient.setLogin(client.getLogin());
     }
-    
-    public void updateClient()
-    {   
-        client  = getDisplay();
-        System.out.println("Client Name "+ newClient.getFirstName());
+
+    public void updateClient() {
+        client = clientFacade.find((long) 1000);
+        System.out.println("Client Name " + newClient.getFirstName());
         client.setFirstName(newClient.getFirstName());
         client.setLastName(newClient.getLastName());
         client.setLogin(newClient.getLogin());
-        System.out.println("Client Updated : "+client.getFirstName());
-        clientFacade.edit(client);    
-    }
-    /// Address Function
-    public void addAddress()
-    {
-        
-        client = getDisplay();
-        addressFacade.create(addr);
-        System.out.println(addr.getId() + " " + addr.getName());
-        
-        client.addAddress(addr);
         clientFacade.edit(client);
-        addr = null ;
-
     }
-    
-     public void removeSelectedAddress()
-    {
-        client = getDisplay();
-        System.out.println("before "+client.getAddress().size());
-        client.removeAddress(selectedAddr);
-        System.out.println("after :"+client.getAddress().size());
-        clientFacade.edit(client);
-    
-    }  
-    public void selectedPosition()
-    {
-        if(addresses.contains(selectedAddr))
-        {
-            editposition = addresses.indexOf(selectedAddr);
-            System.out.println(editposition);
-        }
-    }     
-    public void updateAddress()
-    {
-       
-      client = getDisplay();
-      addressFacade.edit(selectedAddr);
-      client.updateAddress(editposition, selectedAddr);
-      
-      clientFacade.edit(client);
-      addresses = client.getAddress();
-      System.out.println("After : "+selectedAddr.getName() + " " + addresses.get(editposition).getCity());
-      
-    }   
-    
-    
-    
 }
