@@ -145,7 +145,7 @@ public class CraftSpaceManagedBean {
             return Base64.encodeBase64String(passwordDigest);
 
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-            Logger.getLogger(ClientManaged.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CraftSpaceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
     }
@@ -172,7 +172,7 @@ public class CraftSpaceManagedBean {
                 HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
                 context.getExternalContext().redirect(request.getContextPath() + "/craftsman/");
             } catch (SecurityException | IllegalStateException | IOException ex) {
-                Logger.getLogger(ClientManaged.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CraftSpaceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
