@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package managedbean;
 
 import java.util.List;
@@ -25,6 +24,7 @@ import model.queries.ClientQuery;
 @Named(value = "clientAddressManagedBean")
 
 public class ClientAddressManagedBean {
+
     @EJB
     private AddressFacade addressFacade;
     @EJB
@@ -39,17 +39,17 @@ public class ClientAddressManagedBean {
 
 
     private long clientId;
-    
-    private Client client ;
-    
-    private List<Address> addresses ;
-    
-    private Address addr ;
-    
-    private Address selectedAddr ;
-    
+
+    private Client client;
+
+    private List<Address> addresses;
+
+    private Address addr;
+
+    private Address selectedAddr;
+
     private int editposition;
-    
+
     public ClientAddressManagedBean() {
         
         clientId =(long)1000;
@@ -74,7 +74,7 @@ public class ClientAddressManagedBean {
     public void setEditposition(int editposition) {
         this.editposition = editposition;
     }
-    
+
     public Address getAddr() {
         return addr;
     }
@@ -82,8 +82,6 @@ public class ClientAddressManagedBean {
     public void setAddr(Address addr) {
         this.addr = addr;
     }
-
-
 
     public AddressFacade getAddressFacade() {
         return addressFacade;
@@ -161,11 +159,11 @@ public class ClientAddressManagedBean {
         System.out.println("before "+client.getFirstName()+" "+client.getAddress().size());
         addressFacade.create(addr);
         System.out.println(addr.getId() + " " + addr.getName());
-        
+
         client.addAddress(addr);
-        System.out.println("after :"+client.getAddress().size());
+        System.out.println("after :" + client.getAddresses().size());
         clientFacade.edit(client);
-        addr = null ;
+        addr = null;
 
     }
     
@@ -174,14 +172,13 @@ public class ClientAddressManagedBean {
         client = getDisplay();
         System.out.println("before "+client.getAddress().size());
         client.removeAddress(selectedAddr);
-        System.out.println("after :"+client.getAddress().size());
+        System.out.println("after :" + client.getAddresses().size());
         clientFacade.edit(client);
-    
-    }  
-    public void selectedPosition()
-    {
-        if(addresses.contains(selectedAddr))
-        {
+
+    }
+
+    public void selectedPosition() {
+        if (addresses.contains(selectedAddr)) {
             editposition = addresses.indexOf(selectedAddr);
             System.out.println(editposition);
         }

@@ -38,13 +38,15 @@ public class Client implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GenericGenerator(name = "generator", strategy = "increment")
+//    @GeneratedValue(generator = "generator")
     private Long id;
 
     private String firstName;
     private String lastName;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Address> address;
+    private List<Address> addresses;
 
     private Long lastBillingAdress;
     private Long lastShippingAdress;
@@ -85,12 +87,12 @@ public class Client implements Serializable {
         this.lastName = lastName;
     }
 
-    public List<Address> getAddress() {
-        return address;
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setAddress(List<Address> address) {
-        this.address = address;
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public Long getLastBillingAdress() {
@@ -117,25 +119,23 @@ public class Client implements Serializable {
         this.login = login;
     }
 
-    public void addAddress(Address addr)
-    {
-        this.address.add(addr);
-    } 
-    public void removeAddress(Address addr)
-    {
-        if(address.contains(addr))
-        {
-            System.out.println("Contain" + address.size());
-            this.address.remove(addr);
-            System.out.println("Remove" + address.size());
-        }
-        
+    public void addAddress(Address addr) {
+        this.addresses.add(addr);
     }
-    
-    public void updateAddress(int pos, Address newAddr)
-    {
-          this.address.set(pos, newAddr);        
-    }    
+
+    public void removeAddress(Address addr) {
+        if (addresses.contains(addr)) {
+            System.out.println("Contain" + addresses.size());
+            this.addresses.remove(addr);
+            System.out.println("Remove" + addresses.size());
+        }
+
+    }
+
+    public void updateAddress(int pos, Address newAddr) {
+        this.addresses.set(pos, newAddr);
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
