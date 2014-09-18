@@ -7,6 +7,7 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import org.apache.solr.analysis.ASCIIFoldingFilterFactory;
 import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.NGramFilterFactory;
 import org.apache.solr.analysis.PhoneticFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
@@ -30,6 +32,7 @@ import org.hibernate.search.annotations.AnalyzerDefs;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.NumericField;
 import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
@@ -78,10 +81,13 @@ public class Product implements Serializable {
     private String name;
 
     @Lob
+    @Column(length=20971520)
     @Analyzer(definition = "fr.full")
     @Field
     private String description; // sera probablement une chaine html générée par un editeur riche en js
 
+    @NumericField
+    @Field
     private Float price;
     // un poids faisant varier le prix des frais de port ou une valeur fixe pour les frais de ports ?
     private Float weight;

@@ -4,158 +4,175 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-         <ui:composition template="/template/layoutcompte.xhtml">
-           <ui:define name="page-content-manager-body">
+    <ui:composition template="/template/layout.xhtml">
+       <ui:define name="menu">
+            <ui:insert>
+                <ui:include src="/template/main-menu.xhtml" />
+            </ui:insert>
+        </ui:define>
+        <ui:define name="sidebar">
+            <ui:insert>
+                <ui:include src="/template/sidebar.xhtml" />
+            </ui:insert>
+        </ui:define>
 
-                    <p:panel id="panel">
-                        <h1><h:outputText value="List"/></h1>
-                        <h:dataTable value="#{productManagedBean.products}" var="item" styleClass="table"
-                                 headerClass="tableHeader"
-                                 rowClasses="tableEvenRow,tableOddRow"  >
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Id"/>
-                                </f:facet>
-                                <h:outputText value="#{item.id}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Version"/>
-                                </f:facet>
-                                <h:outputText value="#{item.version}" rendered="#{not item.editable}"/>
-                                <h:inputText value="#{productManagedBean.editProd.version}" size="10" rendered="#{item.editable}" />
-                            </h:column>
-                                                      
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Craft"/>
-                                </f:facet>
-                                <h:outputText value="#{item.craft}" rendered="#{not item.editable}"/>
-                                <h:selectOneMenu id="craft" value="#{productManagedBean.idcraftl}" title="Craft" rendered="#{item.editable}" >
-                                        <!-- TODO: update below reference to list of available items-->
-                                        <f:selectItem itemValue="#{item.craft.id}" itemLabel="#{item.craft}" />
-                                                <f:selectItems value="#{craftManagedBean.crafts}" var="craft" itemLabel="#{craft.toString()}" itemValue="#{craft.id}" />
-                     
-                                    </h:selectOneMenu>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Name"/>
-                                </f:facet>
-                                <h:outputText value="#{item.name}" rendered="#{not item.editable}"/>
-                                <h:inputText value="#{productManagedBean.editProd.name}" size="10" rendered="#{item.editable}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Description"/>
-                                </f:facet>
-                                <h:outputText value="#{item.description}" rendered="#{not item.editable}"/>
-                                <h:inputTextarea  cols="" rows="" value="#{productManagedBean.editProd.description}"  rendered="#{item.editable}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Price"/>
-                                </f:facet>
-                                <h:outputText value="#{item.price}" rendered="#{not item.editable}"/>
-                                <h:inputText value="#{productManagedBean.editProd.price}" size="3" rendered="#{item.editable}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Weight"/>
-                                </f:facet>
-                                <h:outputText value="#{item.weight}" rendered="#{not item.editable}"/>
-                                <h:inputText value="#{productManagedBean.editProd.weight}" size="3" rendered="#{item.editable}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Quantity"/>
-                                </f:facet>
-                                <h:outputText value="#{item.quantity}" rendered="#{not item.editable}"/>
-                                <h:inputText value="#{item.quantity}" size="3" rendered="#{item.editable}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Availability"/>
-                                </f:facet>
-                                <h:outputText value="#{item.availability}" rendered="#{not item.editable}"/>
-                                <h:inputText value="#{productManagedBean.editProd.availability}" size="3" rendered="#{item.editable}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Site"/>
-                                </f:facet>
-                                <h:outputText value="#{item.site.address.name}" rendered="#{not item.editable}"/>
-                                <h:selectOneMenu id="site" value="#{productManagedBean.idsitel}" title="Site" rendered="#{item.editable}">
-                                        <!-- TODO: update below reference to list of available items-->
-                                        <f:selectItem itemValue="#{item.site.id}" itemLabel="#{item.site.address.name}" />
-                                        <f:selectItems value="#{siteManagedBean.sites}" var="site" itemLabel="#{site.address.name}" itemValue="#{site.id}" />
-                                            
-                                    </h:selectOneMenu>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Rating"/>
-                                </f:facet>
-                                <h:outputText value="#{item.rating}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Options"/>
-                                </f:facet>
-                                <h:form id="forml">
-                                <p:commandButton icon="ui-icon-trash" validateClient="true" action="#{productManagedBean.removeProd(item)}" update="forml :panel" rendered="#{ not item.editable}"/>
-                                <p:commandButton icon="ui-icon-pencil" validateClient="true" action="#{productManagedBean.editProd(item)}" update="forml :panel" rendered="#{not item.editable}"/>
-                                <p:commandButton icon="ui-icon-check" validateClient="true" action="#{productManagedBean.saveProd(item)}" update="forml :panel" rendered="#{item.editable}"/>
-                                <p:commandButton icon="ui-icon-cancel" validateClient="true" action="#{productManagedBean.cancelProd(item)}" update="forml :panel" rendered="#{item.editable}"/>
-                                </h:form>
-                            </h:column>
-                        </h:dataTable>
-                     </p:panel>
-               <h:form id="ajout">
-                   <p:commandButton icon="ui-icon-plus" value="Ajouter" action="#{productManagedBean.ajoutMode()}" rendered="#{not productManagedBean.editMode}" update="ajout :form"/>
-               </h:form>
-                    
-               <h:form id="form" rendered="#{productManagedBean.editMode}" >
-                                <h3><h:outputText value="Ajouter un produit"/></h3>
-                                <h:panelGrid columns="2">
-                                    <h:outputLabel value="Version:" for="version" />
-                                    <h:inputText id="version" value="#{productManagedBean.produit.version}" title="Version" />
-                                    <h:outputLabel value="Craft:" for="craft" />
-                                    <h:selectOneMenu id="craft" value="#{productManagedBean.idcraft}" title="Craft" >
-                                        <!-- TODO: update below reference to list of available items-->
-                                                <f:selectItem itemValue="" itemLabel="None" />
-                                                <f:selectItems value="#{craftManagedBean.crafts}" var="craft" itemLabel="#{craft.toString()}" itemValue="#{craft.id}" />
-                     
-                                    </h:selectOneMenu>
-                                    <h:outputLabel value="Name:" for="name" />
-                                    <h:inputText id="name" value="#{productManagedBean.produit.name}" title="Name" />
-                                    <h:outputLabel value="Description:" for="description" />
-                                    <h:inputTextarea rows="4" cols="30" id="description" value="#{productManagedBean.produit.description}" title="Description" />
-                                    <h:outputLabel value="Price:" for="price" />
-                                    <h:inputText id="price" value="#{productManagedBean.produit.price}" title="Price" />
-                                    <h:outputLabel value="Weight:" for="weight" />
-                                    <h:inputText id="weight" value="#{productManagedBean.produit.weight}" title="Weight" />
-                                    <h:outputLabel value="Quantity:" for="quantity" />
-                                    <h:inputText id="quantity" value="#{productManagedBean.produit.quantity}" title="Quantity" />
-                                    <h:outputLabel value="Availability:" for="availability" />
-                                    <h:inputText id="availability" value="#{productManagedBean.produit.availability}" title="Availability" />
-                                    <h:outputLabel value="Site:" for="site" />
-                                    <h:selectOneMenu id="site" value="#{productManagedBean.idsite}" title="Site" >
-                                        <!-- TODO: update below reference to list of available items-->
-                                        <f:selectItem itemValue="" itemLabel="None" />
-                                        <f:selectItems value="#{siteManagedBean.sites}" var="site" itemLabel="#{site.address.name}" itemValue="#{site.id}" />
-                                            
-                                    </h:selectOneMenu>
-                                    <p:commandButton value="Ajouter" icon="ui-icon-plus" update="form :panel :ajout" validateClient="true" action="#{productManagedBean.add()}"/>
-                                    <p:commandButton value="Cancel" icon="ui-icon-cancel" update="form :panel :ajout" validateClient="true" action="#{productManagedBean.cancelMode()}"/>
-                                </h:panelGrid>
-                            </h:form>
+      <ui:define name="content">
+          <c:if test="#{not empty productManagedBean.craftsmanProducts}">
+        <p:panel id="panel">
+           <h2><h:outputText value="Mes produits"/></h2>
+           <h:dataTable value="#{productManagedBean.craftsmanProducts}" var="item"
+                    headerClass="tableHeader"
+                    rowClasses="tableEvenRow,tableOddRow"  >
+                <h:column>
+                   <f:facet name="header">
+                       <h:outputText value="Version"/>
+                   </f:facet>
+                   <h:outputText value="#{item.version}" rendered="#{not item.editable}"/>
+                   <h:inputText value="#{productManagedBean.editProd.version}" size="10" rendered="#{item.editable}" />
+               </h:column>
 
+               <h:column>
+                   <f:facet name="header">
+                       <h:outputText value="Craft"/>
+                   </f:facet>
+                   <h:outputText value="#{item.craft}" rendered="#{not item.editable}"/>
+                   <h:selectOneMenu id="craft" value="#{productManagedBean.idcraftl}" title="Craft" rendered="#{item.editable}" >
+                           <!-- TODO: update below reference to list of available items-->
+                           <f:selectItem itemValue="#{item.craft.id}" itemLabel="#{item.craft}" />
+                                   <f:selectItems value="#{craftManagedBean.crafts}" var="craft" itemLabel="#{craft.toString()}" itemValue="#{craft.id}" />
+
+                       </h:selectOneMenu>
+               </h:column>
+               <h:column>
+                   <f:facet name="header">
+                       <h:outputText value="Name"/>
+                   </f:facet>
+                   <h:outputText value="#{item.name}" rendered="#{not item.editable}"/>
+                   <h:inputText value="#{productManagedBean.editProd.name}" size="10" rendered="#{item.editable}" />
+               </h:column>
+               <h:column>
+                   <f:facet name="header">
+                       <h:outputText value="Description"/>
+                   </f:facet>
+                   <h:outputText value="#{item.description}" rendered="#{not item.editable}"/>
+                   <h:inputTextarea  cols="" rows="" value="#{productManagedBean.editProd.description}"  rendered="#{item.editable}" />
+               </h:column>
+               <h:column>
+                   <f:facet name="header">
+                       <h:outputText value="Price"/>
+                   </f:facet>
+                   <h:outputText value="#{item.price}" rendered="#{not item.editable}"/>
+                   <h:inputText value="#{productManagedBean.editProd.price}" size="3" rendered="#{item.editable}" />
+               </h:column>
+               <h:column>
+                   <f:facet name="header">
+                       <h:outputText value="Weight"/>
+                   </f:facet>
+                   <h:outputText value="#{item.weight}" rendered="#{not item.editable}"/>
+                   <h:inputText value="#{productManagedBean.editProd.weight}" size="3" rendered="#{item.editable}" />
+               </h:column>
+               <h:column>
+                   <f:facet name="header">
+                       <h:outputText value="Quantity"/>
+                   </f:facet>
+                   <h:outputText value="#{item.quantity}" rendered="#{not item.editable}"/>
+                   <h:inputText value="#{item.quantity}" size="3" rendered="#{item.editable}" />
+               </h:column>
+               <h:column>
+                   <f:facet name="header">
+                       <h:outputText value="Availability"/>
+                   </f:facet>
+                   <h:outputText value="#{item.availability}" rendered="#{not item.editable}"/>
+                   <h:inputText value="#{productManagedBean.editProd.availability}" size="3" rendered="#{item.editable}" />
+               </h:column>
+               <h:column>
+                   <f:facet name="header">
+                       <h:outputText value="Site"/>
+                   </f:facet>
+                   <h:outputText value="#{item.site.address.name}" rendered="#{not item.editable}"/>
+                   <h:selectOneMenu id="site" value="#{productManagedBean.idsitel}" title="Site" rendered="#{item.editable}">
+                           <!-- TODO: update below reference to list of available items-->
+                           <f:selectItem itemValue="#{item.site.id}" itemLabel="#{item.site.address.name}" />
+                           <f:selectItems value="#{siteManagedBean.sites}" var="site" itemLabel="#{site.address.name}" itemValue="#{site.id}" />
+
+                       </h:selectOneMenu>
+               </h:column>
+               <h:column>
+                   <f:facet name="header">
+                       <h:outputText value="Rating"/>
+                   </f:facet>
+                   <h:outputText value="#{item.rating}"/>
+               </h:column>
+               <h:column>
+                   <f:facet name="header">
+                       <h:outputText value="Options"/>
+                   </f:facet>
+                   <h:form id="forml">
+                   <p:commandButton icon="ui-icon-trash" validateClient="true" action="#{productManagedBean.removeProd(item)}" update="forml :panel" rendered="#{ not item.editable}"/>
+                   <p:commandButton icon="ui-icon-pencil" validateClient="true" action="#{productManagedBean.editProd(item)}" update="forml :panel" rendered="#{not item.editable}"/>
+                   <p:commandButton icon="ui-icon-check" validateClient="true" action="#{productManagedBean.saveProd(item)}" update="forml :panel" rendered="#{item.editable}"/>
+                   <p:commandButton icon="ui-icon-cancel" validateClient="true" action="#{productManagedBean.cancelProd(item)}" update="forml :panel" rendered="#{item.editable}"/>
+                   </h:form>
+               </h:column>
+           </h:dataTable>
+          </p:panel>
+          </c:if>
+          <c:if test="#{empty productManagedBean.products}">
+          Vous n'avez aucun produit pour le moment
+          </c:if>
+
+
+          <h:form id="ajout">
+              <p:commandButton icon="ui-icon-plus" value="Ajouter" actionListener="#{productManagedBean.ajoutMode()}" update="ajout :form" rendered="#{not productManagedBean.editMode}"/>
+          </h:form>
+
+          
+          <h:form id="form" rendered="#{productManagedBean.editMode}" >
+                           <h3><h:outputText value="Ajouter un produit"/></h3>
+                           <h:panelGrid columns="2">
+                               <h:outputLabel value="Version:" for="version" />
+                               <h:inputText id="version" value="#{productManagedBean.produit.version}" title="Version" />
+                               <h:outputLabel value="Craft:" for="craft" />
+                               <h:selectOneMenu id="craft" value="#{productManagedBean.idcraft}" title="Craft" >
+                                   <!-- TODO: update below reference to list of available items-->
+                                           <f:selectItem itemValue="" itemLabel="None" />
+                                           <f:selectItems value="#{craftManagedBean.crafts}" var="craft" itemLabel="#{craft.toString()}" itemValue="#{craft.id}" />
+
+                               </h:selectOneMenu>
+                               <h:outputLabel value="Name:" for="name" />
+                               <h:inputText id="name" value="#{productManagedBean.produit.name}" title="Name" />
+                               <h:outputLabel value="Description:" for="description" />
+                               <h:inputTextarea rows="4" cols="30" id="description" value="#{productManagedBean.produit.description}" title="Description" />
+                               <h:outputLabel value="Price:" for="price" />
+                               <h:inputText id="price" value="#{productManagedBean.produit.price}" title="Price" />
+                               <h:outputLabel value="Weight:" for="weight" />
+                               <h:inputText id="weight" value="#{productManagedBean.produit.weight}" title="Weight" />
+                               <h:outputLabel value="Quantity:" for="quantity" />
+                               <h:inputText id="quantity" value="#{productManagedBean.produit.quantity}" title="Quantity" />
+                               <h:outputLabel value="Availability:" for="availability" />
+                               <h:selectOneMenu id="availability" value="#{productManagedBean.idAvailability}" title="Availability" >
+                                      <f:selectItem itemValue="0" itemLabel="None" />
+                                       <f:selectItem itemValue="1" itemLabel="Delivrable" />
+                                       <f:selectItem itemValue="2" itemLabel="Pas Delivrable" />
+                               </h:selectOneMenu>
+                               <h:outputLabel value="Site:" for="site" />
+                               <h:selectOneMenu id="site" value="#{productManagedBean.idsite}" title="Site" >
+                                   <!-- TODO: update below reference to list of available items-->
+                                   <f:selectItem itemValue="" itemLabel="None" />
+                                   <f:selectItems value="#{siteManagedBean.sites}" var="site" itemLabel="#{site.address.name}" itemValue="#{site.id}" />
+
+                               </h:selectOneMenu>
+                               <p:commandButton value="Ajouter" icon="ui-icon-plus" update="form :ajout" actionListener="#{productManagedBean.add()}"/>
+                               <p:commandButton value="Cancel" icon="ui-icon-cancel" update="form :ajout" actionListener="#{productManagedBean.cancelMode()}"/>
+                           </h:panelGrid>
+                       </h:form>
+         
             </ui:define>
         </ui:composition>
     </h:body>

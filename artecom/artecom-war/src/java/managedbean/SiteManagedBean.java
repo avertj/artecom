@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -23,6 +24,7 @@ import model.entity.Craft;
 import model.entity.Craftsman;
 import model.entity.LatLng;
 import model.entity.Site;
+import model.entity.Site.Type;
 import model.facade.AddressFacade;
 import model.facade.SiteFacade;
 import model.queries.AddressQuery;
@@ -208,6 +210,7 @@ public class SiteManagedBean implements Serializable {
         this.siteFacade = siteFacade;
     }
 
+    @RolesAllowed({"craftsman"})
     public void addCraft() {
 
         craft = craftQueries.getCraft(craft.getId());
@@ -215,6 +218,7 @@ public class SiteManagedBean implements Serializable {
         craft = new Craft();
     }
 
+    @RolesAllowed({"craftsman"})
     public void removeCraft(Craft c) {
 
         for (int i = 0; i < siteCrafts.size(); i++) {
@@ -229,6 +233,7 @@ public class SiteManagedBean implements Serializable {
         addressFacade.create(address);
         Address adr = addressQuery.getAddressByName(address.getName());
         site.setAddress(adr);
+        site.setType(getType(idtype));
         site.setCraftsman(craftsman);
         site.setCraftsmanships(siteCrafts);
         try {
@@ -246,4 +251,33 @@ public class SiteManagedBean implements Serializable {
         siteCrafts = new ArrayList();
 
     }
+
+    private int idtype;
+
+    public int getIdtype() {
+        return idtype;
+    }
+
+    public void setIdtype(int idtype) {
+        this.idtype = idtype;
+    }
+
+    public Type getType(int id) {
+        Type type = null;
+        switch (id) {
+            case 0:
+                return null;
+            case 1:
+                type = Type.ONMARKET;
+                break;
+            case 2:
+                type = Type.WORKSHOP;
+                break;
+            case 3:
+                type = Type.STORE;
+                break;
+        }
+        return type;
+    }
+
 }

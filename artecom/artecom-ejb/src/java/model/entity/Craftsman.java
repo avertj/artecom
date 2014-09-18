@@ -7,14 +7,14 @@ package model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
-import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
 
 /**
  *
@@ -34,7 +34,9 @@ public class Craftsman extends Client implements Serializable {
     private List<Site> sites;
 
     @Lob
-    @Field(index=org.hibernate.search.annotations.Index.YES, analyze=Analyze.YES, store=Store.NO)
+    @Column(length=20971520)
+    @Analyzer(definition = "fr.full")
+    @Field
     private String description;
 
     @OneToMany

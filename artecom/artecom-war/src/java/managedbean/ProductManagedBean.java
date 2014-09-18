@@ -14,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import model.entity.Client;
 import model.entity.Craftsman;
 import model.entity.Product;
+import model.entity.Product.Availability;
 import model.entity.Site;
 import model.facade.ProductFacade;
 import model.queries.ClientQuery;
@@ -31,14 +32,16 @@ public class ProductManagedBean implements Serializable {
     @ManagedProperty(value = "#{loginManagedBean}")
     private LoginManagedBean lg;
 
-    private Boolean editMode = Boolean.FALSE;
+    private Boolean editMode;
 
-    public Boolean getEditMode() {
-        return editMode;
+    private int idAvailability;
+
+    public int getIdAvailability() {
+        return idAvailability;
     }
 
-    public void setEditMode(Boolean editMode) {
-        this.editMode = editMode;
+    public void setIdAvailability(int idAvailability) {
+        this.idAvailability = idAvailability;
     }
 
     @ManagedProperty(value = "#{craftManagedBean}")
@@ -48,6 +51,18 @@ public class ProductManagedBean implements Serializable {
     private SiteManagedBean sm;
 
     private SiteQueries siteQueries;
+
+    private Product produit;
+
+    private Product editProd = null;
+
+    public Boolean getEditMode() {
+        return editMode;
+    }
+
+    public void setEditMode(Boolean editMode) {
+        this.editMode = editMode;
+    }
 
     public SiteQueries getSiteQueries() {
         siteQueries = sm.getSiteQueries();
@@ -74,10 +89,6 @@ public class ProductManagedBean implements Serializable {
     public void setCm(CraftManagedBean cm) {
         this.cm = cm;
     }
-
-    private Product produit;
-
-    private Product editProd = null;
 
     public Product getEditProd() {
         return editProd;
@@ -181,6 +192,11 @@ public class ProductManagedBean implements Serializable {
     }
 
     public List<Product> getProducts() {
+        products = productFacade.findAll();
+        return products;
+    }
+
+    public List<Product> getCraftsmanProducts() {
         String login = lg.getLogin();
         Client user = clientQuery.getClientByLogin(login);
         craftsman = (Craftsman) user;
@@ -213,6 +229,7 @@ public class ProductManagedBean implements Serializable {
 
     public ProductManagedBean() {
         produit = new Product();
+        editMode = false;
         //editProd=new Product();
 
     }
@@ -230,6 +247,7 @@ public class ProductManagedBean implements Serializable {
 
     public void add() {
         produit.setSite(getSite(idsite));
+        produit.setAvailability(getAvailability(idAvailability));
         produit.setCraft(cm.getCraftById(idcraft));
         produit.setCraftsman(craftsman);
         productFacade.create(produit);
@@ -271,8 +289,24 @@ public class ProductManagedBean implements Serializable {
         setEditMode(true);
     }
 
-    public void cancelMode() {
+    public String cancelMode() {
         setEditMode(false);
+        return "/craftsman/gestprod.jsf";
+    }
+
+    public Availability getAvailability(int id) {
+        Availability type = null;
+        switch (id) {
+            case 0:
+                return null;
+            case 1:
+                type = Availability.NOT_SHIPPABLE;
+                break;
+            case 2:
+                type = Availability.SHIPPABLE;
+                break;
+        }
+        return type;
     }
 
 }
