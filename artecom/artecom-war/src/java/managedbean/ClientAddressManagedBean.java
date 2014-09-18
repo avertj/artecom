@@ -9,23 +9,34 @@ package managedbean;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 import model.entity.Address;
 import model.entity.Client;
 import model.facade.AddressFacade;
 import model.facade.ClientFacade;
+import model.queries.ClientQuery;
 
 /**
  *
  * @author Nguyen Bao
  */
 @Named(value = "clientAddressManagedBean")
-@RequestScoped
+
 public class ClientAddressManagedBean {
     @EJB
     private AddressFacade addressFacade;
     @EJB
     private ClientFacade clientFacade;
+    
+    @ManagedProperty(value="#{loginManagedBean}")
+    private LoginManagedBean lg;
+
+    @EJB
+    private ClientQuery clientQuery;
+   
+
 
     private long clientId;
     
@@ -41,11 +52,11 @@ public class ClientAddressManagedBean {
     
     public ClientAddressManagedBean() {
         
-        clientId = (long)1000 ;
-        
+        clientId =(long)1000;
+        client = new Client();
         addr = new Address();
         selectedAddr = new Address();
-      
+              
     }
 
     public Address getSelectedAddr() {
@@ -108,20 +119,46 @@ public class ClientAddressManagedBean {
 
     public List<Address> getAddresses() {
         
-        client = clientFacade.find(clientId);
-        addresses = client.getAddress();
+        addresses = getDisplay().getAddress();
         return addresses;
     }
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
+
+    public LoginManagedBean getLg() {
+        return lg;
+    }
+
+    public void setLg(LoginManagedBean lg) {
+        this.lg = lg;
+    }
+
+    public ClientQuery getClientQuery() {
+        return clientQuery;
+    }
+
+    public void setClientQuery(ClientQuery clientQuery) {
+        this.clientQuery = clientQuery;
+    }
     
+    
+    
+    public Client getDisplay()
+    {
+        String login = lg.getLogin();
+        System.out.println(login);
+        client = clientQuery.getClientByLogin(login); 
+        System.out.println(client.getFirstName());
+        return client ;
+    }
+   
     public void addAddress()
     {
         
-        client = clientFacade.find(clientId);  
-        System.out.println("before "+client.getAddress().size());
+        client = getDisplay();
+        System.out.println("before "+client.getFirstName()+" "+client.getAddress().size());
         addressFacade.create(addr);
         System.out.println(addr.getId() + " " + addr.getName());
         
@@ -134,7 +171,7 @@ public class ClientAddressManagedBean {
     
      public void removeSelectedAddress()
     {
-//        client = clientFacade.find(clientId); 
+        client = getDisplay();
         System.out.println("before "+client.getAddress().size());
         client.removeAddress(selectedAddr);
         System.out.println("after :"+client.getAddress().size());
@@ -152,7 +189,7 @@ public class ClientAddressManagedBean {
     public void updateAddress()
     {
        
-//      client = clientFacade.find(clientId);   
+      client = getDisplay();
       addressFacade.edit(selectedAddr);
       client.updateAddress(editposition, selectedAddr);
       
