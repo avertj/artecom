@@ -12,6 +12,7 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +43,7 @@ public class Client implements Serializable {
     private String firstName;
     private String lastName;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Address> address;
 
     private Long lastBillingAdress;
@@ -54,6 +55,7 @@ public class Client implements Serializable {
     public Client(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+//        address=null;
     }
 
     public Client() {
