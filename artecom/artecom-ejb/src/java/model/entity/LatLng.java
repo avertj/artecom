@@ -18,13 +18,14 @@ public class LatLng implements Serializable {
     private Double lat;
     private Double lng;
 
+    public LatLng() {
+    }
+
     public LatLng(Double lat, Double lng) {
         this.lat = lat;
         this.lng = lng;
     }
 
-    public LatLng() {
-    }
 
     public Double getLng() {
         return lng;
