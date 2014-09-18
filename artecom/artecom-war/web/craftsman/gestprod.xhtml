@@ -21,33 +21,21 @@
                     <ui:include src="/template/sidebar.xhtml" />
                 </ui:insert>
             </ui:define>
-    <ui:composition template="/template/layout.xhtml">
-       <ui:define name="menu">
-            <ui:insert>
-                <ui:include src="/template/main-menu.xhtml" />
-            </ui:insert>
-        </ui:define>
-        <ui:define name="sidebar">
-            <ui:insert> 
-                <ui:include src="/template/sidebar.xhtml" />
-            </ui:insert>
-        </ui:define>
 
-      <ui:define name="content">
-          <div id="content-edit">
-          <c:if test="#{not empty productManagedBean.craftsmanProducts}">
-        <p:panel id="panel">
-           <h2><h:outputText value="Mes produits"/></h2>
-           <h:dataTable value="#{productManagedBean.craftsmanProducts}" var="item"
-                    headerClass="tableHeader"
-                    rowClasses="tableEvenRow,tableOddRow"  >
-                <h:column>
-                   <f:facet name="header">
-                       <h:outputText value="Version"/>
-                   </f:facet>
-                   <h:outputText value="#{item.version}" rendered="#{not item.editable}"/>
-                   <h:inputText value="#{productManagedBean.editProd.version}" size="10" rendered="#{item.editable}" />
-               </h:column>
+            <ui:define name="content">
+                <c:if test="#{not empty productManagedBean.craftsmanProducts}">
+                    <p:panel id="panel">
+                        <h2><h:outputText value="Mes produits"/></h2>
+                        <h:dataTable value="#{productManagedBean.craftsmanProducts}" var="item"
+                                     headerClass="tableHeader"
+                                     rowClasses="tableEvenRow,tableOddRow"  >
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Version"/>
+                                </f:facet>
+                                <h:outputText value="#{item.version}" rendered="#{not item.editable}"/>
+                                <h:inputText value="#{productManagedBean.editProd.version}" size="10" rendered="#{item.editable}" />
+                            </h:column>
 
                             <h:column>
                                 <f:facet name="header">
