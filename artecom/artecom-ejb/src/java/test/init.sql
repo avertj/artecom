@@ -36,31 +36,31 @@ INSERT INTO ARTECOM.CRAFT (ID, "NAME", PARENT_ID)
 
 --client
 INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
-	VALUES (1000, 'C', 'Bob', NULL, 'Azert', NULL, 'client1', NULL);
+	VALUES (1000, 'C', 'Bob', NULL, 'Azert', NULL, 'client1@ecom.fr', NULL);
 INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
-	VALUES (2000, 'C', 'Alice', NULL, 'Ubdf', NULL, 'client2', NULL);
+	VALUES (2000, 'C', 'Alice', NULL, 'Ubdf', NULL, 'client2@ecom.fr', NULL);
 INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
-	VALUES (3000, 'C', 'Luce', NULL, 'Pxgn', NULL, 'client3', NULL);
+	VALUES (3000, 'C', 'Luce', NULL, 'Pxgn', NULL, 'client3@ecom.fr', NULL);
 INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
-	VALUES (4000, 'C', 'Bernadette', NULL, 'Cfyujt', NULL, 'client4', NULL);
+	VALUES (4000, 'C', 'Bernadette', NULL, 'Cfyujt', NULL, 'client4@ecom.fr', NULL);
 INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
-	VALUES (5000, 'P', 'Paulette', NULL, 'Mihugybftydt', NULL, 'artisan1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at pulvinar neque. In blandit sem nec ligula cursus, quis molestie nunc sollicitudin. In eleifend quam nec diam volutpat suscipit. Mauris pellentesque mollis pharetra. Sed ex dui, viverra vel sapien at, eleifend consequat arcu. Vestibulum quis nibh eu elit lobortis finibus. Morbi in vulputate ex. In sit amet sodales ligula. Phasellus viverra magna mattis, ornare augue eu, bibendum leo. Nullam consequat ex in consectetur condimentum. Suspendisse potenti.');
+	VALUES (5000, 'P', 'Paulette', NULL, 'Mihugybftydt', NULL, 'artisan1@ecom.fr', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
 INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
-	VALUES (6000, 'P', 'Maurice', NULL, 'Tdfh-brt', NULL, 'artisan2', 'Nullam tincidunt metus at mollis placerat. Nunc efficitur imperdiet turpis sit amet gravida. Morbi sagittis dui eu erat consectetur ultricies. Aliquam mattis felis eu turpis porta euismod. Donec lobortis nunc velit, nec gravida enim tempor sed. Ut eleifend at orci sit amet venenatis. Vivamus sed volutpat velit, id tincidunt velit. Fusce non sem rutrum, dignissim erat sed, varius tellus. Pellentesque tincidunt sem eget maximus egestas. Nulla volutpat tincidunt ante, in tincidunt lorem ornare vitae.');
+	VALUES (6000, 'P', 'Maurice', NULL, 'Tdfh-brt', NULL, 'artisan2@ecom.fr', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
 INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
-	VALUES (7000, 'P', 'Christophe', NULL, 'Exdgbtd', NULL, 'artisan3', 'Nulla sed quam posuere libero pharetra mattis id at tortor. Maecenas tincidunt vehicula lectus, non aliquet lacus interdum nec. Vivamus in nunc sem. Etiam tincidunt eros non sollicitudin tincidunt. Aenean imperdiet metus non rhoncus dictum. In hac habitasse platea dictumst. Curabitur commodo nisl eu sem placerat consectetur. Cras cursus purus ligula, ac pretium justo sodales id. Donec ut porta sapien. Cras id commodo justo. Donec consequat est lacus, ac feugiat urna mollis vel. Praesent metus tellus, commodo nec auctor et, congue eget urna. Nam finibus accumsan ante eu euismod. Nulla vel sodales lectus, ut mollis libero. Praesent nec risus tortor. Nam varius orci nisl, eu commodo lacus scelerisque sed.');
+	VALUES (7000, 'P', 'Christophe', NULL, 'Exdgbtd', NULL, 'artisan3@ecom.fr', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
 INSERT INTO ARTECOM.CLIENT (ID, PROFIL_TYPE, FIRSTNAME, LASTBILLINGADRESS, LASTNAME, LASTSHIPPINGADRESS, LOGIN, DESCRIPTION) 
-	VALUES (8000, 'P', 'Arthur', NULL, 'Api', NULL, 'artisan4', 'Suspendisse vel gravida turpis, at mattis ligula. Vestibulum vel pretium ante. Quisque facilisis consequat nulla, et pellentesque magna tempor vel. Donec laoreet hendrerit mi mattis auctor. Nam porta eget leo sed rhoncus. Aliquam fringilla ligula sed porttitor efficitur. Phasellus quis mollis ipsum, vitae scelerisque justo. Nam tristique tortor sit amet metus gravida, sit amet dapibus turpis efficitur. Proin ullamcorper a elit sit amet fringilla. Pellentesque in efficitur tellus, a rutrum eros. Praesent commodo, libero ac dignissim facilisis, arcu sem sodales velit, eu euismod enim est id velit. Ut scelerisque massa nec elit elementum, efficitur aliquam urna blandit.');
+	VALUES (8000, 'P', 'Arthur', NULL, 'Api', NULL, 'artisan4@ecom.fr', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
 
 --sites
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
-	VALUES (1000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at pulvinar neque. In blandit sem nec ligula cursus, quis molestie nunc sollicitudin. In eleifend quam nec diam volutpat suscipit. Mauris pellentesque mollis pharetra. Sed ex dui, viverra vel sapien at, eleifend consequat arcu. Vestibulum quis nibh eu elit lobortis finibus. Morbi in vulputate ex. In sit amet sodales ligula. Phasellus viverra magna mattis, ornare augue eu, bibendum leo. Nullam consequat ex in consectetur condimentum. Suspendisse potenti. ', NULL, 1, '45.7549593', '4.8428779', 5000, 5000);
+	VALUES (1000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', NULL, 1, 45.7549593, 4.8428779, 5000, 5000);
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
-	VALUES (2000, 'Nullam tincidunt metus at mollis placerat. Nunc efficitur imperdiet turpis sit amet gravida. Morbi sagittis dui eu erat consectetur ultricies. Aliquam mattis felis eu turpis porta euismod. Donec lobortis nunc velit, nec gravida enim tempor sed. Ut eleifend at orci sit amet venenatis. Vivamus sed volutpat velit, id tincidunt velit. Fusce non sem rutrum, dignissim erat sed, varius tellus. Pellentesque tincidunt sem eget maximus egestas. Nulla volutpat tincidunt ante, in tincidunt lorem ornare vitae. ', NULL, 0, '45.7577277', '4.8348908', 5000, 7000);
+	VALUES (2000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', NULL, 0, 45.7577277, 4.8348908, 5000, 7000);
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
-	VALUES (3000, 'Suspendisse vel gravida turpis, at mattis ligula. Vestibulum vel pretium ante. Quisque facilisis consequat nulla, et pellentesque magna tempor vel. Donec laoreet hendrerit mi mattis auctor. Nam porta eget leo sed rhoncus. Aliquam fringilla ligula sed porttitor efficitur. Phasellus quis mollis ipsum, vitae scelerisque justo. Nam tristique tortor sit amet metus gravida, sit amet dapibus turpis efficitur. Proin ullamcorper a elit sit amet fringilla. Pellentesque in efficitur tellus, a rutrum eros. Praesent commodo, libero ac dignissim facilisis, arcu sem sodales velit, eu euismod enim est id velit. Ut scelerisque massa nec elit elementum, efficitur aliquam urna blandit.', NULL, 0, '45.1868352', '5.723845799999999', 6000, 4000);
+	VALUES (3000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', NULL, 0, 45.1868352, 5.723845799999999, 6000, 4000);
 INSERT INTO ARTECOM.SITE (ID, DESCRIPTION, OPENING, "TYPE", LAT, LNG, CRAFTSMAN_ID, ADDRESS_ID) 
-	VALUES (4000, 'Quisque sem magna, hendrerit lacinia ultricies id, consequat sed libero. Pellentesque id vestibulum tortor. Nam consequat arcu et ligula scelerisque, in condimentum nisi semper. Vivamus ac bibendum justo. Vivamus efficitur mi ut massa varius fermentum. Nulla in sodales est, vitae commodo purus. Fusce eget vestibulum lacus. Curabitur eget sodales nisl, sed ultricies diam. Donec auctor maximus sapien, quis euismod velit imperdiet imperdiet. Sed in dictum felis, sit amet lobortis massa. Morbi sit amet convallis eros. Aenean sed purus dui. Curabitur fringilla massa id lectus tempus tristique. Praesent semper pulvinar aliquam. Integer elementum nulla sed posuere porttitor.', NULL, 1, '45.1860015', '5.7259214', 7000, 3000);
+	VALUES (4000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', NULL, 1, 45.1860015, 5.7259214, 7000, 3000);
 
 
 --products
@@ -83,13 +83,13 @@ INSERT INTO ARTECOM.PRODUCT (ID, AVAILABILITY, DESCRIPTION, "NAME", PRICE, QUANT
 
 
 --client_address
-INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESS_ID) 
+INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESSES_ID) 
 	VALUES (1000, 1000);
-INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESS_ID) 
+INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESSES_ID) 
 	VALUES (1000, 6000);
-INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESS_ID) 
+INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESSES_ID) 
 	VALUES (2000, 2000);
-INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESS_ID) 
+INSERT INTO ARTECOM.CLIENT_ADDRESS (CLIENT_ID, ADDRESSES_ID) 
 	VALUES (3000, 8000);
 
 
@@ -107,3 +107,21 @@ INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID)
 	VALUES (4000, 4000);
 INSERT INTO ARTECOM.CRAFT_SITE (CRAFTS_ID, SITES_ID) 
 	VALUES (2000, 3000);
+
+
+INSERT INTO ARTECOM.USERAPPLI (LOGIN, GROUPNAME, PASSWORD) 
+	VALUES ('client1@ecom.fr', 'client', 'qj0v5PbTAdvWuPstL937eu6/O+xT//9LOaCWevqIxgk=');
+INSERT INTO ARTECOM.USERAPPLI (LOGIN, GROUPNAME, PASSWORD) 
+	VALUES ('client2@ecom.fr', 'client', 'qj0v5PbTAdvWuPstL937eu6/O+xT//9LOaCWevqIxgk=');
+INSERT INTO ARTECOM.USERAPPLI (LOGIN, GROUPNAME, PASSWORD) 
+	VALUES ('client3@ecom.fr', 'client', 'qj0v5PbTAdvWuPstL937eu6/O+xT//9LOaCWevqIxgk=');
+INSERT INTO ARTECOM.USERAPPLI (LOGIN, GROUPNAME, PASSWORD) 
+	VALUES ('client4@ecom.fr', 'client', 'qj0v5PbTAdvWuPstL937eu6/O+xT//9LOaCWevqIxgk=');
+INSERT INTO ARTECOM.USERAPPLI (LOGIN, GROUPNAME, PASSWORD) 
+	VALUES ('artisan1@ecom.fr', 'craftsman', 'qj0v5PbTAdvWuPstL937eu6/O+xT//9LOaCWevqIxgk=');
+INSERT INTO ARTECOM.USERAPPLI (LOGIN, GROUPNAME, PASSWORD) 
+	VALUES ('artisan2@ecom.fr', 'craftsman', 'qj0v5PbTAdvWuPstL937eu6/O+xT//9LOaCWevqIxgk=');
+INSERT INTO ARTECOM.USERAPPLI (LOGIN, GROUPNAME, PASSWORD) 
+	VALUES ('artisan3@ecom.fr', 'craftsman', 'qj0v5PbTAdvWuPstL937eu6/O+xT//9LOaCWevqIxgk=');
+INSERT INTO ARTECOM.USERAPPLI (LOGIN, GROUPNAME, PASSWORD) 
+	VALUES ('artisan4@ecom.fr', 'craftsman', 'qj0v5PbTAdvWuPstL937eu6/O+xT//9LOaCWevqIxgk=');
